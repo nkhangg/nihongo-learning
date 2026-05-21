@@ -3,6 +3,7 @@ import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { Settings, AlertTriangle, X, LayoutGrid, Image } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import {
   Dialog,
   DialogContent,
@@ -27,13 +28,15 @@ import { useJsonObjectEditor } from '../hooks/useJsonObjectEditor'
 import { ObjectEditorCards } from './ObjectEditorCards'
 import type { AppConfig, ConfigScope } from '../types'
 
-// ── Constants ─────────────────────────────────────────────────────────────────
+export interface ConfigPrefill {
+  key?: string
+  value?: unknown
+  description?: string
+  scope?: ConfigScope
+  tags?: string[]
+}
 
-const SCOPE_OPTIONS: { value: ConfigScope; label: string; description: string }[] = [
-  { value: 'public', label: 'Public', description: 'Ai cũng đọc được' },
-  { value: 'members', label: 'Members', description: 'User đã đăng nhập' },
-  { value: 'internal', label: 'Internal', description: 'Chỉ dành cho admin' },
-]
+// ── Constants ─────────────────────────────────────────────────────────────────
 
 const KEY_PATTERN = /^[a-z][a-z0-9-]*(\.[a-z][a-z0-9-]*)*$/
 
@@ -42,18 +45,20 @@ const KEY_PATTERN = /^[a-z][a-z0-9-]*(\.[a-z][a-z0-9-]*)*$/
 const formSchema = z.object({
   key: z
     .string()
-    .min(1, 'Bắt buộc')
-    .max(128, 'Tối đa 128 ký tự')
-    .regex(KEY_PATTERN, 'Dạng dot-notation: chữ thường, số, gạch ngang (vd: homepage.hero)'),
-  value: z.string().min(1, 'Bắt buộc').refine((v) => {
+    .min(1, 'config.form.keyRequired')
+    .max(128, 'config.form.keyTooLong')
+    .regex(KEY_PATTERN, 'config.form.keyInvalid'),
+  value: z.string().min(1, 'config.form.valueRequired').refine((v) => {
     try { JSON.parse(v); return true } catch { return false }
-  }, 'JSON không hợp lệ'),
+  }, 'config.form.valueInvalid'),
   description: z.string().optional(),
   scope: z.enum(['public', 'members', 'internal']),
   tags: z.array(z.string()).default([]),
 })
 
 type FormValues = z.infer<typeof formSchema>
+
+const SCOPE_VALUES: ConfigScope[] = ['public', 'members', 'internal']
 
 // ── TagInput ──────────────────────────────────────────────────────────────────
 
@@ -64,6 +69,7 @@ function TagInput({
   value: string[]
   onChange: (tags: string[]) => void
 }) {
+  const { t } = useTranslation()
   const [input, setInput] = useState('')
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -110,7 +116,7 @@ function TagInput({
         onChange={(e) => setInput(e.target.value)}
         onKeyDown={handleKeyDown}
         onBlur={() => { if (input.trim()) addTag(input) }}
-        placeholder={value.length === 0 ? 'homepage, layout... (Enter để thêm)' : ''}
+        placeholder={value.length === 0 ? t('config.form.tagsPlaceholder') : ''}
         className="flex-1 min-w-[120px] bg-transparent text-sm outline-none placeholder:text-muted-foreground"
       />
     </div>
@@ -148,16 +154,33 @@ interface ConfigFormModalProps {
   open: boolean
   onClose: () => void
   editingConfig?: AppConfig | null
+  prefill?: ConfigPrefill | null
 }
 
 // ── Component ─────────────────────────────────────────────────────────────────
 
-export function ConfigFormModal({ open, onClose, editingConfig }: ConfigFormModalProps) {
+export function ConfigFormModal({ open, onClose, editingConfig, prefill }: ConfigFormModalProps) {
+  const { t } = useTranslation()
   const isEdit = !!editingConfig
   const createConfig = useCreateConfig()
   const updateConfig = useUpdateConfig()
   const isPending = createConfig.isPending || updateConfig.isPending
   const isError = createConfig.isError || updateConfig.isError
+
+  const scopeOptions = useMemo(
+    () =>
+      SCOPE_VALUES.map((value) => ({
+        value,
+        label: t(`config.form.scope${value.charAt(0).toUpperCase()}${value.slice(1)}`),
+        description: t(
+          `config.form.scope${value.charAt(0).toUpperCase()}${value.slice(1)}Desc`,
+        ),
+      })),
+    [t],
+  )
+
+  const translateError = (key: string | undefined) =>
+    key && key.startsWith('config.') ? t(key) : key
 
   const {
     register,
@@ -169,6 +192,7 @@ export function ConfigFormModal({ open, onClose, editingConfig }: ConfigFormModa
     formState: { errors },
   } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
+    mode: 'onBlur',
     defaultValues: { scope: 'public', tags: [] },
   })
 
@@ -195,11 +219,20 @@ export function ConfigFormModal({ open, onClose, editingConfig }: ConfigFormModa
         scope: editingConfig.scope,
         tags: editingConfig.tags,
       })
+    } else if (prefill) {
+      reset({
+        key: prefill.key ?? '',
+        value:
+          prefill.value !== undefined ? JSON.stringify(prefill.value, null, 2) : '',
+        description: prefill.description ?? '',
+        scope: prefill.scope ?? 'public',
+        tags: prefill.tags ?? [],
+      })
     } else {
       reset({ key: '', value: '', description: '', scope: 'public', tags: [] })
     }
     setActiveTab('raw')
-  }, [editingConfig, reset, open])
+  }, [editingConfig, prefill, reset, open])
 
   // Live sync: visual editor → form field
   // Deps: editor.entries triggers the effect; editor.serialize/hasErrors are stable
@@ -260,10 +293,10 @@ export function ConfigFormModal({ open, onClose, editingConfig }: ConfigFormModa
           </div>
           <div>
             <DialogTitle className="text-base font-semibold text-gray-900">
-              {isEdit ? 'Chỉnh sửa config' : 'Tạo config mới'}
+              {isEdit ? t('config.form.editTitle') : t('config.form.createTitle')}
             </DialogTitle>
             <DialogDescription className="text-xs text-gray-500">
-              {isEdit ? editingConfig?.key : 'Lưu trữ cấu hình dạng JSON tự do'}
+              {isEdit ? editingConfig?.key : t('config.form.createDescription')}
             </DialogDescription>
           </div>
         </div>
@@ -271,9 +304,13 @@ export function ConfigFormModal({ open, onClose, editingConfig }: ConfigFormModa
         {/* Form */}
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 px-6 py-5">
           {/* Key */}
-          <FormField label="Key" hint="dot-notation" error={errors.key?.message}>
+          <FormField
+            label={t('config.form.keyLabel')}
+            hint={t('config.form.keyHint')}
+            error={translateError(errors.key?.message)}
+          >
             <Input
-              placeholder="homepage.hero"
+              placeholder={t('config.form.keyPlaceholder')}
               disabled={isEdit}
               aria-invalid={!!errors.key}
               {...register('key')}
@@ -283,7 +320,7 @@ export function ConfigFormModal({ open, onClose, editingConfig }: ConfigFormModa
 
           {/* Value (JSON) */}
           <FormField
-            label="Value (JSON)"
+            label={t('config.form.valueLabel')}
             hint={
               <button
                 type="button"
@@ -291,10 +328,10 @@ export function ConfigFormModal({ open, onClose, editingConfig }: ConfigFormModa
                 className="inline-flex items-center gap-1 text-xs text-zinc-500 hover:text-zinc-900 transition-colors"
               >
                 <Image className="size-3" />
-                Pick media URL
+                {t('config.form.pickMediaUrl')}
               </button>
             }
-            error={errors.value?.message}
+            error={translateError(errors.value?.message)}
           >
             {isPlainObject ? (
               <Tabs
@@ -307,17 +344,17 @@ export function ConfigFormModal({ open, onClose, editingConfig }: ConfigFormModa
               >
                 <TabsList className="h-8 mb-2">
                   <TabsTrigger value="raw" className="h-6 px-3 text-xs gap-1.5">
-                    Raw JSON
+                    {t('config.form.rawJson')}
                   </TabsTrigger>
                   <TabsTrigger value="visual" className="h-6 px-3 text-xs gap-1.5">
                     <LayoutGrid className="size-3" />
-                    Visual Editor
+                    {t('config.form.visualEditor')}
                   </TabsTrigger>
                 </TabsList>
 
                 <TabsContent value="raw" className="mt-0">
                   <Textarea
-                    placeholder='{ "title": "Hello", "image": "..." }'
+                    placeholder={t('config.form.valuePlaceholder')}
                     rows={6}
                     aria-invalid={!!errors.value}
                     {...register('value')}
@@ -337,14 +374,14 @@ export function ConfigFormModal({ open, onClose, editingConfig }: ConfigFormModa
                   {editor.hasErrors && (
                     <p className="mt-1.5 text-xs text-red-500 flex items-center gap-1">
                       <AlertTriangle className="size-3 shrink-0" />
-                      Sửa lỗi ở các key bên trên trước khi lưu
+                      {t('config.form.fixVisualErrors')}
                     </p>
                   )}
                 </TabsContent>
               </Tabs>
             ) : (
               <Textarea
-                placeholder='{ "title": "Hello", "image": "..." }'
+                placeholder={t('config.form.valuePlaceholder')}
                 rows={6}
                 aria-invalid={!!errors.value}
                 {...register('value')}
@@ -355,7 +392,7 @@ export function ConfigFormModal({ open, onClose, editingConfig }: ConfigFormModa
 
           {/* Scope + Tags — 2 columns */}
           <div className="grid grid-cols-2 gap-4">
-            <FormField label="Scope" error={errors.scope?.message}>
+            <FormField label={t('config.form.scopeLabel')} error={translateError(errors.scope?.message)}>
               <Controller
                 control={control}
                 name="scope"
@@ -364,12 +401,12 @@ export function ConfigFormModal({ open, onClose, editingConfig }: ConfigFormModa
                     <SelectTrigger className="h-8 text-sm">
                       <SelectValue>
                         {field.value
-                          ? SCOPE_OPTIONS.find((s) => s.value === field.value)?.label
-                          : <span className="text-muted-foreground">Chọn scope...</span>}
+                          ? scopeOptions.find((s) => s.value === field.value)?.label
+                          : <span className="text-muted-foreground">{t('config.form.scopePlaceholder')}</span>}
                       </SelectValue>
                     </SelectTrigger>
                     <SelectContent>
-                      {SCOPE_OPTIONS.map((s) => (
+                      {scopeOptions.map((s) => (
                         <SelectItem key={s.value} value={s.value} textValue={s.label}>
                           <div>
                             <p className="text-sm font-medium">{s.label}</p>
@@ -383,7 +420,7 @@ export function ConfigFormModal({ open, onClose, editingConfig }: ConfigFormModa
               />
             </FormField>
 
-            <FormField label="Tags" hint="Enter để thêm">
+            <FormField label={t('config.form.tagsLabel')} hint={t('config.form.tagsHint')}>
               <Controller
                 control={control}
                 name="tags"
@@ -395,9 +432,12 @@ export function ConfigFormModal({ open, onClose, editingConfig }: ConfigFormModa
           </div>
 
           {/* Description */}
-          <FormField label="Mô tả" error={errors.description?.message}>
+          <FormField
+            label={t('config.form.descriptionLabel')}
+            error={translateError(errors.description?.message)}
+          >
             <Textarea
-              placeholder="Mô tả ngắn cho admin..."
+              placeholder={t('config.form.descriptionPlaceholder')}
               rows={2}
               {...register('description')}
               className="resize-none text-sm"
@@ -408,7 +448,7 @@ export function ConfigFormModal({ open, onClose, editingConfig }: ConfigFormModa
           {isError && (
             <div className="flex items-start gap-2 rounded-lg bg-red-50 px-3 py-2.5 text-xs text-red-600">
               <AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0" />
-              {isEdit ? 'Cập nhật thất bại.' : 'Tạo thất bại. Key có thể đã tồn tại.'}
+              {isEdit ? t('config.form.errorUpdate') : t('config.form.errorCreate')}
             </div>
           )}
 
@@ -421,12 +461,12 @@ export function ConfigFormModal({ open, onClose, editingConfig }: ConfigFormModa
               onClick={() => { reset(); onClose() }}
               disabled={isPending}
             >
-              Huỷ
+              {t('config.actions.cancel')}
             </Button>
             <Button type="submit" className="flex-1" isLoading={isPending}>
               {isPending
-                ? isEdit ? 'Đang lưu...' : 'Đang tạo...'
-                : isEdit ? 'Lưu thay đổi' : 'Tạo config'}
+                ? isEdit ? t('config.actions.saving') : t('config.actions.creating')
+                : isEdit ? t('config.actions.save') : t('config.actions.create')}
             </Button>
           </div>
         </form>

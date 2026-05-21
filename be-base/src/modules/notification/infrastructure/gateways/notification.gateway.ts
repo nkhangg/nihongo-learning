@@ -12,10 +12,15 @@ import {
 } from '../../../../core/auth/domain/services/token.service';
 import type { INotificationEmitter } from '../../application/ports/notification-emitter.port';
 
+const WS_CORS_ORIGINS = (process.env.CORS_ORIGIN ?? 'http://localhost:5173')
+  .split(',')
+  .map((o) => o.trim())
+  .filter(Boolean);
+
 @WebSocketGateway({
   namespace: '/notifications',
   cors: {
-    origin: process.env.CORS_ORIGIN ?? 'http://localhost:5173',
+    origin: WS_CORS_ORIGINS,
     credentials: true,
   },
 })

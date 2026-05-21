@@ -102,12 +102,28 @@ module.exports = {
           from: { opacity: '0', transform: 'translateY(20px)' },
           to: { opacity: '1', transform: 'translateY(0)' },
         },
+        shake: {
+          '0%, 100%': { transform: 'translateX(0)' },
+          '25%': { transform: 'translateX(-5px)' },
+          '75%': { transform: 'translateX(5px)' },
+        },
+        'pop-in': {
+          '0%': { transform: 'scale(0.6)', opacity: '0' },
+          '100%': { transform: 'scale(1)', opacity: '1' },
+        },
+        countdown: {
+          from: { width: '100%' },
+          to: { width: '0%' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         'float-up': 'float-up 3s ease-in-out infinite',
         'fade-up': 'fade-up 0.5s ease both',
+        shake: 'shake 0.3s ease',
+        'pop-in': 'pop-in 0.4s cubic-bezier(0.34,1.56,0.64,1)',
+        countdown: 'countdown 3s linear forwards',
       },
     },
   },

@@ -23,6 +23,20 @@ export class PrismaSessionRepository implements SessionRepository {
     return rows.map((r) => SessionMapper.toDomain(r));
   }
 
+  async findAll(options: { onlyActive?: boolean; page: number; pageSize: number }): Promise<{ data: Session[]; total: number }> {
+    const where = options.onlyActive !== undefined ? { isActive: options.onlyActive } : {};
+    const [rows, total] = await Promise.all([
+      this.prisma.session.findMany({
+        where,
+        orderBy: { lastActiveAt: 'desc' },
+        skip: (options.page - 1) * options.pageSize,
+        take: options.pageSize,
+      }),
+      this.prisma.session.count({ where }),
+    ]);
+    return { data: rows.map((r) => SessionMapper.toDomain(r)), total };
+  }
+
   async save(session: Session): Promise<void> {
     const { id, ...data } = SessionMapper.toPrisma(session);
     await this.prisma.session.upsert({

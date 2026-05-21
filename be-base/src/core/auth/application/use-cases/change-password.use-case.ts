@@ -1,4 +1,4 @@
-import { Inject, Injectable, Optional } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import type { ITokenService } from '../../domain/services/token.service';
 import { TOKEN_SERVICE } from '../../domain/services/token.service';
 import type { IPasswordUpdater } from '../../domain/services/password-updater.interface';
@@ -20,15 +20,10 @@ export class ChangePasswordUseCase {
 
   constructor(
     @Inject(TOKEN_SERVICE) private readonly tokenService: ITokenService,
-    @Optional()
     @Inject(PASSWORD_UPDATERS)
-    updaters: IPasswordUpdater | IPasswordUpdater[] = [],
+    updaters: IPasswordUpdater[],
   ) {
-    this.updaters = Array.isArray(updaters)
-      ? updaters
-      : updaters
-        ? [updaters]
-        : [];
+    this.updaters = updaters;
   }
 
   async execute(

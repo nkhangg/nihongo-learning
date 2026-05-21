@@ -67,3 +67,23 @@ export function useResetPassword() {
     onError: () => toast.error('Token không hợp lệ hoặc đã hết hạn'),
   })
 }
+
+export function useAdminSessions(params: { page?: number; pageSize?: number; onlyActive?: boolean } = {}) {
+  return useQuery({
+    queryKey: [...QUERY_KEYS.AUTH.SESSIONS_ADMIN, params],
+    queryFn: () => authService.listAdminSessions(params),
+    staleTime: 30 * 1000,
+  })
+}
+
+export function useRevokeAdminSession() {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (id: string) => authService.revokeAdminSession(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.AUTH.SESSIONS_ADMIN })
+      toast.success('Session đã bị thu hồi')
+    },
+    onError: () => toast.error('Không thể thu hồi session'),
+  })
+}

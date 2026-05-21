@@ -79,7 +79,11 @@ Chỉ đọc docs thực sự cần thiết — bỏ qua phần không liên qua
 
 ### STEP 4 — Đọc source files tham chiếu
 
-Đọc source files của một module mẫu gần nhất để hiểu **exact coding pattern**
+**🔥 Short-circuit:** Nếu file `planning/<module-name>-context.md` tồn tại → **đọc bundle này thay vì re-read source mẫu**. Bundle đã có tóm tắt pattern cho entity / use-case / controller / repo / service / hook / component. Skip STEP 4 còn lại.
+
+Chỉ re-read source file thật nếu plan đề cập đến pattern lạ KHÔNG có trong bundle (vd: WebSocket gateway, queue processor — bundle thường không cover các pattern hiếm).
+
+Ngược lại (không có bundle), đọc source files của một module mẫu gần nhất để hiểu **exact coding pattern**
 (không phải để copy — mà để viết đúng convention của codebase này).
 
 Chọn reference module dựa trên domain (ưu tiên: `blog` cho content/CRUD, `user` cho account):

@@ -1,3 +1,5 @@
-export default function OnboardingPage() {
-  return <div>{/* OnboardingWizard from @modules/onboarding will go here */}</div>
+import { OnboardingPage } from '@modules/onboarding'
+
+export default function Page() {
+  return <OnboardingPage />
 }

@@ -524,3 +524,206 @@ model Contact {
   @@index([createdAt])
   @@map("contacts")
 }
+
+// ── Kanji Module ──────────────────────────────────────────────────────────────
+
+enum JlptLevel {
+  N5
+  N4
+  N3
+  N2
+  N1
+}
+
+enum KanjiStatus {
+  DRAFT
+  PUBLISHED
+}
+
+enum KanjiProgressStatus {
+  UNSEEN
+  LEARNING
+  KNOWN
+}
+
+enum KanjiQuizMode {
+  RECOGNITION
+  MEANING_TO_KANJI
+  WRITING
+  MIXED
+}
+
+enum KanjiQuizSessionStatus {
+  IN_PROGRESS
+  FINISHED
+  ABANDONED
+}
+
+model Kanji {
+  id             String      @id @default(cuid())
+  char           String      @unique
+  jlptLevel      JlptLevel
+  strokes        Int
+  radicalId      String?
+  frequency      Int?
+  joyoOrder      Int?
+  unicode        String
+  onReadings     String[]
+  kunReadings    String[]
+  meaningVi      String
+  meaningEn      String
+  strokeOrderSvg String[]
+  components     Json        @default("[]")
+  mnemonicVi     String?
+  status         KanjiStatus @default(DRAFT)
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+
+  radical         KanjiRadical?        @relation(fields: [radicalId], references: [id], onDelete: SetNull)
+  meanings        KanjiMeaning[]
+  examples        KanjiExample[]
+  compounds       KanjiCompound[]
+  similarFrom     KanjiSimilar[]       @relation("KanjiSimilarFrom")
+  similarTo       KanjiSimilar[]       @relation("KanjiSimilarTo")
+  userProgress    KanjiUserProgress[]
+  writingAttempts KanjiWritingAttempt[]
+  quizAnswers     KanjiQuizAnswer[]
+
+  @@index([jlptLevel, status])
+  @@index([radicalId])
+  @@map("kanjis")
+}
+
+model KanjiRadical {
+  id        String   @id @default(cuid())
+  char      String   @unique
+  meaningVi String
+  strokes   Int
+  isPopular Boolean  @default(false)
+
+  kanjis Kanji[]
+
+  @@map("kanji_radicals")
+}
+
+model KanjiMeaning {
+  id        String @id @default(cuid())
+  kanjiId   String
+  index     Int
+  pos       String
+  textVi    String
+  jpExample String?
+
+  kanji Kanji @relation(fields: [kanjiId], references: [id], onDelete: Cascade)
+
+  @@unique([kanjiId, index])
+  @@map("kanji_meanings")
+}
+
+model KanjiExample {
+  id      String  @id @default(cuid())
+  kanjiId String
+  jpHtml  String
+  vi      String
+  source  String?
+
+  kanji Kanji @relation(fields: [kanjiId], references: [id], onDelete: Cascade)
+
+  @@index([kanjiId])
+  @@map("kanji_examples")
+}
+
+model KanjiCompound {
+  id        String @id @default(cuid())
+  kanjiId   String
+  jp        String
+  reading   String
+  meaningVi String
+
+  kanji Kanji @relation(fields: [kanjiId], references: [id], onDelete: Cascade)
+
+  @@index([kanjiId])
+  @@map("kanji_compounds")
+}
+
+model KanjiSimilar {
+  id             String @id @default(cuid())
+  kanjiId        String
+  similarKanjiId String
+  reason         String
+
+  kanji        Kanji @relation("KanjiSimilarFrom", fields: [kanjiId], references: [id], onDelete: Cascade)
+  similarKanji Kanji @relation("KanjiSimilarTo", fields: [similarKanjiId], references: [id], onDelete: Cascade)
+
+  @@unique([kanjiId, similarKanjiId])
+  @@map("kanji_similars")
+}
+
+model KanjiUserProgress {
+  id             String              @id @default(cuid())
+  userId         String
+  kanjiId        String
+  status         KanjiProgressStatus @default(UNSEEN)
+  mastery        Int                 @default(0)
+  lastReviewedAt DateTime?
+  updatedAt      DateTime            @updatedAt
+
+  kanji Kanji @relation(fields: [kanjiId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, kanjiId])
+  @@index([userId, status])
+  @@map("kanji_user_progress")
+}
+
+model KanjiWritingAttempt {
+  id             String   @id @default(cuid())
+  userId         String
+  kanjiId        String
+  scoreOverall   Int
+  scoreOrder     Int
+  scoreSize      Int
+  scoreDirection Int
+  scorePosition  Int
+  durationMs     Int
+  feedback       String?
+  createdAt      DateTime @default(now())
+
+  kanji Kanji @relation(fields: [kanjiId], references: [id], onDelete: Cascade)
+
+  @@index([userId, kanjiId, createdAt])
+  @@map("kanji_writing_attempts")
+}
+
+model KanjiQuizSession {
+  id            String                 @id @default(cuid())
+  userId        String
+  jlptLevel     JlptLevel
+  mode          KanjiQuizMode
+  questionCount Int
+  livesEnabled  Boolean                @default(false)
+  status        KanjiQuizSessionStatus @default(IN_PROGRESS)
+  startedAt     DateTime               @default(now())
+  finishedAt    DateTime?
+
+  answers KanjiQuizAnswer[]
+
+  @@index([userId, status])
+  @@map("kanji_quiz_sessions")
+}
+
+model KanjiQuizAnswer {
+  id              String        @id @default(cuid())
+  sessionId       String
+  kanjiId         String
+  mode            KanjiQuizMode
+  isCorrect       Boolean
+  selectedOptionId String?
+  xpEarned        Int           @default(0)
+  createdAt       DateTime      @default(now())
+
+  session KanjiQuizSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  kanji   Kanji            @relation(fields: [kanjiId], references: [id])
+
+  @@index([sessionId])
+  @@map("kanji_quiz_answers")
+}

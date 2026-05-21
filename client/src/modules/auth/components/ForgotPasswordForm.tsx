@@ -43,7 +43,7 @@ export function ForgotPasswordForm() {
         <p className="mt-2 text-sm text-muted-foreground">
           Chúng tôi đã gửi link đặt lại mật khẩu vào email của bạn.
         </p>
-        <Link href={ROUTES.LOGIN} className="mt-4 inline-block text-sm text-foreground font-medium hover:underline">
+        <Link href={ROUTES.AUTH.LOGIN} className="mt-4 inline-block text-sm text-foreground font-medium hover:underline">
           Quay lại đăng nhập
         </Link>
       </div>
@@ -87,7 +87,7 @@ export function ForgotPasswordForm() {
       </form>
 
       <p className="mt-4 text-center text-sm text-muted-foreground">
-        <Link href={ROUTES.LOGIN} className="text-foreground font-medium hover:underline">Quay lại đăng nhập</Link>
+        <Link href={ROUTES.AUTH.LOGIN} className="text-foreground font-medium hover:underline">Quay lại đăng nhập</Link>
       </p>
     </div>
   )

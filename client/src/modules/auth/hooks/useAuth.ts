@@ -39,7 +39,7 @@ export function useRegister() {
     mutationFn: (dto: RegisterDto) => authService.register(dto),
     onSuccess: () => {
       toast.success('Đăng ký thành công! Vui lòng kiểm tra email để xác minh tài khoản.')
-      router.push(ROUTES.VERIFY_EMAIL)
+      router.push(ROUTES.AUTH.VERIFY_EMAIL)
     },
     onError: () => toast.error('Email đã được sử dụng hoặc thông tin không hợp lệ'),
   })
@@ -54,7 +54,7 @@ export function useLogout() {
     onSettled: () => {
       storage.clear()
       queryClient.clear()
-      router.push(ROUTES.LOGIN)
+      router.push(ROUTES.AUTH.LOGIN)
     },
     onSuccess: () => toast.success('Đã đăng xuất'),
     onError: () => toast.error('Đăng xuất thất bại, phiên đã được xoá cục bộ'),
@@ -83,7 +83,7 @@ export function useResetPassword() {
     mutationFn: (dto: ResetPasswordDto) => authService.resetPassword(dto),
     onSuccess: () => {
       toast.success('Đặt lại mật khẩu thành công, vui lòng đăng nhập lại')
-      router.push(ROUTES.LOGIN)
+      router.push(ROUTES.AUTH.LOGIN)
     },
     onError: () => toast.error('Token không hợp lệ hoặc đã hết hạn'),
   })

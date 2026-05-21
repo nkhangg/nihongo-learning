@@ -40,7 +40,14 @@ export class PrismaConfigRepository implements IConfigRepository {
     if (options.tags && options.tags.length > 0) {
       where['tags'] = { hasSome: options.tags };
     }
-    if (options.search) {
+    if (options.keyPrefix && options.search) {
+      where['AND'] = [
+        { key: { startsWith: options.keyPrefix } },
+        { key: { contains: options.search, mode: 'insensitive' } },
+      ];
+    } else if (options.keyPrefix) {
+      where['key'] = { startsWith: options.keyPrefix };
+    } else if (options.search) {
       where['key'] = { contains: options.search, mode: 'insensitive' };
     }
 

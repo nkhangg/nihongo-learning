@@ -51,7 +51,23 @@
       "medium": "Medium — add a special character",
       "good": "Almost there — nearly strong enough",
       "strong": "✓ Strong password"
-    }
+    },
+    "verifyEmailTitle": "Verify your email",
+    "verifyEmailDesc": "We sent a 6-digit code to your email. The code is valid for 10 minutes.",
+    "verifyEmailHint": "Enter the 6-digit code",
+    "verifyEmailBtn": "Verify",
+    "verifyEmailBtnLoading": "Verifying...",
+    "verifyEmailBtnDone": "✓ Verified",
+    "notReceived": "Didn't receive it?",
+    "resend": "Resend",
+    "wrongEmail": "Wrong email?",
+    "changeEmail": "Change email",
+    "verifySuccessTitle": "Email verified!",
+    "verifySuccessDesc": "Your account has been activated. Complete a few more steps to personalize your learning journey.",
+    "verifySuccessRedirect": "Redirecting automatically in 3 seconds...",
+    "continueSetup": "Continue setup →",
+    "verifyError": "Incorrect code. Please check and try again.",
+    "stepIndicator": "Step {{step}} / {{total}}"
   },
   "nav": {
     "dashboard": "Dashboard",
@@ -69,7 +85,33 @@
     "totalCards": "Flashcards",
     "masteredWords": "Mastered Words",
     "todayGoal": "Today's Goal",
-    "continueStudying": "Continue Studying"
+    "continueStudying": "Continue Studying",
+    "todayLesson": "Today's Lesson",
+    "reviewWords": "words to review",
+    "newWords": "new words",
+    "estimatedTime": "Estimated",
+    "startReview": "Start Review →",
+    "retentionRate": "Retention Rate",
+    "studyTime": "Study Time",
+    "mockTestScore": "Mock Test",
+    "thisWeek": "this week",
+    "thisMonth": "this month",
+    "modules": "Learning Modules",
+    "viewAll": "View all",
+    "heatmap": "Study Calendar — Last 6 Months",
+    "streakDays": "{{n}}-day streak",
+    "activityChart": "Words Learned — Last 2 Weeks",
+    "details": "Details",
+    "dueToday": "Due Today",
+    "reviewAll": "Review all →",
+    "moreWords": "+ {{n}} more",
+    "jlptProgress": "JLPT N3 Progress",
+    "complete": "complete",
+    "vocabulary": "Vocabulary",
+    "grammar": "Grammar",
+    "recentMistakes": "Recent Mistakes",
+    "reviewAgain": "Review",
+    "needMoreScore": "Need ~{{n}} more mock test points to pass N3. Focus on 語彙 and 文法."
   },
   "flashcard": {
     "title": "Flashcards",
@@ -84,36 +126,224 @@
     "incorrect": "Incorrect",
     "completed": "Session complete!"
   },
+  "flashcards": {
+    "title": "Vocabulary Review",
+    "empty": {
+      "title": "No cards to review today",
+      "subtitle": "Come back tomorrow or add new cards from the dictionary",
+      "cta": "Back to Dashboard"
+    },
+    "mode": {
+      "recognition": "Recognition",
+      "typing": "Typing"
+    },
+    "header": {
+      "dueCount": "{{count}} cards due",
+      "newCount": "{{count}} new cards",
+      "estimate": "~{{minutes}} min",
+      "end": "End session"
+    },
+    "card": {
+      "flip": "Flip card",
+      "skip": "Skip"
+    },
+    "rating": {
+      "again": "Again",
+      "hard": "Hard",
+      "good": "Good",
+      "easy": "Easy",
+      "intervalAgain": "< 1 min",
+      "intervalHard": "{{n}} min",
+      "intervalGood": "{{n}} days",
+      "intervalEasy": "{{n}} days"
+    },
+    "typing": {
+      "placeholder": "Type in Japanese...",
+      "hint": "Type Japanese or romaji",
+      "showAnswer": "Show answer",
+      "check": "Check"
+    },
+    "session": {
+      "panelTitle": "Today's session",
+      "done": "Done",
+      "again": "To review",
+      "remaining": "Remaining",
+      "accuracy": "Accuracy",
+      "elapsed": "Elapsed",
+      "queueNext": "Up next"
+    },
+    "result": {
+      "title": "Session complete!",
+      "subtitle": "{{deck}} · {{count}} cards · {{duration}}",
+      "accuracy": "Accuracy",
+      "completed": "Completed",
+      "again": "To review",
+      "streakBanner": "{{n}}-day streak!",
+      "streakSub": "Keep going tomorrow to maintain it",
+      "viewDetail": "View details",
+      "continue": "Continue"
+    },
+    "shortcuts": {
+      "flip": "Flip",
+      "rate": "Rate",
+      "skip": "Skip"
+    }
+  },
   "grammar": {
     "title": "Grammar",
     "lesson": "Lesson",
     "exercise": "Exercise",
     "submit": "Submit",
-    "explanation": "Explanation"
+    "explanation": "Explanation",
+    "subtitle": "{{total}} patterns · {{learned}} learned",
+    "search": "Search patterns, examples...",
+    "sortAZ": "A → Z",
+    "filter": "Filter",
+    "filterTitle": "Filter",
+    "resetFilter": "Reset",
+    "jlptLevel": "JLPT Level",
+    "grammarType": "Grammar Type",
+    "progressFilter": "Progress",
+    "all": "All",
+    "unlearned": "Not started",
+    "studying": "In progress",
+    "learned": "Learned",
+    "addFlashcard": "+ Flashcard",
+    "goToExercise": "Exercise →",
+    "addedToFlashcard": "Added to Flashcard",
+    "addFlashcardError": "Failed to add to Flashcard",
+    "noResults": "No patterns found"
   },
   "mockTest": {
     "title": "JLPT Mock Test",
+    "subtitle": "Simulate official JLPT exam — test your real level",
     "selectLevel": "Select level",
-    "startTest": "Start test",
+    "startTest": "Start exam →",
     "timeRemaining": "Time remaining",
-    "submit": "Submit",
+    "submit": "Submit exam",
     "results": "Results",
-    "passed": "Passed",
-    "failed": "Failed"
+    "passed": "Passed ✓",
+    "failed": "Failed",
+    "needMorePoints": "Need {{n}} more points to pass",
+    "improvedBy": "Improved by {{n}} points 🎉",
+    "sections": {
+      "all": "All sections",
+      "vocabulary": "Vocabulary",
+      "grammar": "Grammar",
+      "reading": "Reading"
+    },
+    "questionCount": "Questions",
+    "duration": "Minutes",
+    "passingScore": "Passing score",
+    "lastAttempt": "Last attempt — {{level}}",
+    "exit": "Exit",
+    "flag": "Flag",
+    "prev": "Prev",
+    "next": "Next",
+    "questionMap": "Question map",
+    "sectionProgress": "Section progress",
+    "explanation": "Explanation",
+    "weaknessAnalysis": "Areas to improve",
+    "reviewAnswers": "Review answers",
+    "practiceWeak": "Practice weak areas →"
   },
   "progress": {
     "title": "Learning Progress",
+    "subtitle": "Currently studying {{level}}",
+    "updatedAt": "Last updated: {{time}}",
     "streak": "Day Streak",
     "xpTotal": "Total XP",
     "retentionRate": "Retention Rate",
-    "weeklyActivity": "Weekly Activity"
+    "weeklyActivity": "Weekly Activity",
+    "range": {
+      "7d": "7 days",
+      "30d": "30 days",
+      "3m": "3 months",
+      "all": "All time"
+    },
+    "stats": {
+      "wordsLearned": "Words learned",
+      "streak": "Day streak",
+      "retention": "Avg retention rate",
+      "studyHours": "Study hours this month",
+      "personalRecord": "Personal best!",
+      "changeThisMonth": "↑ +{{n}} this month",
+      "changeVsLastMonth": "↑ +{{n}} vs last month"
+    },
+    "charts": {
+      "dailyTitle": "Daily review cards",
+      "dailySub": "Last 30 days",
+      "srsTitle": "SRS card distribution",
+      "srsSub": "Distribution of {{total}} cards",
+      "srsNew": "New",
+      "srsLearning": "Learning",
+      "srsYoung": "Young",
+      "srsMature": "Mature",
+      "srsMastered": "Mastered"
+    },
+    "skills": {
+      "title": "Skills by module",
+      "vocab": "Vocabulary",
+      "grammar": "Grammar",
+      "hiragana": "Hiragana",
+      "kanji": "Kanji"
+    },
+    "heatmap": {
+      "title": "Study heatmap",
+      "sub": "12 months · {{count}} study days this month",
+      "less": "Less",
+      "more": "More"
+    },
+    "weakWords": {
+      "title": "Words needing most review",
+      "sub": "Low retention — prioritize practice",
+      "reviewAll": "Review now",
+      "colWord": "Vocabulary",
+      "colRetention": "Retention",
+      "colCount": "Reviews",
+      "colAction": "Action",
+      "review": "Review",
+      "times": "{{n}} times"
+    }
   },
   "onboarding": {
     "title": "Welcome!",
-    "goal": "Your goal",
-    "level": "Current level",
-    "schedule": "Study schedule",
-    "dailyMinutes": "Minutes per day"
+    "stepCounter": "Step {{current}} / {{total}}",
+    "next": "Next →",
+    "back": "← Back",
+    "buildRoadmap": "Build my roadmap →",
+    "toDashboard": "Go to my Dashboard →",
+    "changeRoadmap": "You can change your roadmap at any time in settings",
+    "goal": {
+      "label": "Learning goal",
+      "title": "Why are you learning Japanese?",
+      "subtitle": "Choose your main goal — the system will personalize content to fit you best."
+    },
+    "level": {
+      "label": "Current level",
+      "title": "What is your current level?",
+      "subtitle": "Don't worry if you're not sure — the next step has a quiz to confirm your level."
+    },
+    "quiz": {
+      "label": "Quick check",
+      "title": "Answer a few questions to confirm your level",
+      "counter": "{{current}} / {{total}} questions",
+      "nextQuestion": "Next question →",
+      "seeResult": "See results →"
+    },
+    "time": {
+      "label": "Study time",
+      "title": "How much time do you have each day?",
+      "subtitle": "The system will assign the right amount of exercises — not too many, not too few."
+    },
+    "result": {
+      "label": "Your roadmap",
+      "title": "The system has built your roadmap!",
+      "levelFit": "Recommended level",
+      "roadmapTitle": "Suggested roadmap",
+      "startingLevel": "Starting level",
+      "perDay": "Per day"
+    }
   },
   "billing": {
     "title": "Subscription",
@@ -182,6 +412,39 @@
       "cancel": "Cancel"
     }
   },
+  "profile": {
+    "title": "My Profile",
+    "subtitle": "Manage your profile and badges",
+    "personalInfo": "Personal information",
+    "personalInfoSub": "Publicly displayed on your profile",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "username": "Username",
+    "location": "City / Country",
+    "bio": "Bio",
+    "learningGoal": "Learning goal",
+    "currentLevel": "Current level",
+    "saveChanges": "Save changes",
+    "savedSuccess": "Changes saved",
+    "publicStats": "Public stats",
+    "allowPublicStats": "Allow others to see your stats",
+    "studyDays": "Study days",
+    "masteredWords": "Words mastered",
+    "currentStreak": "Current streak",
+    "bestStreak": "Best streak",
+    "badges": "Achievements & Badges",
+    "badgesUnlocked": "{{unlocked}} / {{total}} badges unlocked",
+    "achieved": "Achieved",
+    "dangerZone": "Danger zone",
+    "deleteHistory": "Delete learning history",
+    "deleteHistoryDesc": "Delete all SRS data and progress. Cannot be undone.",
+    "deleteAccount": "Delete account",
+    "deleteAccountDesc": "Permanently delete your account and all data.",
+    "confirmDeleteSent": "A confirmation request has been sent to your email",
+    "wordsLearned": "Words learned",
+    "retentionRate": "Retention rate",
+    "currentlyLearning": "Currently learning"
+  },
   "landing": {
     "nav": {
       "features": "Features",
@@ -199,5 +462,186 @@
       "btn": "Create free account →",
       "note": "Join 12,400+ learners studying every day"
     }
+  },
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Customize your learning experience",
+    "saveChanges": "Save changes",
+    "discard": "Discard",
+    "unsavedChanges": "You have unsaved changes",
+    "savedSuccess": "Settings saved",
+    "nav": {
+      "learning": "Learning",
+      "notifications": "Notifications",
+      "appearance": "Appearance",
+      "language": "Language",
+      "security": "Security"
+    },
+    "learning": {
+      "title": "Learning & Roadmap",
+      "subtitle": "Set your goals and daily study preferences",
+      "dailyGoal": "Daily goal",
+      "dailyGoalDesc": "Minimum flashcards to complete for streak count",
+      "dailyGoalUnit": "cards / day",
+      "reminderTime": "Study reminder time",
+      "reminderTimeDesc": "When to send daily study reminder notifications",
+      "studyMode": "Default study mode",
+      "studyModeDesc": "How cards are displayed when starting a session",
+      "autoFlip": "Auto-flip card after",
+      "autoFlipDesc": "Wait time before card flips automatically (0 = off)",
+      "autoFlipUnit": "seconds",
+      "furigana": "Show furigana",
+      "furiganaDesc": "Display hiragana reading above kanji while studying",
+      "audio": "Pronunciation audio",
+      "audioDesc": "Play Japanese audio when flipping cards",
+      "cardOrder": "Card order",
+      "cardOrderDesc": "How cards are ordered in a study session",
+      "keyboard": "Keyboard shortcuts",
+      "keyboardDesc": "Space to flip, 1–4 to rate, → to skip"
+    },
+    "notifications": {
+      "title": "Notifications",
+      "subtitle": "Choose which notifications you want to receive",
+      "dailyReminder": "Daily study reminder",
+      "streakAlert": "Streak at risk",
+      "srsDue": "SRS cards due",
+      "achievements": "New achievements",
+      "weeklyEmail": "Weekly progress email",
+      "newsUpdates": "News & updates"
+    },
+    "appearance": {
+      "title": "Appearance",
+      "subtitle": "Customize colors and display",
+      "theme": "Theme",
+      "themeLight": "Light",
+      "themeDark": "Dark",
+      "themeSystem": "System",
+      "fontSize": "Kanji font size",
+      "animations": "Motion effects",
+      "uiSounds": "UI sounds"
+    },
+    "language": {
+      "title": "Language & Region",
+      "uiLanguage": "Interface language",
+      "definitionLanguage": "Definition language",
+      "phonetics": "Phonetics system"
+    },
+    "security": {
+      "title": "Account security",
+      "email": "Email",
+      "password": "Password",
+      "googleLink": "Sign in with Google",
+      "twoFA": "Two-factor authentication",
+      "sessions": "Active sessions",
+      "exportData": "Export data",
+      "changeEmail": "Change",
+      "changePassword": "Change password",
+      "unlinkGoogle": "Unlink",
+      "manageSessions": "Manage",
+      "export": "Export data",
+      "exportPreparing": "Preparing export file..."
+    }
+  },
+  "kanji": {
+    "title": "Kanji",
+    "subtitle": "Explore 2,136 Jōyō kanji by JLPT level",
+    "actions": {
+      "study": "Study",
+      "practiceWrite": "Practice Writing",
+      "quizNow": "Quiz Now",
+      "addToDeck": "Add to Deck"
+    },
+    "filter": {
+      "level": "Level",
+      "status": "Status",
+      "strokes": "Strokes",
+      "radical": "Radical",
+      "searchPlaceholder": "Search kanji, meaning..."
+    },
+    "status": {
+      "known": "Known",
+      "learning": "Learning",
+      "unseen": "Unseen",
+      "all": "All"
+    },
+    "hero": {
+      "known": "Known",
+      "learning": "Learning",
+      "locked": "Unseen"
+    },
+    "sidebar": {
+      "totalProgress": "Total Progress",
+      "byLevel": "By Level",
+      "byRadical": "Filter by Radical",
+      "popularRadicals": "Popular Radicals"
+    },
+    "detail": {
+      "strokeOrder": "Stroke Order",
+      "meanings": "Meanings & Usage",
+      "examples": "Example Sentences",
+      "compounds": "Compounds — Jukugo",
+      "similar": "Similar Kanji",
+      "info": "Info",
+      "mnemonic": "Mnemonic",
+      "readings": {
+        "on": "On'yomi",
+        "kun": "Kun'yomi"
+      },
+      "info_labels": {
+        "strokes": "Strokes",
+        "jlpt": "JLPT Level",
+        "radical": "Radical",
+        "freq": "Frequency",
+        "unicode": "Unicode"
+      }
+    },
+    "writing": {
+      "title": "Writing Practice",
+      "stroke": "Stroke",
+      "drawnOf": "Drawn: {{drawn}} / {{total}} strokes",
+      "modes": {
+        "free": "Free",
+        "step": "Step by step",
+        "guided": "Guided"
+      },
+      "check": "Check",
+      "skip": "Skip",
+      "previousStroke": "Previous stroke",
+      "feedback": {
+        "title": "Last attempt result",
+        "order": "Stroke order",
+        "size": "Size ratio",
+        "direction": "Direction",
+        "position": "Relative position",
+        "queue": "Practice queue",
+        "reference": "Stroke order reference",
+        "todayStats": "Today's stats"
+      }
+    },
+    "quiz": {
+      "title": "Kanji Quiz",
+      "modes": {
+        "recognition": "Recognition",
+        "meaningToKanji": "Meaning → Kanji",
+        "writing": "Kanji → Write"
+      },
+      "questionOfTotal": "{{current}} / {{total}}",
+      "exit": "Exit",
+      "nextQuestion": "Next question",
+      "correctXp": "Correct! +{{xp}} XP",
+      "wrong": "Incorrect",
+      "summary": {
+        "title": "Quiz Complete!",
+        "correct": "Correct",
+        "wrong": "Wrong",
+        "accuracy": "Accuracy",
+        "xpEarned": "XP earned",
+        "needReview": "{{count}} Kanji to review",
+        "reviewMistakes": "Review mistakes",
+        "nextQuiz": "Next Quiz",
+        "backToBrowser": "Back to Browser"
+      }
+    },
+    "empty": "No kanji match the current filters"
   }
 }

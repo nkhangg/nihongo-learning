@@ -6,12 +6,18 @@ import { initReactI18next, I18nextProvider } from 'react-i18next'
 import vi from './locales/vi.json'
 import en from './locales/en.json'
 
+type LocaleData = Record<string, Record<string, unknown>>
+
+function buildNamespaces(data: LocaleData) {
+  return { translation: data, ...data }
+}
+
 i18n.use(initReactI18next).init({
   lng: 'vi',
   fallbackLng: 'en',
   resources: {
-    vi: { translation: vi },
-    en: { translation: en },
+    vi: buildNamespaces(vi as unknown as LocaleData),
+    en: buildNamespaces(en as unknown as LocaleData),
   },
   interpolation: {
     escapeValue: false,

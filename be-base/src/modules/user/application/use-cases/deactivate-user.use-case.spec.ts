@@ -20,6 +20,7 @@ const makeRepo = (): jest.Mocked<IUserRepository> => ({
 const makeSessionRepo = (): jest.Mocked<SessionRepository> => ({
   findById: jest.fn(),
   findByUserId: jest.fn(),
+  findAll: jest.fn(),
   save: jest.fn().mockResolvedValue(undefined),
 });
 

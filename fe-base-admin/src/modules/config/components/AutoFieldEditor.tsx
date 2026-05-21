@@ -7,6 +7,7 @@ import { MediaPicker } from '@modules/media'
 import { cn } from '@shared/utils'
 
 const URL_KEY_PATTERN = /url|image|logo|src|photo|avatar/i
+const LONG_TEXT_KEY_PATTERN = /description|content|message|text|note|bio|remark|html|body/i
 
 // ── JSON fallback (array / object) ─────────────────────────────────────────────
 
@@ -78,6 +79,16 @@ export function AutoFieldEditor({ fieldKey, value, onChange }: AutoFieldEditorPr
   }
 
   if (typeof value === 'string') {
+    if (LONG_TEXT_KEY_PATTERN.test(fieldKey) && !URL_KEY_PATTERN.test(fieldKey)) {
+      return (
+        <Textarea
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          rows={4}
+          className="resize-y text-sm"
+        />
+      )
+    }
     const isUrl = URL_KEY_PATTERN.test(fieldKey)
     return (
       <div className="flex gap-2">

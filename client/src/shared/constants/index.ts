@@ -29,6 +29,9 @@ export const QUERY_KEYS = {
   },
   PROFILE: {
     ME: ['profile', 'me'] as const,
+    STATS: ['profile', 'stats'] as const,
+    PUBLIC_STATS: ['profile', 'public-stats'] as const,
+    BADGES: ['profile', 'badges'] as const,
   },
   BLOG: {
     POSTS: ['blog', 'posts'] as const,
@@ -44,6 +47,19 @@ export const QUERY_KEYS = {
   NOTIFICATIONS: {
     LIST: ['notifications', 'list'] as const,
     UNREAD_COUNT: ['notifications', 'unread-count'] as const,
+  },
+  SETTINGS: {
+    MY: ['settings', 'my'] as const,
+  },
+  CONFIG: {
+    PUBLIC: (keys: string[]) => ['config', 'public', ...keys] as const,
+  },
+  KANJI: {
+    LIST: (params?: object) => ['kanji', 'list', params] as const,
+    DETAIL: (id: string) => ['kanji', 'detail', id] as const,
+    PROGRESS: ['kanji', 'progress'] as const,
+    RADICALS: ['kanji', 'radicals'] as const,
+    WRITING_QUEUE: (level?: string) => ['kanji', 'writing-queue', level] as const,
   },
 } as const
 

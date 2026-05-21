@@ -1,3 +1,5 @@
-export default function ProfilePage() {
-  return <div>{/* ProfilePage from @modules/profile will go here */}</div>
+import { ProfilePage } from '@modules/profile'
+
+export default function Page() {
+  return <ProfilePage />
 }

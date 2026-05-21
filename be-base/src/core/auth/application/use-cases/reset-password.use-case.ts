@@ -1,4 +1,4 @@
-import { Inject, Injectable, Optional } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { PasswordResetToken } from '../../domain/entities/password-reset-token.entity';
 import type { IPasswordResetTokenRepository } from '../../domain/repositories/password-reset-token.repository';
 import { PASSWORD_RESET_TOKEN_REPOSITORY } from '../../domain/repositories/password-reset-token.repository';
@@ -26,15 +26,10 @@ export class ResetPasswordUseCase {
     @Inject(PASSWORD_RESET_TOKEN_REPOSITORY)
     private readonly tokenRepo: IPasswordResetTokenRepository,
     @Inject(TOKEN_SERVICE) private readonly tokenService: ITokenService,
-    @Optional()
     @Inject(PASSWORD_UPDATERS)
-    updaters: IPasswordUpdater | IPasswordUpdater[] = [],
+    updaters: IPasswordUpdater[],
   ) {
-    this.updaters = Array.isArray(updaters)
-      ? updaters
-      : updaters
-        ? [updaters]
-        : [];
+    this.updaters = updaters;
   }
 
   async execute(

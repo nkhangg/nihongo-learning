@@ -1,3 +1,10 @@
+import { ForgotPasswordForm } from '@modules/auth'
+import { AuthLayout } from '@shared/layouts'
+
 export default function ForgotPasswordPage() {
-  return <div>{/* ForgotPasswordForm from @modules/auth will go here */}</div>
+  return (
+    <AuthLayout>
+      <ForgotPasswordForm />
+    </AuthLayout>
+  )
 }

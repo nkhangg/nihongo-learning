@@ -9,15 +9,18 @@ import { HealthModule } from './core/health/health.module';
 import { IntegrationModule } from './core/integration/integration.module';
 import { AdminModule } from './modules/admin';
 import { AdminCredentialValidator } from './modules/admin/application/validators/admin-credential.validator';
+import { AdminPasswordUpdater } from './modules/admin/infrastructure/admin-password-updater';
 import { AuditModule } from './modules/audit';
 import { UserModule } from './modules/user/user.module';
 import { UserCredentialValidator } from './modules/user/application/validators/user-credential.validator';
+import { UserPasswordUpdater } from './modules/user/infrastructure/user-password-updater';
 import { MerchantModule } from './modules/merchant/merchant.module';
 import { ConfigModule } from './modules/config/config.module';
 import { MediaModule } from './modules/media/media.module';
 import { NotificationModule } from './modules/notification/notification.module';
 import { BlogModule } from './modules/blog/blog.module';
 import { DictionaryModule } from './modules/dictionary/dictionary.module';
+import { KanjiModule } from './modules/kanji/kanji.module';
 import { ArticleModule } from './modules/article/article.module';
 import { QuestionModule } from './modules/question/question.module';
 import { FlashcardModule } from './modules/flashcard/flashcard.module';
@@ -48,6 +51,7 @@ import { SeedModule } from './shared/infrastructure/seeders/seed.module';
     NotificationModule,
     BlogModule,
     DictionaryModule,
+    KanjiModule,
     ArticleModule,
     QuestionModule,
     FlashcardModule,
@@ -65,6 +69,7 @@ import { SeedModule } from './shared/infrastructure/seeders/seed.module';
       },
       imports: [AdminModule, UserModule],
       credentialValidators: [AdminCredentialValidator, UserCredentialValidator],
+      passwordUpdaters: [AdminPasswordUpdater, UserPasswordUpdater],
     }),
   ],
   providers: [{ provide: APP_GUARD, useClass: ThrottlerGuard }],

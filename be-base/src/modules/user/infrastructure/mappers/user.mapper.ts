@@ -1,6 +1,7 @@
+import type { Prisma } from '@prisma/client';
 import { User } from '../../domain/entities/user.entity';
 
-interface UserRecord {
+export interface UserRecord {
   id: string;
   email: string;
   passwordHash: string;
@@ -32,5 +33,24 @@ export class UserMapper {
       settings: (r.settings as Record<string, unknown>) ?? {},
       createdAt: r.createdAt,
     });
+  }
+
+  static toPrisma(user: User): Omit<UserRecord, 'id'> & {
+    settings: Prisma.InputJsonValue;
+  } {
+    return {
+      email: user.email,
+      passwordHash: user.passwordHash,
+      firstName: user.firstName ?? null,
+      lastName: user.lastName ?? null,
+      phone: user.phone ?? null,
+      avatarUrl: user.avatarUrl ?? null,
+      role: user.role,
+      isActive: user.isActive,
+      xpTotal: user.xpTotal,
+      streakCount: user.streakCount,
+      settings: user.settings as Prisma.InputJsonValue,
+      createdAt: user.createdAt,
+    };
   }
 }

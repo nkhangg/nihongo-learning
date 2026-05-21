@@ -1,10 +1,14 @@
 import {
   DynamicModule,
+  Inject,
   MiddlewareConsumer,
   Module,
   NestModule,
+  OnModuleInit,
+  Optional,
   Type,
 } from '@nestjs/common';
+import type { ValueProvider } from '@nestjs/common';
 import { SESSION_REPOSITORY } from './domain/repositories/session.repository';
 import { PASSWORD_RESET_TOKEN_REPOSITORY } from './domain/repositories/password-reset-token.repository';
 import { TOKEN_SERVICE } from './domain/services/token.service';
@@ -12,6 +16,10 @@ import {
   CREDENTIAL_VALIDATORS,
   type ICredentialValidator,
 } from './domain/services/credential-validator.interface';
+import {
+  PASSWORD_UPDATERS,
+  type IPasswordUpdater,
+} from './domain/services/password-updater.interface';
 import { LoginUseCase } from './application/use-cases/login.use-case';
 import { LogoutUseCase } from './application/use-cases/logout.use-case';
 import { RefreshTokenUseCase } from './application/use-cases/refresh-token.use-case';
@@ -35,6 +43,24 @@ import { AuthGuard } from './infrastructure/auth.guard';
 import { PrismaPasswordResetTokenRepository } from './infrastructure/repositories/prisma-password-reset-token.repository';
 import { PrismaSessionRepository } from './infrastructure/repositories/prisma-session.repository';
 import { AuthController } from './presentation/http/auth.controller';
+import { AuthAdminController } from './presentation/admin/auth-admin.controller';
+import { AuthAdminFeature } from './presentation/admin/auth-admin.feature';
+import { ADMIN_FEATURE } from '../admin-shell/admin.interface';
+import {
+  AuthorizationService,
+  type SeedRoleDefinition,
+} from '../authorization';
+
+const AUTH_ROLES: SeedRoleDefinition[] = [
+  {
+    name: 'session-manager',
+    subjectType: 'admin',
+    description: 'Quản lý sessions — xem và thu hồi sessions của mọi user',
+    permissions: {
+      auth: ['read', 'delete'],
+    },
+  },
+];
 
 export interface AuthModuleOptions {
   jwt: JwtConfig;
@@ -47,17 +73,27 @@ export interface AuthModuleOptions {
    * module exports it.
    */
   credentialValidators?: Type<ICredentialValidator>[];
+  /**
+   * Same pattern as credentialValidators — NestJS doesn't merge multi providers
+   * across module boundaries, so list each updater class explicitly.
+   */
+  passwordUpdaters?: Type<IPasswordUpdater>[];
 }
 
 @Module({})
-export class AuthModule implements NestModule {
+export class AuthModule implements NestModule, OnModuleInit {
+  constructor(
+    @Optional() private readonly authorizationService: AuthorizationService,
+  ) {}
+
   static forRoot(options: AuthModuleOptions): DynamicModule {
     const credentialValidatorClasses = options.credentialValidators ?? [];
+    const passwordUpdaterClasses = options.passwordUpdaters ?? [];
     return {
       module: AuthModule,
       global: true,
       imports: [...(options.imports ?? [])],
-      controllers: [AuthController],
+      controllers: [AuthController, AuthAdminController],
       providers: [
         {
           provide: TOKEN_SERVICE,
@@ -71,6 +107,11 @@ export class AuthModule implements NestModule {
           provide: PASSWORD_RESET_TOKEN_REPOSITORY,
           useClass: PrismaPasswordResetTokenRepository,
         },
+        {
+          provide: ADMIN_FEATURE,
+          useValue: AuthAdminFeature,
+          multi: true,
+        } as ValueProvider,
         LoginUseCase,
         LogoutUseCase,
         RefreshTokenUseCase,
@@ -96,10 +137,21 @@ export class AuthModule implements NestModule {
           useFactory: (...validators: ICredentialValidator[]) => validators,
           inject: credentialValidatorClasses,
         },
+        {
+          provide: PASSWORD_UPDATERS,
+          useFactory: (...updaters: IPasswordUpdater[]) => updaters,
+          inject: passwordUpdaterClasses,
+        },
         AuthGuard,
       ],
       exports: [TOKEN_SERVICE, SESSION_REPOSITORY, AuthGuard, LoginUseCase],
     };
+  }
+
+  async onModuleInit(): Promise<void> {
+    if (this.authorizationService) {
+      await this.authorizationService.seedRoles(AUTH_ROLES);
+    }
   }
 
   configure(consumer: MiddlewareConsumer) {

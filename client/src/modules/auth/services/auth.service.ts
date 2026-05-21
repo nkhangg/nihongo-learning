@@ -37,7 +37,7 @@ export const authService = {
   },
 
   async forgotPassword(dto: ForgotPasswordDto): Promise<ForgotPasswordResponse> {
-    const { data } = await apiClient.post<ForgotPasswordResponse>('/auth/forgot-password', dto)
+    const { data } = await apiClient.post<ForgotPasswordResponse>('/auth/forgot-password', { ...dto, type: 'user' })
     return data
   },
 

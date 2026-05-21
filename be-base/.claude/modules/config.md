@@ -7,7 +7,7 @@ Key-value config store dạng JSON — lưu cấu hình linh hoạt cho app (fea
 ```
 modules/config/
 ├── domain/
-│   ├── entities/app-config.entity.ts   # { id, key, value (JSON), isActive, description }
+│   ├── entities/app-config.entity.ts   # { id, key, value (JSON), valueKeyOrder, isEnabled, scope, tags, description, createdBy, updatedBy }
 │   └── repositories/config.repository.ts   # CONFIG_REPOSITORY
 ├── application/
 │   ├── services/config-cache.service.ts    # In-memory cache cho config values
@@ -18,7 +18,7 @@ modules/config/
 │       ├── get-configs-batch.use-case.ts   # Bulk read nhiều keys
 │       ├── list-configs.use-case.ts
 │       ├── update-config.use-case.ts
-│       ├── toggle-config.use-case.ts       # Bật/tắt isActive
+│       ├── toggle-config.use-case.ts       # Bật/tắt isEnabled
 │       └── delete-config.use-case.ts
 ├── infrastructure/repositories/
 │   └── prisma-config.repository.ts
@@ -45,16 +45,17 @@ modules/config/
 | PATCH | `/admin/configs/:id/toggle` | update |
 | DELETE | `/admin/configs/:id` | delete |
 
-### Authenticated (`/configs`)
+### Authenticated (`/configs/me`)
 | Method | Path | Guard |
 |---|---|---|
-| GET | `/configs/:key` | UserPermissionGuard / MerchantPermissionGuard |
-| POST | `/configs/batch` | — batch read by keys |
+| GET | `/configs/me/:key` | UserPermissionGuard (`configs:read`) — đọc 1 key, scope `public + members` |
+| GET | `/configs/me/batch?keys=a,b,c` | UserPermissionGuard — batch read (comma-separated query) |
 
-### Public (`/public/configs`)
+### Public (`/configs`)
 | Method | Path | Mô tả |
 |---|---|---|
-| GET | `/public/configs/:key` | Read config public (isActive = true) |
+| GET | `/configs/:key` | Read config theo key, scope `public` only, chỉ trả khi `isEnabled = true` |
+| GET | `/configs/batch?keys=a,b,c` | Batch read các key public (comma-separated query) |
 
 ## Seeded Roles
 

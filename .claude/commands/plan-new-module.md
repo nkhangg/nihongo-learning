@@ -60,12 +60,22 @@ Chỉ đọc những doc thực sự cần thiết.
 
 ### STEP 3 — Đọc một module mẫu làm tham chiếu
 
-Chọn module mẫu gần nhất về domain (ưu tiên: `blog` cho content, `user` cho account, `config` cho key-value, `merchant` cho B2B):
+**🔥 Short-circuit:** Nếu file `planning/<module-name>-context.md` tồn tại (do `/build-full-module` pre-load) → **đọc bundle này thay vì re-read reference module docs**. Skip STEP 3 còn lại.
+
+Ngược lại, chọn module mẫu gần nhất về domain (ưu tiên: `blog` cho content, `user` cho account, `config` cho key-value, `merchant` cho B2B):
 
 - Đọc `be-base/.claude/modules/<reference-module>.md`
 - Đọc `fe-base-admin/.claude/modules/<reference-module>.md`
 
 Mục đích: hiểu pattern file naming, structure, convention — không copy code.
+
+### COMPACT format (khi prompt có "COMPACT plan format")
+
+Khi orchestrator yêu cầu compact format, **rút plan template** ở STEP 4 như sau:
+- **GIỮ**: Tóm tắt, Domain layer (entity fields), Application layer (use-case list), Infrastructure (1 dòng), Presentation (controller + DTOs), API Routes table, Prisma schema, FE Types/Service/Hooks/Components (list ngắn), Router & i18n (list ngắn), Edge cases & risks
+- **BỎ**: UX notes section, Module docs cần tạo section, Effort estimate, Checklist tổng (BE/FE checklist)
+
+Lý do: UX notes đã ở CLAUDE.md, checklist đã ở `/implement-new-module` rules, effort estimate ít được consult.
 
 ---
 

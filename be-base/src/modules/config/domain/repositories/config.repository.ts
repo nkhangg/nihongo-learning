@@ -5,6 +5,7 @@ export interface FindAllConfigsOptions {
   isEnabled?: boolean;
   tags?: string[];
   search?: string;
+  keyPrefix?: string;
   sortBy?: 'key' | 'scope' | 'isEnabled' | 'createdAt' | 'updatedAt';
   sortDir?: 'asc' | 'desc';
   page?: number;

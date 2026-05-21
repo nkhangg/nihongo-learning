@@ -1,3 +1,5 @@
-export default function DashboardPage() {
-  return <div>{/* DashboardPage from @modules/dashboard will go here */}</div>
+import { DashboardPage } from '@modules/dashboard'
+
+export default function Page() {
+  return <DashboardPage />
 }

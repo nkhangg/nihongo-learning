@@ -13,8 +13,8 @@ import { UpdateUserRoleUseCase } from './application/use-cases/update-user-role.
 import { UpdateUserInfoUseCase } from './application/use-cases/update-user-info.use-case';
 import { DeactivateUserUseCase } from './application/use-cases/deactivate-user.use-case';
 import { ActivateUserUseCase } from './application/use-cases/activate-user.use-case';
-import { UserManagementController } from './presentation/user/user-management.controller';
-import { UserManagementFeature } from './presentation/user/user-management.feature';
+import { UserAdminController } from './presentation/admin/user-admin.controller';
+import { UserAdminFeature } from './presentation/admin/user-admin.feature';
 import { ADMIN_FEATURE } from '../../core/admin-shell/admin.interface';
 import { PASSWORD_UPDATERS } from '../../core/auth/domain/services/password-updater.interface';
 import { UserPasswordUpdater } from './infrastructure/user-password-updater';
@@ -54,7 +54,7 @@ const USER_ROLES: SeedRoleDefinition[] = [
 ];
 
 @Module({
-  controllers: [UserManagementController],
+  controllers: [UserAdminController],
   providers: [
     {
       provide: USER_REPOSITORY,
@@ -62,7 +62,7 @@ const USER_ROLES: SeedRoleDefinition[] = [
     } as ClassProvider,
     {
       provide: ADMIN_FEATURE,
-      useValue: UserManagementFeature,
+      useValue: UserAdminFeature,
       multi: true,
     } as ValueProvider,
     {
@@ -98,6 +98,7 @@ const USER_ROLES: SeedRoleDefinition[] = [
     PROFILE_PROVIDERS,
     OAUTH_USER_CONNECTORS,
     UserCredentialValidator,
+    UserPasswordUpdater,
     CreateUserUseCase,
   ],
 })

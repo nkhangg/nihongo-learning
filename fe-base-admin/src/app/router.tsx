@@ -22,7 +22,19 @@ const DashboardPage = lazy(() =>
 const AdminPage = lazy(() => import('@modules/admin/index').then((m) => ({ default: m.AdminPage })))
 const RolePage = lazy(() => import('@modules/admin/index').then((m) => ({ default: m.RolePage })))
 const UserPage = lazy(() => import('@modules/user/index').then((m) => ({ default: m.UserPage })))
+const ConfigLayout = lazy(() =>
+  import('@modules/config/index').then((m) => ({ default: m.ConfigLayout })),
+)
 const ConfigPage = lazy(() => import('@modules/config/index').then((m) => ({ default: m.ConfigPage })))
+const ConfigPagesPage = lazy(() =>
+  import('@modules/config/index').then((m) => ({ default: m.ConfigPagesPage })),
+)
+const ConfigSystemsPage = lazy(() =>
+  import('@modules/config/index').then((m) => ({ default: m.ConfigSystemsPage })),
+)
+const ConfigClientPage = lazy(() =>
+  import('@modules/config/index').then((m) => ({ default: m.ConfigClientPage })),
+)
 const AuditPage = lazy(() => import('@modules/audit/index').then((m) => ({ default: m.AuditPage })))
 const MediaPage = lazy(() => import('@modules/media/index').then((m) => ({ default: m.MediaPage })))
 const NotificationPage = lazy(() =>
@@ -55,6 +67,15 @@ const ProfilePage = lazy(() =>
 )
 const ContactsPage = lazy(() =>
   import('@modules/contacts/index').then((m) => ({ default: m.ContactsPage })),
+)
+const KanjiPage = lazy(() =>
+  import('@modules/kanji/index').then((m) => ({ default: m.KanjiPage })),
+)
+const KanjiRadicalsPage = lazy(() =>
+  import('@modules/kanji/index').then((m) => ({ default: m.KanjiRadicalsPage })),
+)
+const AuthSessionsPage = lazy(() =>
+  import('@modules/auth/index').then((m) => ({ default: m.AuthSessionsPage })),
 )
 
 // ── Guards (provided by each module) ──────────────────────────────────────
@@ -104,7 +125,16 @@ export const router = createBrowserRouter([
           { path: ROUTES.ADMIN, element: withSuspense(<AdminPage />) },
           { path: ROUTES.ROLES, element: withSuspense(<RolePage />) },
           { path: ROUTES.USERS, element: withSuspense(<UserPage />) },
-          { path: ROUTES.CONFIGS, element: withSuspense(<ConfigPage />) },
+          {
+            path: ROUTES.CONFIGS,
+            element: withSuspense(<ConfigLayout />),
+            children: [
+              { index: true, element: withSuspense(<ConfigPage />) },
+              { path: 'pages', element: withSuspense(<ConfigPagesPage />) },
+              { path: 'systems', element: withSuspense(<ConfigSystemsPage />) },
+              { path: 'client', element: withSuspense(<ConfigClientPage />) },
+            ],
+          },
           { path: ROUTES.AUDIT_LOGS, element: withSuspense(<AuditPage />) },
           { path: ROUTES.MEDIA, element: withSuspense(<MediaPage />) },
           { path: ROUTES.NOTIFICATIONS, element: withSuspense(<NotificationPage />) },
@@ -115,6 +145,9 @@ export const router = createBrowserRouter([
           { path: ROUTES.PROGRESS, element: withSuspense(<ProgressPage />) },
           { path: ROUTES.ORGANIZATIONS, element: withSuspense(<OrganizationPage />) },
           { path: ROUTES.CONTACTS, element: withSuspense(<ContactsPage />) },
+          { path: ROUTES.KANJI, element: withSuspense(<KanjiPage />) },
+          { path: ROUTES.KANJI_RADICALS, element: withSuspense(<KanjiRadicalsPage />) },
+          { path: ROUTES.AUTH_SESSIONS, element: withSuspense(<AuthSessionsPage />) },
         ],
       },
       // Full-screen editor pages (no sidebar)

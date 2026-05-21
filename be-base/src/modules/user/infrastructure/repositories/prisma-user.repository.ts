@@ -1,27 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { Prisma } from '@prisma/client';
 import { PrismaService } from '../../../../shared/infrastructure/prisma/prisma.service';
 import type {
   IUserRepository,
   FindAllUsersOptions,
   FindAllUsersResult,
 } from '../../domain/repositories/user.repository';
-import { UserMapper } from '../mappers/user.mapper';
+import { UserMapper, type UserRecord } from '../mappers/user.mapper';
 import type { User } from '../../domain/entities/user.entity';
-
-interface UserRecord {
-  id: string;
-  email: string;
-  passwordHash: string;
-  firstName?: string | null;
-  lastName?: string | null;
-  role: string;
-  isActive: boolean;
-  xpTotal: number;
-  streakCount: number;
-  settings: unknown;
-  createdAt: Date;
-}
 
 @Injectable()
 export class PrismaUserRepository implements IUserRepository {
@@ -73,18 +58,7 @@ export class PrismaUserRepository implements IUserRepository {
   }
 
   async save(user: User): Promise<void> {
-    const data = {
-      email: user.email,
-      passwordHash: user.passwordHash,
-      firstName: user.firstName ?? null,
-      lastName: user.lastName ?? null,
-      role: user.role,
-      isActive: user.isActive,
-      xpTotal: user.xpTotal,
-      streakCount: user.streakCount,
-      settings: user.settings as Prisma.InputJsonValue,
-      createdAt: user.createdAt,
-    };
+    const data = UserMapper.toPrisma(user);
     await this.prisma.user.upsert({
       where: { id: user.id.value },
       create: { id: user.id.value, ...data },

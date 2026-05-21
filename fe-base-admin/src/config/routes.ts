@@ -24,6 +24,12 @@ export const ROUTES = {
   PROGRESS: '/progress',
   ORGANIZATIONS: '/organizations',
   CONTACTS: '/contacts',
+  KANJI: '/kanji',
+  KANJI_RADICALS: '/kanji/radicals',
+  AUTH_SESSIONS: '/admin/auth/sessions',
+  CONFIG_PAGES: '/configs/pages',
+  CONFIG_SYSTEMS: '/configs/systems',
+  CONFIG_CLIENT: '/configs/client',
 } as const
 
 export type AppRoute = (typeof ROUTES)[keyof typeof ROUTES]

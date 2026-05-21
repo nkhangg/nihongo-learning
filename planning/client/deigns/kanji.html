@@ -3,420 +3,433 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kanji — Nihongo Design</title>
+<title>Kanji — Nihongo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg: #f7f8fa;
-  --surface: #ffffff;
-  --surface2: #f0f2f5;
-  --border: #e4e7ec;
-  --border2: #d0d5dd;
-  --text: #111827;
-  --text2: #4b5563;
-  --text3: #9ca3af;
-  --primary: #1a1a2e;
-  --accent: #4f8ef7;
-  --accent-soft: #eff4ff;
-  --teal: #0d9488;
-  --teal-soft: #f0fdfa;
-  --amber: #d97706;
-  --amber-soft: #fffbeb;
-  --red: #dc2626;
-  --red-soft: #fef2f2;
-  --green: #16a34a;
-  --green-soft: #f0fdf4;
-  --purple: #7c3aed;
-  --purple-soft: #f5f3ff;
-  --n5: #4ade80; --n5b: #166534;
-  --n4: #60a5fa; --n4b: #1e3a5f;
-  --n3: #a78bfa; --n3b: #4c1d95;
-  --n2: #fb923c; --n2b: #7c2d12;
-  --n1: #f87171; --n1b: #7f1d1d;
-  --radius: 12px;
-  --radius-sm: 8px;
-  --shadow: 0 1px 3px rgba(0,0,0,.07), 0 4px 16px rgba(0,0,0,.05);
-  --shadow-md: 0 4px 12px rgba(0,0,0,.1), 0 12px 32px rgba(0,0,0,.07);
+  --ink: #0D0D0F;
+  --ink2: #3A3A40;
+  --ink3: #7A7A85;
+  --ink4: #ADADB8;
+  --paper: #FAFAF8;
+  --surface: #F2F2EF;
+  --surface2: #E8E8E4;
+  --red: #E8334A; --red-l: #FFF0F2; --red-m: #F5A0AB;
+  --teal: #0F8A72; --teal-l: #E8F7F4;
+  --amber: #C47D0E; --amber-l: #FEF6E4;
+  --purple: #5B45C7; --purple-l: #EDE8FE;
+  --blue: #1565C0; --blue-l: #E8F4FF;
+  --green: #16a34a; --green-l: #f0fdf4;
+  --b: rgba(13,13,15,.07); --b2: rgba(13,13,15,.13);
+  --r: 8px; --r2: 14px; --r3: 20px;
+  --shadow: 0 1px 3px rgba(0,0,0,.06), 0 2px 8px rgba(0,0,0,.04);
+  --shadow-md: 0 4px 12px rgba(0,0,0,.08), 0 12px 32px rgba(0,0,0,.06);
 }
 
-body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; }
+body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--paper); color: var(--ink); line-height: 1.5; font-size: 14px; }
 
 /* ── SHARED LAYOUT ── */
 .app-shell { display: flex; height: 100vh; overflow: hidden; }
-.sidebar { width: 220px; background: var(--primary); color: #fff; display: flex; flex-direction: column; flex-shrink: 0; overflow-y: auto; }
-.sidebar-logo { padding: 20px 20px 16px; font-size: 20px; font-weight: 700; letter-spacing: -0.5px; border-bottom: 1px solid rgba(255,255,255,.08); }
-.sidebar-logo span { color: var(--accent); }
-.nav-section { padding: 16px 12px 8px; font-size: 10px; font-weight: 600; letter-spacing: 1px; color: rgba(255,255,255,.35); text-transform: uppercase; }
-.nav-item { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: var(--radius-sm); font-size: 14px; color: rgba(255,255,255,.65); cursor: pointer; margin: 1px 4px; text-decoration: none; }
-.nav-item:hover { background: rgba(255,255,255,.07); color: #fff; }
-.nav-item.active { background: rgba(79,142,247,.2); color: #fff; }
-.nav-item.active .nav-icon { color: var(--accent); }
-.nav-icon { font-size: 16px; width: 20px; text-align: center; }
-.main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
-.topbar { height: 56px; background: rgba(255,255,255,.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; padding: 0 24px; flex-shrink: 0; }
-.topbar-title { font-size: 16px; font-weight: 600; flex: 1; }
-.topbar-actions { display: flex; align-items: center; gap: 8px; }
-.page-body { flex: 1; overflow-y: auto; padding: 24px; display: flex; flex-direction: column; gap: 24px; }
 
-/* ── BUTTONS / BADGES ── */
-.btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: var(--radius-sm); font-size: 14px; font-weight: 500; cursor: pointer; border: none; transition: all .15s; }
-.btn-primary { background: var(--primary); color: #fff; }
-.btn-primary:hover { background: #2d2d4e; }
-.btn-secondary { background: var(--surface); color: var(--text); border: 1px solid var(--border2); }
-.btn-secondary:hover { background: var(--surface2); }
-.btn-accent { background: var(--accent); color: #fff; }
-.btn-sm { padding: 5px 10px; font-size: 12px; }
-.badge { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 99px; font-size: 11px; font-weight: 600; }
-.badge-n5 { background: #dcfce7; color: var(--n5b); }
-.badge-n4 { background: #dbeafe; color: var(--n4b); }
-.badge-n3 { background: #ede9fe; color: var(--n3b); }
-.badge-n2 { background: #ffedd5; color: var(--n2b); }
-.badge-n1 { background: #fee2e2; color: var(--n1b); }
-.tag { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 6px; font-size: 11px; background: var(--surface2); color: var(--text2); border: 1px solid var(--border); }
+/* ── SIDEBAR ── */
+.sidebar { width: 220px; background: #fff; border-right: 1px solid var(--b); display: flex; flex-direction: column; flex-shrink: 0; overflow-y: auto; }
+.sidebar-logo { display: flex; align-items: center; gap: 8px; padding: 1.25rem 1.1rem 1rem; border-bottom: 1px solid var(--b); }
+.logo-mark { width: 28px; height: 28px; border-radius: 7px; background: var(--ink); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.logo-mark span { color: #fff; font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500; }
+.logo-name { font-size: 15px; font-weight: 600; letter-spacing: -.3px; color: var(--ink); }
+.nav-section { font-size: 10px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--ink4); padding: .5rem .75rem; margin-top: .5rem; }
+.nav-item { display: flex; align-items: center; gap: 9px; padding: .55rem .6rem; border-radius: var(--r); font-size: 13px; color: var(--ink3); cursor: pointer; margin: 1px .4rem; text-decoration: none; transition: all .15s; font-weight: 400; }
+.nav-item:hover { background: var(--surface); color: var(--ink); }
+.nav-item.active { background: var(--ink); color: #fff; }
+.nav-icon { font-size: 15px; opacity: .7; flex-shrink: 0; width: 18px; text-align: center; }
+.nav-item.active .nav-icon { opacity: 1; }
+
+.main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+.topbar { height: 56px; background: rgba(250,250,248,.9); backdrop-filter: blur(8px); border-bottom: 1px solid var(--b); display: flex; align-items: center; gap: 12px; padding: 0 1.5rem; flex-shrink: 0; position: sticky; top: 0; z-index: 50; }
+.topbar-title { font-size: 14px; font-weight: 600; flex: 1; letter-spacing: -.1px; }
+.topbar-actions { display: flex; align-items: center; gap: 8px; }
+.tb-btn { width: 32px; height: 32px; border-radius: var(--r); background: var(--surface); border: 1px solid var(--b); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 14px; transition: all .15s; }
+.tb-btn:hover { background: var(--surface2); }
+.page-body { flex: 1; overflow-y: auto; padding: 1.5rem; display: flex; flex-direction: column; gap: 1.5rem; }
+
+/* ── BUTTONS ── */
+.btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: var(--r2); font-size: 14px; font-weight: 500; cursor: pointer; border: none; transition: all .15s; font-family: 'DM Sans', sans-serif; }
+.btn-primary { background: var(--ink); color: #fff; }
+.btn-primary:hover { background: #2a2a30; }
+.btn-secondary { background: transparent; color: var(--ink2); border: 1.5px solid var(--b2); }
+.btn-secondary:hover { background: var(--surface); }
+.btn-teal { background: var(--teal); color: #fff; }
+.btn-teal:hover { background: #0d7a64; }
+.btn-sm { padding: 5px 12px; font-size: 12px; border-radius: var(--r); }
+.btn-xs { padding: 3px 8px; font-size: 11px; border-radius: var(--r); }
+
+/* ── BADGES ── */
+.badge { display: inline-flex; align-items: center; padding: 2px 9px; border-radius: 999px; font-size: 11px; font-weight: 500; }
+.badge-n5 { background: #E8F7F4; color: #0F8A72; }
+.badge-n4 { background: #E8F4FF; color: #1565C0; }
+.badge-n3 { background: #FEF6E4; color: #C47D0E; }
+.badge-n2 { background: #FFF0F2; color: #E8334A; }
+.badge-n1 { background: #0D0D0F; color: #FFD700; }
+.tag { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: var(--r); font-size: 11px; background: var(--surface); color: var(--ink3); border: 1px solid var(--b); }
 
 /* ── SECTION LABELS ── */
-.section-label { font-size: 11px; font-weight: 600; letter-spacing: .5px; text-transform: uppercase; color: var(--text3); margin-bottom: 12px; }
+.section-label { font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--ink4); margin-bottom: 10px; }
+
+/* ── PAGE DIVIDERS ── */
+.page-divider { border: none; height: 1px; background: var(--b2); margin: 2rem 0; }
+.page-section-title { font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: 10px; margin-bottom: 1.25rem; }
+.page-section-title::after { content: ''; flex: 1; height: 1px; background: var(--b); }
+.page-tag { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: var(--r); font-size: 11px; font-weight: 600; background: var(--ink); color: #fff; }
 
 /* ══════════════════════════════════════════════
    PAGE 1: KANJI BROWSER
 ══════════════════════════════════════════════ */
-.browser-page { display: flex; flex-direction: column; gap: 20px; }
+.browser-page { display: flex; flex-direction: column; gap: 1.25rem; }
 
-.browser-hero { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%); border-radius: var(--radius); padding: 28px 32px; color: #fff; display: flex; align-items: center; gap: 32px; }
-.hero-text h2 { font-size: 24px; font-weight: 700; margin-bottom: 6px; }
-.hero-text p { font-size: 14px; color: rgba(255,255,255,.6); max-width: 380px; }
-.hero-stats { display: flex; gap: 24px; margin-left: auto; }
+.browser-hero { background: linear-gradient(135deg, #0D0D0F 0%, #14141a 60%, #0a0f1e 100%); border-radius: var(--r3); padding: 1.75rem 2rem; color: #fff; display: flex; align-items: center; gap: 2rem; border: 1px solid rgba(255,255,255,.06); }
+.hero-text h2 { font-size: 22px; font-weight: 700; margin-bottom: 5px; letter-spacing: -.3px; }
+.hero-text p { font-size: 13px; color: rgba(255,255,255,.55); max-width: 360px; line-height: 1.6; }
+.hero-stats { display: flex; gap: 2rem; margin-left: auto; flex-shrink: 0; }
 .hero-stat { text-align: center; }
-.hero-stat-num { font-size: 28px; font-weight: 800; font-family: 'DM Mono', monospace; }
+.hero-stat-num { font-size: 26px; font-weight: 700; font-family: 'DM Mono', monospace; letter-spacing: -.5px; }
 .hero-stat-num.known { color: #4ade80; }
 .hero-stat-num.learning { color: #fbbf24; }
-.hero-stat-num.locked { color: rgba(255,255,255,.3); }
-.hero-stat-label { font-size: 11px; color: rgba(255,255,255,.5); margin-top: 2px; }
+.hero-stat-num.locked { color: rgba(255,255,255,.25); }
+.hero-stat-label { font-size: 10px; color: rgba(255,255,255,.45); margin-top: 3px; font-weight: 500; letter-spacing: .05em; text-transform: uppercase; }
 
-.filter-bar { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 20px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-.filter-group { display: flex; align-items: center; gap: 6px; }
-.filter-label { font-size: 12px; font-weight: 600; color: var(--text3); }
+.filter-bar { background: #fff; border: 1px solid var(--b); border-radius: var(--r2); padding: 1rem 1.25rem; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.filter-group { display: flex; align-items: center; gap: 8px; }
+.filter-label { font-size: 11px; font-weight: 600; color: var(--ink4); letter-spacing: .05em; white-space: nowrap; }
 .filter-chips { display: flex; gap: 4px; flex-wrap: wrap; }
-.chip { padding: 4px 12px; border-radius: 99px; font-size: 12px; font-weight: 500; cursor: pointer; border: 1.5px solid var(--border); color: var(--text2); background: transparent; }
-.chip.active { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
-.chip.n5-chip.active { border-color: #16a34a; background: #dcfce7; color: #15803d; }
-.chip.n4-chip.active { border-color: #2563eb; background: #dbeafe; color: #1d4ed8; }
-.chip.n3-chip.active { border-color: var(--purple); background: var(--purple-soft); color: var(--purple); }
-.chip.n2-chip.active { border-color: #ea580c; background: #ffedd5; color: #c2410c; }
-.chip.n1-chip.active { border-color: var(--red); background: var(--red-soft); color: var(--red); }
-.filter-divider { width: 1px; height: 24px; background: var(--border); }
+.chip { padding: 4px 12px; border-radius: 999px; font-size: 12px; font-weight: 500; cursor: pointer; border: 1.5px solid var(--b2); color: var(--ink3); background: transparent; transition: all .15s; font-family: 'DM Sans', sans-serif; }
+.chip:hover { border-color: var(--ink4); color: var(--ink); }
+.chip.active { border-color: var(--ink); background: var(--ink); color: #fff; }
+.chip.n5-chip.active { border-color: #0F8A72; background: #E8F7F4; color: #0F8A72; }
+.chip.n4-chip.active { border-color: #1565C0; background: #E8F4FF; color: #1565C0; }
+.chip.n3-chip.active { border-color: #C47D0E; background: #FEF6E4; color: #C47D0E; }
+.chip.n2-chip.active { border-color: #E8334A; background: #FFF0F2; color: #E8334A; }
+.chip.n1-chip.active { border-color: var(--ink); background: var(--ink); color: #FFD700; }
+.filter-divider { width: 1px; height: 20px; background: var(--b2); flex-shrink: 0; }
 .filter-search { margin-left: auto; position: relative; }
-.filter-search input { padding: 7px 12px 7px 32px; border: 1.5px solid var(--border2); border-radius: var(--radius-sm); font-size: 13px; outline: none; width: 200px; }
-.filter-search input:focus { border-color: var(--accent); }
-.filter-search-icon { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--text3); font-size: 14px; }
+.filter-search input { padding: 7px 12px 7px 32px; border: 1.5px solid var(--b2); border-radius: var(--r); font-size: 13px; outline: none; width: 200px; font-family: 'DM Sans', sans-serif; background: var(--paper); color: var(--ink); transition: border-color .15s; }
+.filter-search input:focus { border-color: var(--ink); }
+.filter-search input::placeholder { color: var(--ink4); }
+.filter-search-icon { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--ink4); font-size: 13px; }
 
-.browser-body { display: grid; grid-template-columns: 1fr 280px; gap: 20px; align-items: start; }
-.kanji-grid-wrap { display: flex; flex-direction: column; gap: 16px; }
-.group-header { display: flex; align-items: center; gap: 10px; }
-.group-title { font-size: 13px; font-weight: 700; }
-.group-count { font-size: 12px; color: var(--text3); }
-.group-line { flex: 1; height: 1px; background: var(--border); }
+.browser-body { display: grid; grid-template-columns: 1fr 268px; gap: 1.25rem; align-items: start; }
+.kanji-grid-wrap { display: flex; flex-direction: column; gap: 1rem; }
+.group-header { display: flex; align-items: center; gap: 8px; }
+.group-title { font-size: 13px; font-weight: 700; color: var(--ink); }
+.group-count { font-size: 12px; color: var(--ink4); font-family: 'DM Mono', monospace; }
+.group-line { flex: 1; height: 1px; background: var(--b); }
 
-.kanji-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px; }
-.kanji-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: 8px; aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; transition: all .15s; position: relative; }
-.kanji-card:hover { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); transform: translateY(-1px); }
-.kanji-card.known { border-color: #86efac; background: #f0fdf4; }
-.kanji-card.learning { border-color: #fde68a; background: #fffbeb; }
-.kanji-card.locked { opacity: .4; }
-.kanji-char { font-size: 24px; line-height: 1; }
-.kanji-reading { font-size: 9px; color: var(--text3); margin-top: 2px; }
-.kanji-status-dot { position: absolute; top: 4px; right: 4px; width: 6px; height: 6px; border-radius: 50%; }
-.kanji-card.known .kanji-status-dot { background: #16a34a; }
-.kanji-card.learning .kanji-status-dot { background: #d97706; }
+.kanji-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 5px; }
+.kanji-card { background: #fff; border: 1.5px solid var(--b); border-radius: var(--r); aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; transition: all .15s; position: relative; }
+.kanji-card:hover { border-color: var(--blue); box-shadow: 0 0 0 3px var(--blue-l); transform: translateY(-1px); }
+.kanji-card.known { border-color: var(--teal); background: var(--teal-l); }
+.kanji-card.learning { border-color: var(--amber); background: var(--amber-l); }
+.kanji-card.locked { opacity: .35; }
+.kanji-char { font-size: 22px; line-height: 1; }
+.kanji-reading { font-size: 9px; color: var(--ink4); margin-top: 2px; font-family: 'DM Mono', monospace; }
+.kanji-status-dot { position: absolute; top: 4px; right: 4px; width: 5px; height: 5px; border-radius: 50%; }
+.kanji-card.known .kanji-status-dot { background: var(--teal); }
+.kanji-card.learning .kanji-status-dot { background: var(--amber); }
 
-.browser-sidebar { display: flex; flex-direction: column; gap: 16px; }
-.sidebar-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; }
-.sidebar-card-title { font-size: 13px; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
-.progress-ring-wrap { display: flex; align-items: center; gap: 16px; }
-.progress-ring { width: 72px; height: 72px; flex-shrink: 0; }
-.progress-ring circle { fill: none; stroke-width: 8; }
-.progress-ring .track { stroke: var(--border); }
+.browser-sidebar { display: flex; flex-direction: column; gap: 1rem; }
+.sidebar-card { background: #fff; border: 1px solid var(--b); border-radius: var(--r2); padding: 1rem; }
+.sidebar-card-title { font-size: 12px; font-weight: 600; color: var(--ink); margin-bottom: .85rem; display: flex; align-items: center; gap: 6px; }
+.progress-ring-wrap { display: flex; align-items: center; gap: 1rem; }
+.progress-ring { width: 68px; height: 68px; flex-shrink: 0; }
+.progress-ring circle { fill: none; stroke-width: 7; }
+.progress-ring .track { stroke: var(--surface2); }
 .progress-ring .fill { stroke: var(--teal); stroke-dasharray: 188; stroke-dashoffset: 60; stroke-linecap: round; transform: rotate(-90deg); transform-origin: 50% 50%; }
-.ring-stats { }
-.ring-num { font-size: 22px; font-weight: 800; font-family: 'DM Mono', monospace; color: var(--teal); }
-.ring-label { font-size: 11px; color: var(--text3); }
-.ring-sub { font-size: 12px; color: var(--text2); margin-top: 4px; }
+.ring-num { font-size: 20px; font-weight: 700; font-family: 'DM Mono', monospace; color: var(--teal); letter-spacing: -.5px; }
+.ring-label { font-size: 10px; color: var(--ink4); }
+.ring-sub { font-size: 12px; color: var(--ink3); margin-top: 3px; }
 
-.mini-level-list { display: flex; flex-direction: column; gap: 6px; }
+.mini-level-list { display: flex; flex-direction: column; gap: 7px; }
 .mini-level-row { display: flex; align-items: center; gap: 8px; font-size: 12px; }
-.mini-level-label { width: 24px; font-weight: 700; }
-.mini-level-bar-track { flex: 1; height: 6px; background: var(--surface2); border-radius: 3px; overflow: hidden; }
+.mini-level-label { width: 22px; font-weight: 700; font-family: 'DM Mono', monospace; font-size: 11px; }
+.mini-level-bar-track { flex: 1; height: 5px; background: var(--surface2); border-radius: 3px; overflow: hidden; }
 .mini-level-bar-fill { height: 100%; border-radius: 3px; }
-.mini-level-count { width: 36px; text-align: right; color: var(--text2); }
+.mini-level-count { width: 32px; text-align: right; color: var(--ink4); font-size: 11px; font-family: 'DM Mono', monospace; }
 
 .radical-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; }
-.radical-item { background: var(--surface2); border-radius: 6px; padding: 6px 4px; text-align: center; cursor: pointer; font-size: 16px; border: 1.5px solid transparent; }
-.radical-item:hover, .radical-item.selected { border-color: var(--accent); background: var(--accent-soft); }
-.radical-item-label { font-size: 9px; color: var(--text3); margin-top: 1px; }
+.radical-item { background: var(--surface); border-radius: var(--r); padding: 6px 4px; text-align: center; cursor: pointer; font-size: 15px; border: 1.5px solid transparent; transition: all .15s; }
+.radical-item:hover, .radical-item.selected { border-color: var(--blue); background: var(--blue-l); }
+.radical-item-label { font-size: 9px; color: var(--ink4); margin-top: 1px; font-family: 'DM Mono', monospace; }
 
 /* ══════════════════════════════════════════════
    PAGE 2: KANJI DETAIL
 ══════════════════════════════════════════════ */
-.detail-page { display: flex; flex-direction: column; gap: 20px; }
-.detail-breadcrumb { font-size: 13px; color: var(--text3); display: flex; align-items: center; gap: 6px; }
-.detail-breadcrumb a { color: var(--accent); cursor: pointer; }
+.detail-page { display: flex; flex-direction: column; gap: 1.25rem; }
+.detail-breadcrumb { font-size: 12px; color: var(--ink4); display: flex; align-items: center; gap: 6px; }
+.detail-breadcrumb a { color: var(--blue); cursor: pointer; text-decoration: none; }
+.detail-breadcrumb a:hover { text-decoration: underline; }
 
-.detail-hero { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px 28px; display: grid; grid-template-columns: auto 1fr auto; gap: 28px; align-items: center; box-shadow: var(--shadow); }
-.detail-kanji-big { width: 120px; height: 120px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #1a1a2e, #16213e); border-radius: 16px; color: #fff; font-size: 72px; line-height: 1; position: relative; }
-.detail-kanji-big::after { content: ''; position: absolute; inset: 0; border-radius: 16px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.1); }
+.detail-hero { background: #fff; border: 1.5px solid var(--b); border-radius: var(--r3); padding: 1.5rem 1.75rem; display: grid; grid-template-columns: auto 1fr auto; gap: 1.75rem; align-items: center; box-shadow: var(--shadow); }
+.detail-kanji-big { width: 108px; height: 108px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #0D0D0F, #14141a); border-radius: var(--r2); color: #fff; font-size: 64px; line-height: 1; flex-shrink: 0; }
 
-.detail-meta h1 { font-size: 32px; font-weight: 800; margin-bottom: 6px; }
-.detail-meta-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
-.detail-meaning-en { font-size: 16px; font-weight: 600; color: var(--text2); }
-.readings-row { display: flex; gap: 16px; flex-wrap: wrap; }
+.detail-meta h1 { font-size: 26px; font-weight: 700; margin-bottom: 5px; letter-spacing: -.5px; }
+.detail-meta-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+.readings-row { display: flex; gap: 1.25rem; flex-wrap: wrap; }
 .reading-group { }
-.reading-type { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--text3); margin-bottom: 4px; }
+.reading-type { font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--ink4); margin-bottom: 4px; }
 .reading-chips { display: flex; gap: 4px; flex-wrap: wrap; }
-.reading-chip { padding: 4px 10px; border-radius: 6px; font-size: 13px; font-weight: 600; font-family: 'DM Mono', monospace; }
-.reading-chip.on { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
-.reading-chip.kun { background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; }
+.reading-chip { padding: 4px 10px; border-radius: var(--r); font-size: 13px; font-weight: 500; font-family: 'DM Mono', monospace; }
+.reading-chip.on { background: var(--amber-l); color: var(--amber); border: 1px solid rgba(196,125,14,.2); }
+.reading-chip.kun { background: var(--blue-l); color: var(--blue); border: 1px solid rgba(21,101,192,.2); }
 
 .detail-actions { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
 .mastery-bar-wrap { text-align: center; }
-.mastery-label { font-size: 11px; color: var(--text3); margin-bottom: 4px; }
-.mastery-bar { width: 100px; height: 8px; background: var(--surface2); border-radius: 4px; overflow: hidden; margin: 0 auto 4px; }
-.mastery-bar-fill { height: 100%; background: linear-gradient(90deg, var(--teal), #34d399); border-radius: 4px; width: 65%; }
-.mastery-pct { font-size: 12px; font-weight: 700; color: var(--teal); }
+.mastery-label { font-size: 10px; color: var(--ink4); margin-bottom: 4px; font-weight: 500; text-transform: uppercase; letter-spacing: .05em; }
+.mastery-bar { width: 96px; height: 6px; background: var(--surface2); border-radius: 3px; overflow: hidden; margin: 0 auto 4px; }
+.mastery-bar-fill { height: 100%; background: linear-gradient(90deg, var(--teal), #34d399); border-radius: 3px; width: 65%; }
+.mastery-pct { font-size: 13px; font-weight: 700; color: var(--teal); font-family: 'DM Mono', monospace; }
 
-.detail-body { display: grid; grid-template-columns: 1fr 320px; gap: 20px; align-items: start; }
-.detail-main { display: flex; flex-direction: column; gap: 16px; }
+.detail-body { display: grid; grid-template-columns: 1fr 300px; gap: 1.25rem; align-items: start; }
+.detail-main { display: flex; flex-direction: column; gap: 1rem; }
 
-.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow); }
-.card-title { font-size: 14px; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
-.card-title-icon { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+.card { background: #fff; border: 1.5px solid var(--b); border-radius: var(--r3); padding: 1.25rem; box-shadow: var(--shadow); }
+.card-title { font-size: 13px; font-weight: 700; margin-bottom: 1rem; display: flex; align-items: center; gap: 8px; color: var(--ink); }
+.card-title-icon { width: 26px; height: 26px; border-radius: var(--r); display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
 
-.stroke-order-steps { display: flex; gap: 10px; flex-wrap: wrap; }
-.stroke-step { width: 60px; height: 60px; background: var(--surface2); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-direction: column; border: 1.5px solid var(--border); position: relative; cursor: pointer; }
-.stroke-step:hover { border-color: var(--accent); }
-.stroke-step.active { border-color: var(--accent); background: var(--accent-soft); }
-.stroke-step-num { position: absolute; top: 3px; left: 5px; font-size: 9px; font-weight: 700; color: var(--text3); }
-.stroke-step-char { font-size: 28px; }
-.stroke-step-count { font-size: 9px; color: var(--accent); font-weight: 600; margin-top: -2px; }
-.stroke-info { margin-top: 12px; font-size: 12px; color: var(--text2); background: var(--surface2); padding: 8px 12px; border-radius: 8px; }
+.stroke-order-steps { display: flex; gap: 8px; flex-wrap: wrap; }
+.stroke-step { width: 56px; height: 56px; background: var(--surface); border-radius: var(--r); display: flex; align-items: center; justify-content: center; flex-direction: column; border: 1.5px solid var(--b); position: relative; cursor: pointer; transition: all .15s; }
+.stroke-step:hover { border-color: var(--blue); background: var(--blue-l); }
+.stroke-step.active { border-color: var(--teal); background: var(--teal-l); }
+.stroke-step-num { position: absolute; top: 3px; left: 5px; font-size: 8px; font-weight: 600; color: var(--ink4); font-family: 'DM Mono', monospace; }
+.stroke-step-char { font-size: 26px; }
+.stroke-step-count { font-size: 8px; color: var(--teal); font-weight: 600; margin-top: -2px; }
+.stroke-info { margin-top: 10px; font-size: 12px; color: var(--ink3); background: var(--amber-l); padding: 8px 12px; border-radius: var(--r); border-left: 3px solid var(--amber); line-height: 1.5; }
 
 .meanings-list { display: flex; flex-direction: column; gap: 10px; }
 .meaning-row { display: flex; gap: 12px; align-items: flex-start; }
-.meaning-num { width: 22px; height: 22px; border-radius: 50%; background: var(--primary); color: #fff; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
-.meaning-text { font-size: 14px; line-height: 1.5; }
-.meaning-jp { font-size: 13px; color: var(--text2); margin-top: 2px; font-style: italic; }
-.pos-tag { display: inline-flex; align-items: center; padding: 1px 7px; border-radius: 4px; font-size: 10px; font-weight: 600; background: var(--purple-soft); color: var(--purple); margin-right: 4px; }
+.meaning-num { width: 20px; height: 20px; border-radius: 50%; background: var(--ink); color: #fff; font-size: 10px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+.meaning-text { font-size: 14px; line-height: 1.55; color: var(--ink2); }
+.meaning-jp { font-size: 12px; color: var(--ink3); margin-top: 2px; font-style: italic; font-family: 'DM Mono', monospace; }
+.pos-tag { display: inline-flex; align-items: center; padding: 1px 7px; border-radius: 999px; font-size: 10px; font-weight: 500; background: var(--purple-l); color: var(--purple); margin-right: 4px; }
 
-.example-list { display: flex; flex-direction: column; gap: 12px; }
-.example-item { background: var(--surface2); border-radius: var(--radius-sm); padding: 12px 14px; }
-.example-jp { font-size: 16px; margin-bottom: 4px; line-height: 1.6; }
-.example-jp ruby rt { font-size: 10px; color: var(--text3); }
-.example-jp .highlight { color: var(--accent); font-weight: 700; }
-.example-vi { font-size: 13px; color: var(--text2); }
-.example-source { font-size: 11px; color: var(--text3); margin-top: 4px; }
+.example-list { display: flex; flex-direction: column; gap: 10px; }
+.example-item { background: var(--surface); border-radius: var(--r2); padding: 10px 14px; border: 1px solid var(--b); }
+.example-jp { font-size: 15px; margin-bottom: 4px; line-height: 1.7; }
+.example-jp ruby rt { font-size: 9px; color: var(--ink4); }
+.example-jp .highlight { color: var(--blue); font-weight: 600; }
+.example-vi { font-size: 12px; color: var(--ink3); }
+.example-source { font-size: 10px; color: var(--ink4); margin-top: 4px; font-family: 'DM Mono', monospace; }
 
-.compounds-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
-.compound-item { background: var(--surface2); border-radius: var(--radius-sm); padding: 10px 12px; cursor: pointer; border: 1.5px solid transparent; }
-.compound-item:hover { border-color: var(--accent); background: var(--accent-soft); }
-.compound-jp { font-size: 18px; font-weight: 700; }
-.compound-reading { font-size: 12px; color: var(--text3); font-family: 'DM Mono', monospace; }
-.compound-meaning { font-size: 12px; color: var(--text2); margin-top: 2px; }
+.compounds-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; }
+.compound-item { background: var(--surface); border-radius: var(--r2); padding: 10px 12px; cursor: pointer; border: 1.5px solid transparent; transition: all .15s; }
+.compound-item:hover { border-color: var(--blue); background: var(--blue-l); box-shadow: 0 2px 6px rgba(21,101,192,.08); }
+.compound-jp { font-size: 17px; font-weight: 700; color: var(--ink); }
+.compound-reading { font-size: 11px; color: var(--ink4); font-family: 'DM Mono', monospace; }
+.compound-meaning { font-size: 11px; color: var(--ink3); margin-top: 2px; }
 
-.kanji-detail-sidebar { display: flex; flex-direction: column; gap: 16px; }
-.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.info-cell { background: var(--surface2); border-radius: 8px; padding: 10px 12px; }
-.info-cell-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .5px; color: var(--text3); margin-bottom: 4px; }
-.info-cell-value { font-size: 18px; font-weight: 700; }
-.info-cell-value.small { font-size: 13px; }
+.kanji-detail-sidebar { display: flex; flex-direction: column; gap: 1rem; }
+.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.info-cell { background: var(--surface); border-radius: var(--r); padding: 10px 12px; }
+.info-cell-label { font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--ink4); margin-bottom: 4px; }
+.info-cell-value { font-size: 17px; font-weight: 700; color: var(--ink); }
+.info-cell-value.small { font-size: 12px; font-family: 'DM Mono', monospace; }
 
-.similar-list { display: flex; flex-direction: column; gap: 8px; }
-.similar-item { display: flex; align-items: center; gap: 12px; padding: 8px; border-radius: 8px; cursor: pointer; }
-.similar-item:hover { background: var(--surface2); }
-.similar-char { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: var(--surface2); border-radius: 8px; font-size: 22px; }
-.similar-info { }
-.similar-meaning { font-size: 13px; font-weight: 600; }
-.similar-reason { font-size: 11px; color: var(--text3); }
+.similar-list { display: flex; flex-direction: column; gap: 4px; }
+.similar-item { display: flex; align-items: center; gap: 10px; padding: 7px; border-radius: var(--r); cursor: pointer; transition: all .15s; }
+.similar-item:hover { background: var(--surface); }
+.similar-char { width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; background: var(--surface); border-radius: var(--r); font-size: 20px; flex-shrink: 0; border: 1px solid var(--b); }
+.similar-meaning { font-size: 13px; font-weight: 600; color: var(--ink); }
+.similar-reason { font-size: 11px; color: var(--ink4); font-family: 'DM Mono', monospace; }
 
-.study-actions { display: flex; flex-direction: column; gap: 8px; }
-.action-btn-full { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-radius: var(--radius-sm); cursor: pointer; border: 1.5px solid var(--border); background: var(--surface); font-size: 13px; font-weight: 600; transition: all .15s; }
-.action-btn-full:hover { background: var(--surface2); border-color: var(--border2); }
-.action-btn-full.primary { background: var(--primary); border-color: var(--primary); color: #fff; }
-.action-btn-full.primary:hover { background: #2d2d4e; }
-.action-btn-icon { font-size: 18px; }
+.study-actions { display: flex; flex-direction: column; gap: 6px; }
+.action-btn-full { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: var(--r2); cursor: pointer; border: 1.5px solid var(--b); background: #fff; font-size: 13px; font-weight: 500; transition: all .15s; color: var(--ink2); font-family: 'DM Sans', sans-serif; }
+.action-btn-full:hover { background: var(--surface); border-color: var(--b2); }
+.action-btn-full.primary { background: var(--ink); border-color: var(--ink); color: #fff; }
+.action-btn-full.primary:hover { background: #2a2a30; }
+.action-btn-icon { font-size: 16px; }
 
 /* ══════════════════════════════════════════════
    PAGE 3: KANJI WRITING PRACTICE
 ══════════════════════════════════════════════ */
-.writing-page { display: grid; grid-template-columns: 1fr 320px; gap: 20px; align-items: start; }
-.writing-main { display: flex; flex-direction: column; gap: 16px; }
-.writing-target { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; display: flex; align-items: center; gap: 24px; }
-.writing-target-kanji { font-size: 64px; width: 96px; height: 96px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #1a1a2e, #16213e); color: #fff; border-radius: 14px; }
-.writing-target-info h3 { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
-.writing-target-info p { font-size: 13px; color: var(--text2); margin-bottom: 10px; }
-.writing-hints { display: flex; gap: 6px; flex-wrap: wrap; }
-.hint-chip { padding: 3px 10px; background: var(--surface2); border-radius: 99px; font-size: 12px; color: var(--text2); border: 1px solid var(--border); }
+.writing-page { display: grid; grid-template-columns: 1fr 300px; gap: 1.25rem; align-items: start; }
+.writing-main { display: flex; flex-direction: column; gap: 1rem; }
+.writing-target { background: #fff; border: 1.5px solid var(--b); border-radius: var(--r2); padding: 1.25rem; display: flex; align-items: center; gap: 1.5rem; box-shadow: var(--shadow); }
+.writing-target-kanji { font-size: 56px; width: 88px; height: 88px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #0D0D0F, #14141a); color: #fff; border-radius: var(--r2); flex-shrink: 0; }
+.writing-target-info h3 { font-size: 18px; font-weight: 700; margin-bottom: 4px; letter-spacing: -.3px; }
+.writing-target-info p { font-size: 12px; color: var(--ink3); margin-bottom: 10px; font-family: 'DM Mono', monospace; }
+.writing-hints { display: flex; gap: 5px; flex-wrap: wrap; }
+.hint-chip { padding: 3px 10px; background: var(--surface); border-radius: 999px; font-size: 11px; color: var(--ink3); border: 1px solid var(--b); font-family: 'DM Mono', monospace; }
 
-.canvas-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
-.canvas-toolbar { padding: 12px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
-.canvas-tool { width: 34px; height: 34px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; cursor: pointer; border: 1.5px solid var(--border); background: var(--surface); }
-.canvas-tool:hover { background: var(--surface2); }
-.canvas-tool.active { border-color: var(--accent); background: var(--accent-soft); }
-.canvas-toolbar-sep { width: 1px; height: 24px; background: var(--border); margin: 0 4px; }
+.canvas-wrap { background: #fff; border: 1.5px solid var(--b); border-radius: var(--r2); overflow: hidden; box-shadow: var(--shadow); }
+.canvas-toolbar { padding: 10px 14px; border-bottom: 1px solid var(--b); display: flex; align-items: center; gap: 6px; }
+.canvas-tool { width: 32px; height: 32px; border-radius: var(--r); display: flex; align-items: center; justify-content: center; font-size: 14px; cursor: pointer; border: 1.5px solid var(--b); background: var(--surface); transition: all .15s; }
+.canvas-tool:hover { background: var(--surface2); border-color: var(--b2); }
+.canvas-tool.active { border-color: var(--blue); background: var(--blue-l); }
+.canvas-toolbar-sep { width: 1px; height: 20px; background: var(--b2); margin: 0 2px; }
 .stroke-mode-group { display: flex; gap: 4px; margin-left: auto; }
-.stroke-mode-btn { padding: 5px 12px; border-radius: 6px; font-size: 12px; font-weight: 500; border: 1.5px solid var(--border); background: var(--surface); cursor: pointer; }
-.stroke-mode-btn.active { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
-.canvas-area { position: relative; background: #fffef7; min-height: 360px; }
-.canvas-grid { position: absolute; inset: 0; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }
-.canvas-grid-line-h { position: absolute; top: 50%; left: 0; right: 0; height: 1px; background: rgba(0,0,0,.08); }
-.canvas-grid-line-v { position: absolute; top: 0; bottom: 0; left: 50%; width: 1px; background: rgba(0,0,0,.08); }
-.canvas-grid-diag1 { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to bottom right, transparent calc(50% - .5px), rgba(0,0,0,.05) calc(50% - .5px), rgba(0,0,0,.05) calc(50% + .5px), transparent calc(50% + .5px)); }
-.canvas-ghost-kanji { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 240px; color: rgba(0,0,0,.04); pointer-events: none; }
-.canvas-stroke-indicator { position: absolute; bottom: 16px; right: 16px; background: rgba(0,0,0,.7); color: #fff; padding: 6px 12px; border-radius: 8px; font-size: 13px; font-weight: 600; }
-.stroke-guide-demo { position: absolute; top: 24px; left: 24px; }
-.stroke-arrow { position: absolute; width: 50px; height: 3px; background: var(--accent); border-radius: 2px; transform: rotate(45deg); }
-.stroke-arrow::after { content: ''; position: absolute; right: -4px; top: -5px; border: 6px solid transparent; border-left-color: var(--accent); }
-.canvas-action-bar { padding: 12px 16px; border-top: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
-.stroke-counter { font-size: 13px; color: var(--text2); margin-right: auto; }
-.stroke-counter strong { color: var(--text); }
+.stroke-mode-btn { padding: 5px 12px; border-radius: var(--r); font-size: 12px; font-weight: 500; border: 1.5px solid var(--b2); background: var(--surface); cursor: pointer; color: var(--ink3); transition: all .15s; font-family: 'DM Sans', sans-serif; }
+.stroke-mode-btn.active { border-color: var(--blue); background: var(--blue-l); color: var(--blue); }
+.canvas-area { position: relative; background: #fffef7; min-height: 340px; }
+.canvas-grid-line-h { position: absolute; top: 50%; left: 0; right: 0; height: 1px; background: rgba(0,0,0,.07); }
+.canvas-grid-line-v { position: absolute; top: 0; bottom: 0; left: 50%; width: 1px; background: rgba(0,0,0,.07); }
+.canvas-grid-diag1 { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to bottom right, transparent calc(50% - .5px), rgba(0,0,0,.04) calc(50% - .5px), rgba(0,0,0,.04) calc(50% + .5px), transparent calc(50% + .5px)); }
+.canvas-ghost-kanji { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 220px; color: rgba(0,0,0,.04); pointer-events: none; }
+.canvas-stroke-indicator { position: absolute; bottom: 14px; right: 14px; background: var(--ink); color: #fff; padding: 5px 12px; border-radius: var(--r); font-size: 12px; font-weight: 500; font-family: 'DM Mono', monospace; }
+.canvas-action-bar { padding: 10px 14px; border-top: 1px solid var(--b); display: flex; align-items: center; gap: 8px; background: var(--surface); }
+.stroke-counter { font-size: 12px; color: var(--ink3); margin-right: auto; font-family: 'DM Mono', monospace; }
+.stroke-counter strong { color: var(--ink); }
 
-.feedback-panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; }
+.feedback-panel { background: #fff; border: 1.5px solid var(--b); border-radius: var(--r2); padding: 1rem 1.25rem; box-shadow: var(--shadow); }
 .feedback-score { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
-.feedback-score-num { font-size: 40px; font-weight: 800; color: var(--teal); font-family: 'DM Mono', monospace; }
-.feedback-score-detail { }
-.feedback-score-label { font-size: 11px; color: var(--text3); }
-.feedback-score-stars { font-size: 20px; }
-.feedback-criteria { display: flex; flex-direction: column; gap: 6px; }
+.feedback-score-num { font-size: 36px; font-weight: 700; color: var(--teal); font-family: 'DM Mono', monospace; letter-spacing: -1px; }
+.feedback-score-label { font-size: 10px; color: var(--ink4); font-weight: 500; text-transform: uppercase; letter-spacing: .05em; }
+.feedback-score-stars { font-size: 18px; margin-top: 2px; }
+.feedback-criteria { display: flex; flex-direction: column; gap: 7px; }
 .feedback-row { display: flex; align-items: center; gap: 8px; font-size: 12px; }
-.feedback-row-label { width: 80px; color: var(--text2); }
-.feedback-row-bar { flex: 1; height: 6px; background: var(--surface2); border-radius: 3px; overflow: hidden; }
+.feedback-row-label { width: 100px; color: var(--ink3); }
+.feedback-row-bar { flex: 1; height: 5px; background: var(--surface2); border-radius: 3px; overflow: hidden; }
 .feedback-row-fill { height: 100%; border-radius: 3px; }
-.feedback-row-score { width: 32px; text-align: right; font-weight: 600; font-size: 12px; }
+.feedback-row-score { width: 32px; text-align: right; font-weight: 600; font-size: 12px; font-family: 'DM Mono', monospace; }
 
-.writing-sidebar { display: flex; flex-direction: column; gap: 16px; }
-.progress-list { display: flex; flex-direction: column; gap: 6px; }
-.progress-item { display: flex; align-items: center; gap: 8px; padding: 6px 8px; border-radius: 6px; cursor: pointer; }
-.progress-item:hover { background: var(--surface2); }
-.progress-item.current { background: var(--accent-soft); }
-.progress-item-char { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 20px; border-radius: 8px; background: var(--surface2); }
-.progress-item.done .progress-item-char { background: var(--teal-soft); }
-.progress-item.current .progress-item-char { background: var(--accent-soft); border: 2px solid var(--accent); }
-.progress-item-info { }
-.progress-item-name { font-size: 13px; font-weight: 600; }
-.progress-item-sub { font-size: 11px; color: var(--text3); }
-.progress-item-tick { margin-left: auto; color: var(--teal); font-size: 16px; }
+.writing-sidebar { display: flex; flex-direction: column; gap: 1rem; }
+.progress-list { display: flex; flex-direction: column; gap: 4px; }
+.progress-item { display: flex; align-items: center; gap: 8px; padding: 6px 8px; border-radius: var(--r); cursor: pointer; transition: all .15s; }
+.progress-item:hover { background: var(--surface); }
+.progress-item.current { background: var(--blue-l); }
+.progress-item-char { width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; font-size: 18px; border-radius: var(--r); background: var(--surface); border: 1px solid var(--b); flex-shrink: 0; }
+.progress-item.done .progress-item-char { background: var(--teal-l); border-color: var(--teal); }
+.progress-item.current .progress-item-char { background: var(--blue-l); border-color: var(--blue); }
+.progress-item-name { font-size: 12px; font-weight: 600; color: var(--ink); }
+.progress-item-sub { font-size: 10px; color: var(--ink4); font-family: 'DM Mono', monospace; }
+.progress-item-tick { margin-left: auto; color: var(--teal); font-size: 14px; }
 
-.stroke-order-ref { }
-.stroke-order-ref-steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
-.ref-step { background: var(--surface2); border-radius: 6px; padding: 6px; text-align: center; }
-.ref-step-char { font-size: 20px; }
-.ref-step-num { font-size: 10px; color: var(--text3); }
+.stroke-order-ref-steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; }
+.ref-step { background: var(--surface); border-radius: var(--r); padding: 6px; text-align: center; border: 1px solid var(--b); }
+.ref-step-char { font-size: 18px; }
+.ref-step-num { font-size: 9px; color: var(--ink4); font-family: 'DM Mono', monospace; }
 
 /* ══════════════════════════════════════════════
    PAGE 4: KANJI QUIZ
 ══════════════════════════════════════════════ */
-.quiz-page { display: flex; flex-direction: column; gap: 20px; max-width: 720px; margin: 0 auto; }
+.quiz-page { display: flex; flex-direction: column; gap: 1.25rem; max-width: 680px; margin: 0 auto; }
 .quiz-topbar { display: flex; align-items: center; gap: 12px; }
-.quiz-progress-bar { flex: 1; height: 8px; background: var(--surface2); border-radius: 4px; overflow: hidden; }
-.quiz-progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--teal)); border-radius: 4px; width: 45%; }
-.quiz-counter { font-size: 13px; font-weight: 600; color: var(--text2); white-space: nowrap; }
+.quiz-progress-bar { flex: 1; height: 6px; background: var(--surface2); border-radius: 3px; overflow: hidden; }
+.quiz-progress-fill { height: 100%; background: linear-gradient(90deg, var(--blue), var(--teal)); border-radius: 3px; width: 45%; }
+.quiz-counter { font-size: 12px; font-weight: 600; color: var(--ink3); white-space: nowrap; font-family: 'DM Mono', monospace; }
 .quiz-lives { display: flex; gap: 4px; }
-.life { font-size: 18px; }
+.life { font-size: 16px; }
 .life.lost { filter: grayscale(1) opacity(.3); }
 
-.quiz-type-tabs { display: flex; gap: 4px; background: var(--surface2); padding: 4px; border-radius: var(--radius-sm); width: fit-content; }
-.quiz-tab { padding: 6px 16px; border-radius: 6px; font-size: 13px; font-weight: 500; cursor: pointer; color: var(--text2); }
-.quiz-tab.active { background: var(--surface); color: var(--text); box-shadow: 0 1px 3px rgba(0,0,0,.1); }
+.quiz-type-tabs { display: flex; gap: 3px; background: var(--surface); padding: 3px; border-radius: var(--r2); width: fit-content; border: 1px solid var(--b); }
+.quiz-tab { padding: 6px 14px; border-radius: var(--r); font-size: 12px; font-weight: 500; cursor: pointer; color: var(--ink3); transition: all .15s; }
+.quiz-tab.active { background: #fff; color: var(--ink); box-shadow: 0 1px 3px rgba(0,0,0,.08); }
 
-/* Q-TYPE A: Reading recognition */
-.quiz-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; box-shadow: var(--shadow-md); }
-.quiz-question-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--text3); margin-bottom: 20px; text-align: center; }
-.quiz-kanji-display { font-size: 96px; text-align: center; margin: 16px 0 24px; line-height: 1; }
-.quiz-context-sentence { text-align: center; font-size: 16px; color: var(--text2); margin-bottom: 28px; }
-.quiz-context-sentence .blank { display: inline-block; width: 48px; height: 2px; background: var(--text); vertical-align: middle; margin: 0 4px; position: relative; }
-.quiz-context-sentence .blank::after { content: '___'; position: absolute; left: 0; top: -6px; color: var(--text); font-size: 16px; }
-.quiz-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.quiz-option { padding: 14px 18px; border-radius: var(--radius-sm); border: 2px solid var(--border); background: var(--surface); cursor: pointer; text-align: center; font-size: 15px; font-weight: 600; transition: all .15s; }
-.quiz-option:hover { border-color: var(--accent); background: var(--accent-soft); }
-.quiz-option.correct { border-color: var(--green); background: var(--green-soft); color: var(--green); }
-.quiz-option.wrong { border-color: var(--red); background: var(--red-soft); color: var(--red); }
-.quiz-option .option-reading { display: block; font-size: 12px; font-weight: 400; color: var(--text3); margin-top: 2px; }
-.quiz-option.correct .option-reading { color: var(--green); }
+.quiz-card { background: #fff; border: 1.5px solid var(--b); border-radius: var(--r3); padding: 2rem; box-shadow: var(--shadow-md); }
+.quiz-question-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; color: var(--ink4); margin-bottom: 1.25rem; text-align: center; }
+.quiz-kanji-display { font-size: 88px; text-align: center; margin: 1rem 0 1.5rem; line-height: 1; }
+.quiz-context-sentence { text-align: center; font-size: 15px; color: var(--ink3); margin-bottom: 1.75rem; line-height: 1.7; }
+.quiz-options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.quiz-option { padding: 13px 16px; border-radius: var(--r2); border: 2px solid var(--b2); background: #fff; cursor: pointer; text-align: center; font-size: 15px; font-weight: 600; transition: all .15s; font-family: 'DM Mono', monospace; color: var(--ink); }
+.quiz-option:hover { border-color: var(--blue); background: var(--blue-l); }
+.quiz-option.correct { border-color: var(--teal); background: var(--teal-l); color: var(--teal); }
+.quiz-option.wrong { border-color: var(--red); background: var(--red-l); color: var(--red); }
+.quiz-option .option-reading { display: block; font-size: 11px; font-weight: 400; color: var(--ink4); margin-top: 2px; }
+.quiz-option.correct .option-reading { color: var(--teal); }
+.quiz-option.wrong .option-reading { color: var(--red); }
 
-.quiz-result-bar { border-radius: var(--radius-sm); padding: 14px 16px; display: flex; align-items: flex-start; gap: 12px; }
-.quiz-result-bar.correct-bar { background: var(--green-soft); border: 1.5px solid #86efac; }
-.quiz-result-bar.wrong-bar { background: var(--red-soft); border: 1.5px solid #fca5a5; }
-.result-icon { font-size: 20px; }
-.result-text h4 { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
-.result-text p { font-size: 13px; color: var(--text2); line-height: 1.5; }
-.result-mnemonic { font-size: 12px; background: rgba(0,0,0,.05); border-radius: 6px; padding: 6px 10px; margin-top: 6px; font-style: italic; }
+.quiz-result-bar { border-radius: var(--r2); padding: 12px 14px; display: flex; align-items: flex-start; gap: 10px; margin-top: 1rem; }
+.quiz-result-bar.correct-bar { background: var(--teal-l); border: 1.5px solid rgba(15,138,114,.3); }
+.quiz-result-bar.wrong-bar { background: var(--red-l); border: 1.5px solid var(--red-m); }
+.result-icon { font-size: 18px; flex-shrink: 0; }
+.result-text h4 { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+.result-text p { font-size: 12px; color: var(--ink3); line-height: 1.5; }
+.result-mnemonic { font-size: 11px; background: rgba(0,0,0,.04); border-radius: var(--r); padding: 5px 9px; margin-top: 6px; font-style: italic; color: var(--ink2); }
 
-/* Q-TYPE B: Writing quiz */
-.writing-quiz-display { text-align: center; margin: 16px 0; }
-.writing-quiz-meaning { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
-.writing-quiz-hint { font-size: 14px; color: var(--text2); }
-.writing-quiz-hint .reading-hint { color: var(--accent); font-family: 'DM Mono', monospace; font-weight: 600; }
-.mini-canvas { background: #fffef7; border: 2px solid var(--border); border-radius: var(--radius-sm); width: 200px; height: 200px; margin: 16px auto; position: relative; }
-.mini-canvas-grid-h { position: absolute; top: 50%; left: 0; right: 0; height: 1px; background: rgba(0,0,0,.1); }
-.mini-canvas-grid-v { position: absolute; top: 0; bottom: 0; left: 50%; width: 1px; background: rgba(0,0,0,.1); }
+.writing-quiz-display { text-align: center; margin: 1rem 0; }
+.writing-quiz-meaning { font-size: 26px; font-weight: 700; margin-bottom: 6px; color: var(--ink); }
+.writing-quiz-hint { font-size: 13px; color: var(--ink3); }
+.writing-quiz-hint .reading-hint { color: var(--blue); font-family: 'DM Mono', monospace; font-weight: 500; }
+.mini-canvas { background: #fffef7; border: 2px solid var(--b2); border-radius: var(--r2); width: 200px; height: 200px; margin: 1rem auto; position: relative; }
+.mini-canvas-grid-h { position: absolute; top: 50%; left: 0; right: 0; height: 1px; background: rgba(0,0,0,.08); }
+.mini-canvas-grid-v { position: absolute; top: 0; bottom: 0; left: 50%; width: 1px; background: rgba(0,0,0,.08); }
 .mini-canvas-drawing { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
-.mini-canvas-stroke { font-size: 120px; opacity: .8; }
-.mini-canvas-overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(22,163,74,.1); border-radius: var(--radius-sm); }
-.mini-canvas-check { font-size: 48px; }
+.mini-canvas-stroke { font-size: 110px; opacity: .85; }
+.mini-canvas-overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(15,138,114,.08); border-radius: var(--r2); }
+.mini-canvas-check { font-size: 44px; }
 .writing-quiz-btns { display: flex; gap: 8px; justify-content: center; }
 
-/* Summary modal */
-.quiz-summary { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; text-align: center; box-shadow: var(--shadow-md); }
-.summary-badge { width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, var(--amber), #f59e0b); display: flex; align-items: center; justify-content: center; font-size: 36px; margin: 0 auto 16px; }
-.summary-title { font-size: 22px; font-weight: 800; margin-bottom: 6px; }
-.summary-subtitle { font-size: 14px; color: var(--text2); margin-bottom: 24px; }
-.summary-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px; }
-.summary-stat { background: var(--surface2); border-radius: var(--radius-sm); padding: 12px; }
-.summary-stat-num { font-size: 24px; font-weight: 800; font-family: 'DM Mono', monospace; }
-.summary-stat-label { font-size: 11px; color: var(--text3); margin-top: 2px; }
-.summary-mistakes { text-align: left; margin-bottom: 20px; }
-.mistake-row { display: flex; align-items: center; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--border); }
-.mistake-char { font-size: 28px; width: 36px; }
-.mistake-info { flex: 1; font-size: 13px; }
-.mistake-info strong { display: block; }
-.mistake-again { font-size: 11px; color: var(--red); }
-.summary-actions { display: flex; gap: 10px; justify-content: center; }
+.quiz-summary { background: #fff; border: 1.5px solid var(--b); border-radius: var(--r3); padding: 2rem; text-align: center; box-shadow: var(--shadow-md); }
+.summary-badge { width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg, var(--amber), #f59e0b); display: flex; align-items: center; justify-content: center; font-size: 32px; margin: 0 auto 1rem; }
+.summary-title { font-size: 20px; font-weight: 700; margin-bottom: 5px; letter-spacing: -.3px; }
+.summary-subtitle { font-size: 13px; color: var(--ink3); margin-bottom: 1.5rem; }
+.summary-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 1.5rem; }
+.summary-stat { background: var(--surface); border-radius: var(--r2); padding: 12px; }
+.summary-stat-num { font-size: 22px; font-weight: 700; font-family: 'DM Mono', monospace; }
+.summary-stat-label { font-size: 10px; color: var(--ink4); margin-top: 2px; font-weight: 500; text-transform: uppercase; letter-spacing: .05em; }
+.summary-mistakes { text-align: left; margin-bottom: 1.25rem; }
+.mistake-row { display: flex; align-items: center; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--b); }
+.mistake-char { font-size: 26px; width: 34px; flex-shrink: 0; }
+.mistake-info { flex: 1; font-size: 12px; color: var(--ink3); }
+.mistake-info strong { display: block; color: var(--ink2); margin-bottom: 2px; }
+.mistake-again { font-size: 10px; color: var(--red); font-weight: 600; font-family: 'DM Mono', monospace; white-space: nowrap; }
+.summary-actions { display: flex; gap: 8px; justify-content: center; }
 
-/* ── PAGE DIVIDERS ── */
-.page-divider { border: none; height: 3px; background: linear-gradient(90deg, var(--accent) 0%, var(--teal) 50%, transparent 100%); border-radius: 2px; margin: 40px 0; }
-.page-section-title { font-size: 18px; font-weight: 800; display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
-.page-section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-.page-tag { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; background: var(--primary); color: #fff; }
+/* ── LUCIDE ICONS ── */
+[data-lucide] { display: inline-block; vertical-align: middle; flex-shrink: 0; }
+.nav-icon [data-lucide] { width: 15px; height: 15px; stroke-width: 1.75; }
+.sidebar-card-title [data-lucide] { width: 13px; height: 13px; }
+.card-title-icon [data-lucide] { width: 13px; height: 13px; }
+.canvas-tool [data-lucide] { width: 16px; height: 16px; }
+.btn [data-lucide] { width: 13px; height: 13px; }
+.action-btn-icon [data-lucide] { width: 16px; height: 16px; }
+.filter-search-icon [data-lucide] { width: 14px; height: 14px; }
+.progress-item-tick [data-lucide] { width: 14px; height: 14px; }
+.stroke-counter [data-lucide] { width: 13px; height: 13px; }
+.hint-chip [data-lucide] { width: 11px; height: 11px; }
+.quiz-lives .life [data-lucide] { width: 18px; height: 18px; fill: var(--red); color: var(--red); }
+.quiz-lives .life.lost [data-lucide] { fill: var(--ink4); color: var(--ink4); }
+.result-icon [data-lucide] { width: 18px; height: 18px; }
+.summary-badge [data-lucide] { width: 36px; height: 36px; color: #fff; }
+.detail-meta-row [data-lucide] { width: 13px; height: 13px; }
+.writing-target-info [data-lucide] { width: 12px; height: 12px; }
+.feedback-score [data-lucide] { width: 14px; height: 14px; }
 </style>
 </head>
 <body>
 <div class="app-shell">
-  <!-- SIDEBAR -->
+
+  <!-- ── SIDEBAR ── -->
   <nav class="sidebar">
-    <div class="sidebar-logo">日<span>Nihongo</span></div>
-    <div class="nav-section">Học</div>
-    <a class="nav-item" href="#"><span class="nav-icon">📚</span> Flashcard SRS</a>
-    <a class="nav-item" href="#"><span class="nav-icon">📖</span> Đọc hiểu</a>
-    <a class="nav-item" href="#"><span class="nav-icon">🎧</span> Nghe hiểu</a>
-    <a class="nav-item active" href="#"><span class="nav-icon">字</span> Kanji</a>
-    <a class="nav-item" href="#"><span class="nav-icon">あ</span> Kana</a>
-    <a class="nav-item" href="#"><span class="nav-icon">🎬</span> Video</a>
+    <div class="sidebar-logo">
+      <div class="logo-mark"><span>日</span></div>
+      <span class="logo-name">Nihongo</span>
+    </div>
+    <div class="nav-section">Học tập</div>
+    <a class="nav-item" href="#"><span class="nav-icon"><i data-lucide="layout-grid"></i></span> Flashcard SRS</a>
+    <a class="nav-item" href="#"><span class="nav-icon"><i data-lucide="book-open"></i></span> Đọc hiểu</a>
+    <a class="nav-item" href="#"><span class="nav-icon"><i data-lucide="headphones"></i></span> Nghe hiểu</a>
+    <a class="nav-item active" href="#"><span class="nav-icon" style="font-size:13px;font-weight:700">字</span> Kanji</a>
+    <a class="nav-item" href="#"><span class="nav-icon" style="font-size:13px;font-weight:700">あ</span> Kana</a>
+    <a class="nav-item" href="#"><span class="nav-icon"><i data-lucide="film"></i></span> Video</a>
     <div class="nav-section">Công cụ</div>
-    <a class="nav-item" href="#"><span class="nav-icon">🔍</span> Từ điển</a>
-    <a class="nav-item" href="#"><span class="nav-icon">📝</span> Kho câu</a>
-    <a class="nav-item" href="#"><span class="nav-icon">📊</span> Lộ trình</a>
+    <a class="nav-item" href="#"><span class="nav-icon"><i data-lucide="search"></i></span> Từ điển</a>
+    <a class="nav-item" href="#"><span class="nav-icon"><i data-lucide="file-text"></i></span> Kho câu</a>
+    <a class="nav-item" href="#"><span class="nav-icon"><i data-lucide="bar-chart-2"></i></span> Lộ trình</a>
     <div class="nav-section">Cộng đồng</div>
-    <a class="nav-item" href="#"><span class="nav-icon">🏆</span> Leaderboard</a>
-    <a class="nav-item" href="#"><span class="nav-icon">👥</span> Study Buddy</a>
-    <a class="nav-item" href="#"><span class="nav-icon">🏅</span> Thành tích</a>
+    <a class="nav-item" href="#"><span class="nav-icon"><i data-lucide="trophy"></i></span> Leaderboard</a>
+    <a class="nav-item" href="#"><span class="nav-icon"><i data-lucide="users"></i></span> Study Buddy</a>
+    <a class="nav-item" href="#"><span class="nav-icon"><i data-lucide="award"></i></span> Thành tích</a>
   </nav>
 
-  <!-- MAIN -->
+  <!-- ── MAIN ── -->
   <div class="main">
     <div class="topbar">
       <span class="topbar-title">字 Kanji</span>
       <div class="topbar-actions">
-        <button class="btn btn-secondary btn-sm">📥 Import list</button>
-        <button class="btn btn-primary btn-sm">▶ Luyện tập ngay</button>
+        <button class="btn btn-secondary btn-sm"><i data-lucide="download"></i> Import list</button>
+        <button class="btn btn-primary btn-sm"><i data-lucide="play"></i> Luyện tập ngay</button>
       </div>
     </div>
 
@@ -427,6 +440,7 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
       ═══════════════════════════════════════ -->
       <div class="page-section-title"><span class="page-tag">Trang 1</span> Kanji Browser — Duyệt &amp; tìm kiếm</div>
       <div class="browser-page">
+
         <!-- Hero -->
         <div class="browser-hero">
           <div class="hero-text">
@@ -483,15 +497,14 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
             </div>
           </div>
           <div class="filter-search">
-            <span class="filter-search-icon">🔍</span>
+            <span class="filter-search-icon"><i data-lucide="search"></i></span>
             <input type="text" placeholder="Tìm kanji, nghĩa...">
           </div>
         </div>
 
-        <!-- Body grid + sidebar -->
+        <!-- Body -->
         <div class="browser-body">
           <div class="kanji-grid-wrap">
-            <!-- N4 Group -->
             <div class="group-header">
               <span class="badge badge-n4">N4</span>
               <span class="group-title">166 kanji</span>
@@ -523,16 +536,16 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
             </div>
           </div>
 
-          <!-- Sidebar -->
+          <!-- Browser sidebar -->
           <div class="browser-sidebar">
             <div class="sidebar-card">
-              <div class="sidebar-card-title">📊 Tiến độ tổng</div>
+              <div class="sidebar-card-title"><i data-lucide="bar-chart-2"></i> Tiến độ tổng</div>
               <div class="progress-ring-wrap">
                 <svg class="progress-ring" viewBox="0 0 80 80">
                   <circle class="track" cx="40" cy="40" r="30"/>
                   <circle class="fill" cx="40" cy="40" r="30"/>
                 </svg>
-                <div class="ring-stats">
+                <div>
                   <div class="ring-num">312</div>
                   <div class="ring-label">/ 2136 Jōyō</div>
                   <div class="ring-sub">≈ 14.6% hoàn thành</div>
@@ -541,39 +554,39 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
             </div>
 
             <div class="sidebar-card">
-              <div class="sidebar-card-title">🎯 Theo cấp độ</div>
+              <div class="sidebar-card-title"><i data-lucide="target"></i> Theo cấp độ</div>
               <div class="mini-level-list">
                 <div class="mini-level-row">
-                  <span class="mini-level-label" style="color:var(--n5b)">N5</span>
-                  <div class="mini-level-bar-track"><div class="mini-level-bar-fill" style="width:88%;background:#4ade80"></div></div>
+                  <span class="mini-level-label" style="color:#0F8A72">N5</span>
+                  <div class="mini-level-bar-track"><div class="mini-level-bar-fill" style="width:88%;background:#0F8A72"></div></div>
                   <span class="mini-level-count">88%</span>
                 </div>
                 <div class="mini-level-row">
-                  <span class="mini-level-label" style="color:var(--n4b)">N4</span>
-                  <div class="mini-level-bar-track"><div class="mini-level-bar-fill" style="width:54%;background:#60a5fa"></div></div>
+                  <span class="mini-level-label" style="color:#1565C0">N4</span>
+                  <div class="mini-level-bar-track"><div class="mini-level-bar-fill" style="width:54%;background:#1565C0"></div></div>
                   <span class="mini-level-count">54%</span>
                 </div>
                 <div class="mini-level-row">
-                  <span class="mini-level-label" style="color:var(--n3b)">N3</span>
-                  <div class="mini-level-bar-track"><div class="mini-level-bar-fill" style="width:22%;background:#a78bfa"></div></div>
+                  <span class="mini-level-label" style="color:#C47D0E">N3</span>
+                  <div class="mini-level-bar-track"><div class="mini-level-bar-fill" style="width:22%;background:#C47D0E"></div></div>
                   <span class="mini-level-count">22%</span>
                 </div>
                 <div class="mini-level-row">
-                  <span class="mini-level-label" style="color:var(--n2b)">N2</span>
-                  <div class="mini-level-bar-track"><div class="mini-level-bar-fill" style="width:8%;background:#fb923c"></div></div>
+                  <span class="mini-level-label" style="color:#E8334A">N2</span>
+                  <div class="mini-level-bar-track"><div class="mini-level-bar-fill" style="width:8%;background:#E8334A"></div></div>
                   <span class="mini-level-count">8%</span>
                 </div>
                 <div class="mini-level-row">
-                  <span class="mini-level-label" style="color:var(--n1b)">N1</span>
-                  <div class="mini-level-bar-track"><div class="mini-level-bar-fill" style="width:2%;background:#f87171"></div></div>
+                  <span class="mini-level-label" style="color:#0D0D0F">N1</span>
+                  <div class="mini-level-bar-track"><div class="mini-level-bar-fill" style="width:2%;background:#0D0D0F"></div></div>
                   <span class="mini-level-count">2%</span>
                 </div>
               </div>
             </div>
 
             <div class="sidebar-card">
-              <div class="sidebar-card-title">⊞ Lọc theo bộ thủ</div>
-              <div class="section-label" style="margin-bottom:8px">Bộ thủ phổ biến</div>
+              <div class="sidebar-card-title"><i data-lucide="grid-2x2"></i> Lọc theo bộ thủ</div>
+              <div class="section-label" style="margin-bottom:6px">Bộ thủ phổ biến</div>
               <div class="radical-grid">
                 <div class="radical-item selected"><div>人</div><div class="radical-item-label">người</div></div>
                 <div class="radical-item"><div>水</div><div class="radical-item-label">nước</div></div>
@@ -599,10 +612,9 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
       <div class="page-section-title"><span class="page-tag">Trang 2</span> Kanji Detail — Trang chi tiết</div>
       <div class="detail-page">
         <div class="detail-breadcrumb">
-          <a>字 Kanji</a> › <a>N4</a> › <strong style="color:var(--text)">語</strong>
+          <a>字 Kanji</a> ›  <a>N4</a> › <strong style="color:var(--ink)">語</strong>
         </div>
 
-        <!-- Hero card -->
         <div class="detail-hero">
           <div class="detail-kanji-big">語</div>
           <div class="detail-meta">
@@ -636,18 +648,17 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
               <div class="mastery-bar"><div class="mastery-bar-fill"></div></div>
               <div class="mastery-pct">65%</div>
             </div>
-            <button class="btn btn-primary btn-sm">✏️ Luyện viết</button>
-            <button class="btn btn-secondary btn-sm">📚 Thêm vào deck</button>
+            <button class="btn btn-primary btn-sm"><i data-lucide="pen-line"></i> Luyện viết</button>
+            <button class="btn btn-secondary btn-sm"><i data-lucide="book-open"></i> Thêm vào deck</button>
           </div>
         </div>
 
-        <!-- Body -->
         <div class="detail-body">
           <div class="detail-main">
             <!-- Stroke order -->
             <div class="card">
               <div class="card-title">
-                <div class="card-title-icon" style="background:#fef3c7">✍️</div>
+                <div class="card-title-icon" style="background:var(--amber-l)"><i data-lucide="pen-line" style="color:var(--amber)"></i></div>
                 Thứ tự nét — 14 nét
               </div>
               <div class="stroke-order-steps">
@@ -666,13 +677,13 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
                 <div class="stroke-step"><span class="stroke-step-num">13</span><div class="stroke-step-char">語</div></div>
                 <div class="stroke-step"><span class="stroke-step-num">14</span><div class="stroke-step-char">語</div></div>
               </div>
-              <div class="stroke-info">💡 Bộ <strong>言</strong> (ngôn) viết trước, sau đó thêm phần <strong>吾</strong> bên phải. Nét cuối là nét ngang dài.</div>
+              <div class="stroke-info"><i data-lucide="lightbulb" style="width:12px;height:12px;color:var(--amber)"></i> Bộ <strong>言</strong> (ngôn) viết trước, sau đó thêm phần <strong>吾</strong> bên phải. Nét cuối là nét ngang dài.</div>
             </div>
 
             <!-- Meanings -->
             <div class="card">
               <div class="card-title">
-                <div class="card-title-icon" style="background:#ede9fe">📖</div>
+                <div class="card-title-icon" style="background:var(--purple-l)"><i data-lucide="book" style="color:var(--purple)"></i></div>
                 Nghĩa &amp; Cách dùng
               </div>
               <div class="meanings-list">
@@ -703,7 +714,7 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
             <!-- Examples -->
             <div class="card">
               <div class="card-title">
-                <div class="card-title-icon" style="background:#f0fdf4">💬</div>
+                <div class="card-title-icon" style="background:var(--teal-l)"><i data-lucide="message-circle" style="color:var(--teal)"></i></div>
                 Ví dụ trong câu
               </div>
               <div class="example-list">
@@ -728,7 +739,7 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
             <!-- Compounds -->
             <div class="card">
               <div class="card-title">
-                <div class="card-title-icon" style="background:#fff7ed">🔤</div>
+                <div class="card-title-icon" style="background:var(--amber-l)"><i data-lucide="type" style="color:var(--amber)"></i></div>
                 Từ ghép — Jukugo
               </div>
               <div class="compounds-grid">
@@ -739,73 +750,65 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
                 <div class="compound-item"><div class="compound-jp">語学</div><div class="compound-reading">ごがく</div><div class="compound-meaning">Ngữ học</div></div>
                 <div class="compound-item"><div class="compound-jp">物語</div><div class="compound-reading">ものがたり</div><div class="compound-meaning">Câu chuyện</div></div>
                 <div class="compound-item"><div class="compound-jp">語る</div><div class="compound-reading">かたる</div><div class="compound-meaning">Kể chuyện (v)</div></div>
-                <div class="compound-item"><div class="compound-jp">国語</div><div class="compound-reading">こくご</div><div class="compound-meaning">Quốc ngữ / Tiếng mẹ đẻ</div></div>
+                <div class="compound-item"><div class="compound-jp">国語</div><div class="compound-reading">こくご</div><div class="compound-meaning">Quốc ngữ</div></div>
               </div>
             </div>
           </div>
 
-          <!-- Detail Sidebar -->
+          <!-- Detail sidebar -->
           <div class="kanji-detail-sidebar">
-            <div class="card" style="padding:16px">
-              <div class="card-title" style="font-size:13px">ℹ️ Thông tin</div>
+            <div class="card" style="padding:1rem">
+              <div class="card-title" style="font-size:12px"><i data-lucide="info" style="width:13px;height:13px;color:var(--ink3)"></i> Thông tin</div>
               <div class="info-grid">
                 <div class="info-cell"><div class="info-cell-label">Số nét</div><div class="info-cell-value">14</div></div>
-                <div class="info-cell"><div class="info-cell-label">Cấp JLPT</div><div class="info-cell-value" style="color:var(--n4b)">N4</div></div>
+                <div class="info-cell"><div class="info-cell-label">Cấp JLPT</div><div class="info-cell-value" style="color:#1565C0">N4</div></div>
                 <div class="info-cell"><div class="info-cell-label">Bộ thủ</div><div class="info-cell-value">言</div></div>
                 <div class="info-cell"><div class="info-cell-label">Tần suất</div><div class="info-cell-value">#156</div></div>
                 <div class="info-cell" style="grid-column:span 2"><div class="info-cell-label">Unicode</div><div class="info-cell-value small">U+8A9E · 語</div></div>
               </div>
             </div>
 
-            <div class="card" style="padding:16px">
-              <div class="card-title" style="font-size:13px">🔗 Kanji tương tự</div>
+            <div class="card" style="padding:1rem">
+              <div class="card-title" style="font-size:12px"><i data-lucide="link" style="width:13px;height:13px;color:var(--ink3)"></i> Kanji tương tự</div>
               <div class="similar-list">
                 <div class="similar-item">
                   <div class="similar-char">言</div>
-                  <div class="similar-info"><div class="similar-meaning">Nói, Lời nói</div><div class="similar-reason">Cùng bộ thủ 言</div></div>
+                  <div><div class="similar-meaning">Nói, Lời nói</div><div class="similar-reason">Cùng bộ thủ 言</div></div>
                   <span class="badge badge-n5">N5</span>
                 </div>
                 <div class="similar-item">
                   <div class="similar-char">話</div>
-                  <div class="similar-info"><div class="similar-meaning">Nói chuyện</div><div class="similar-reason">Cùng bộ thủ 言</div></div>
+                  <div><div class="similar-meaning">Nói chuyện</div><div class="similar-reason">Cùng bộ thủ 言</div></div>
                   <span class="badge badge-n5">N5</span>
                 </div>
                 <div class="similar-item">
                   <div class="similar-char">読</div>
-                  <div class="similar-info"><div class="similar-meaning">Đọc</div><div class="similar-reason">Chủ đề liên quan</div></div>
+                  <div><div class="similar-meaning">Đọc</div><div class="similar-reason">Chủ đề liên quan</div></div>
                   <span class="badge badge-n4">N4</span>
                 </div>
                 <div class="similar-item">
                   <div class="similar-char">吾</div>
-                  <div class="similar-info"><div class="similar-meaning">Tôi (cổ)</div><div class="similar-reason">Là một phần của 語</div></div>
+                  <div><div class="similar-meaning">Tôi (cổ)</div><div class="similar-reason">Là một phần của 語</div></div>
                   <span class="badge badge-n1">N1</span>
                 </div>
               </div>
             </div>
 
-            <div class="card" style="padding:16px">
-              <div class="card-title" style="font-size:13px">💡 Mnemonic gợi nhớ</div>
-              <div style="font-size:13px;color:var(--text2);line-height:1.6;background:var(--amber-soft);border-radius:8px;padding:12px;border:1px solid #fde68a">
+            <div class="card" style="padding:1rem">
+              <div class="card-title" style="font-size:12px"><i data-lucide="lightbulb" style="width:13px;height:13px;color:var(--amber)"></i> Mnemonic gợi nhớ</div>
+              <div style="font-size:12px;color:var(--ink2);line-height:1.6;background:var(--amber-l);border-radius:var(--r);padding:10px 12px;border-left:3px solid var(--amber)">
                 <strong>言</strong> (nói) + <strong>吾</strong> (tôi) = <strong>語</strong><br>
                 "Khi TÔI (吾) NÓI (言) — đó là NGÔN NGỮ (語)"
               </div>
             </div>
 
-            <div class="card" style="padding:16px">
-              <div class="card-title" style="font-size:13px">⚡ Hành động</div>
+            <div class="card" style="padding:1rem">
+              <div class="card-title" style="font-size:12px"><i data-lucide="zap" style="width:13px;height:13px;color:var(--blue)"></i> Hành động</div>
               <div class="study-actions">
-                <div class="action-btn-full primary">
-                  <span class="action-btn-icon">✍️</span> Luyện viết
-                </div>
-                <div class="action-btn-full">
-                  <span class="action-btn-icon">🧠</span> Ôn SRS
-                </div>
-                <div class="action-btn-full">
-                  <span class="action-btn-icon">📚</span> Thêm vào deck
-                </div>
-                <div class="action-btn-full">
-                  <span class="action-btn-icon">📋</span> Quiz nhanh
-                </div>
+                <div class="action-btn-full primary"><span class="action-btn-icon"><i data-lucide="pen-line"></i></span> Luyện viết</div>
+                <div class="action-btn-full"><span class="action-btn-icon"><i data-lucide="rotate-ccw"></i></span> Ôn SRS</div>
+                <div class="action-btn-full"><span class="action-btn-icon"><i data-lucide="book-open"></i></span> Thêm vào deck</div>
+                <div class="action-btn-full"><span class="action-btn-icon"><i data-lucide="clipboard-list"></i></span> Quiz nhanh</div>
               </div>
             </div>
           </div>
@@ -820,7 +823,6 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
       <div class="page-section-title"><span class="page-tag">Trang 3</span> Writing Practice — Luyện viết có hướng dẫn</div>
       <div class="writing-page">
         <div class="writing-main">
-          <!-- Target info -->
           <div class="writing-target">
             <div class="writing-target-kanji">語</div>
             <div class="writing-target-info">
@@ -833,30 +835,29 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
                 <span class="hint-chip">14 nét</span>
               </div>
             </div>
-            <div style="margin-left:auto;display:flex;gap:8px;align-items:flex-start">
-              <button class="btn btn-secondary btn-sm">💡 Xem gợi ý</button>
-              <button class="btn btn-secondary btn-sm">👁 Xem đáp án</button>
+            <div style="margin-left:auto;display:flex;gap:6px;align-items:flex-start;flex-shrink:0">
+              <button class="btn btn-secondary btn-sm"><i data-lucide="lightbulb"></i> Gợi ý</button>
+              <button class="btn btn-secondary btn-sm"><i data-lucide="eye"></i> Đáp án</button>
             </div>
           </div>
 
-          <!-- Canvas -->
           <div class="canvas-wrap">
             <div class="canvas-toolbar">
-              <div class="canvas-tool active" title="Bút">✏️</div>
-              <div class="canvas-tool" title="Tẩy">🧹</div>
+              <div class="canvas-tool active" title="Bút"><i data-lucide="pencil"></i></div>
+              <div class="canvas-tool" title="Tẩy"><i data-lucide="eraser"></i></div>
               <div class="canvas-toolbar-sep"></div>
-              <div class="canvas-tool" title="Undo">↩️</div>
-              <div class="canvas-tool" title="Redo">↪️</div>
-              <div class="canvas-tool" title="Xóa hết">🗑️</div>
+              <div class="canvas-tool" title="Undo"><i data-lucide="undo"></i></div>
+              <div class="canvas-tool" title="Redo"><i data-lucide="redo"></i></div>
+              <div class="canvas-tool" title="Xóa hết"><i data-lucide="trash-2"></i></div>
               <div class="canvas-toolbar-sep"></div>
-              <span style="font-size:12px;color:var(--text3)">Nét bút:</span>
-              <div class="canvas-tool" style="width:28px;height:28px;border-radius:50%;background:rgba(0,0,0,.8);border:none"></div>
-              <div class="canvas-tool" style="width:20px;height:20px;border-radius:50%;background:rgba(0,0,0,.5);border:none"></div>
+              <span style="font-size:11px;color:var(--ink4)">Nét bút:</span>
+              <div class="canvas-tool" style="width:28px;height:28px;border-radius:50%;background:rgba(13,13,15,.85);border:none"></div>
+              <div class="canvas-tool" style="width:20px;height:20px;border-radius:50%;background:rgba(13,13,15,.45);border:none"></div>
               <div class="canvas-toolbar-sep"></div>
               <div class="stroke-mode-group">
                 <div class="stroke-mode-btn active">Tự do</div>
                 <div class="stroke-mode-btn">Từng nét</div>
-                <div class="stroke-mode-btn">Có hướng dẫn</div>
+                <div class="stroke-mode-btn">Hướng dẫn</div>
               </div>
             </div>
             <div class="canvas-area">
@@ -868,22 +869,21 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
             </div>
             <div class="canvas-action-bar">
               <span class="stroke-counter">Đã vẽ: <strong>8</strong> / 14 nét</span>
-              <button class="btn btn-secondary btn-sm">⏮ Nét trước</button>
-              <button class="btn btn-accent btn-sm">Kiểm tra ✓</button>
+              <button class="btn btn-secondary btn-sm"><i data-lucide="skip-back"></i> Nét trước</button>
+              <button class="btn btn-teal btn-sm">Kiểm tra ✓</button>
               <button class="btn btn-secondary btn-sm">Bỏ qua →</button>
             </div>
           </div>
 
-          <!-- Feedback panel (shown after checking) -->
           <div class="feedback-panel">
             <div class="section-label">Kết quả lần viết trước</div>
             <div class="feedback-score">
               <div class="feedback-score-num">82</div>
-              <div class="feedback-score-detail">
+              <div>
                 <div class="feedback-score-label">Điểm tổng</div>
                 <div class="feedback-score-stars">⭐⭐⭐⭐</div>
               </div>
-              <div style="margin-left:auto;font-size:13px;color:var(--green);font-weight:600">✓ Tốt! Thứ tự nét chính xác</div>
+              <div style="margin-left:auto;font-size:12px;color:var(--teal);font-weight:600">✓ Tốt! Thứ tự nét chính xác</div>
             </div>
             <div class="feedback-criteria">
               <div class="feedback-row">
@@ -893,8 +893,8 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
               </div>
               <div class="feedback-row">
                 <span class="feedback-row-label">Tỷ lệ kích thước</span>
-                <div class="feedback-row-bar"><div class="feedback-row-fill" style="width:75%;background:var(--accent)"></div></div>
-                <span class="feedback-row-score" style="color:var(--accent)">75</span>
+                <div class="feedback-row-bar"><div class="feedback-row-fill" style="width:75%;background:var(--blue)"></div></div>
+                <span class="feedback-row-score" style="color:var(--blue)">75</span>
               </div>
               <div class="feedback-row">
                 <span class="feedback-row-label">Hướng nét</span>
@@ -910,40 +910,39 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
           </div>
         </div>
 
-        <!-- Writing sidebar -->
         <div class="writing-sidebar">
-          <div class="card" style="padding:16px">
-            <div class="card-title" style="font-size:13px">📋 Hàng chờ luyện tập</div>
+          <div class="card" style="padding:1rem">
+            <div class="card-title" style="font-size:12px"><i data-lucide="clipboard-list" style="width:13px;height:13px"></i> Hàng chờ luyện tập</div>
             <div class="progress-list">
               <div class="progress-item done">
                 <div class="progress-item-char">日</div>
-                <div class="progress-item-info"><div class="progress-item-name">日 — Ngày/Mặt trời</div><div class="progress-item-sub">4 nét · N5</div></div>
-                <span class="progress-item-tick">✓</span>
+                <div><div class="progress-item-name">日 — Ngày/Mặt trời</div><div class="progress-item-sub">4 nét · N5</div></div>
+                <span class="progress-item-tick" style="color:var(--teal)"><i data-lucide="check"></i></span>
               </div>
               <div class="progress-item done">
                 <div class="progress-item-char">本</div>
-                <div class="progress-item-info"><div class="progress-item-name">本 — Nguồn gốc</div><div class="progress-item-sub">5 nét · N5</div></div>
-                <span class="progress-item-tick">✓</span>
+                <div><div class="progress-item-name">本 — Nguồn gốc</div><div class="progress-item-sub">5 nét · N5</div></div>
+                <span class="progress-item-tick" style="color:var(--teal)"><i data-lucide="check"></i></span>
               </div>
               <div class="progress-item current">
                 <div class="progress-item-char">語</div>
-                <div class="progress-item-info"><div class="progress-item-name">語 — Ngôn ngữ</div><div class="progress-item-sub">14 nét · N4</div></div>
-                <span style="font-size:11px;color:var(--accent);font-weight:700">Đang làm</span>
+                <div><div class="progress-item-name">語 — Ngôn ngữ</div><div class="progress-item-sub">14 nét · N4</div></div>
+                <span style="font-size:10px;color:var(--blue);font-weight:700;margin-left:auto;white-space:nowrap">Đang làm</span>
               </div>
               <div class="progress-item">
                 <div class="progress-item-char">学</div>
-                <div class="progress-item-info"><div class="progress-item-name">学 — Học</div><div class="progress-item-sub">8 nét · N4</div></div>
+                <div><div class="progress-item-name">学 — Học</div><div class="progress-item-sub">8 nét · N4</div></div>
               </div>
               <div class="progress-item">
                 <div class="progress-item-char">校</div>
-                <div class="progress-item-info"><div class="progress-item-name">校 — Trường</div><div class="progress-item-sub">10 nét · N4</div></div>
+                <div><div class="progress-item-name">校 — Trường</div><div class="progress-item-sub">10 nét · N4</div></div>
               </div>
             </div>
           </div>
 
-          <div class="card" style="padding:16px">
-            <div class="card-title" style="font-size:13px">📐 Thứ tự nét tham khảo</div>
-            <div style="font-size:12px;color:var(--text2);margin-bottom:10px">Click vào từng bước để xem animation</div>
+          <div class="card" style="padding:1rem">
+            <div class="card-title" style="font-size:12px"><i data-lucide="ruler" style="width:13px;height:13px"></i> Thứ tự nét tham khảo</div>
+            <div style="font-size:11px;color:var(--ink4);margin-bottom:8px">Bấm từng bước để xem animation</div>
             <div class="stroke-order-ref-steps">
               <div class="ref-step"><div class="ref-step-char">語</div><div class="ref-step-num">1</div></div>
               <div class="ref-step"><div class="ref-step-char">語</div><div class="ref-step-num">2</div></div>
@@ -958,24 +957,24 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
             </div>
           </div>
 
-          <div class="card" style="padding:16px">
-            <div class="card-title" style="font-size:13px">📊 Thống kê hôm nay</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-              <div style="background:var(--teal-soft);border-radius:8px;padding:10px;text-align:center">
-                <div style="font-size:22px;font-weight:800;color:var(--teal)">12</div>
-                <div style="font-size:11px;color:var(--text3)">Kanji đã viết</div>
+          <div class="card" style="padding:1rem">
+            <div class="card-title" style="font-size:12px"><i data-lucide="bar-chart-2" style="width:13px;height:13px"></i> Thống kê hôm nay</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+              <div style="background:var(--teal-l);border-radius:var(--r);padding:10px;text-align:center">
+                <div style="font-size:20px;font-weight:700;color:var(--teal);font-family:'DM Mono',monospace">12</div>
+                <div style="font-size:10px;color:var(--ink4);margin-top:2px">Kanji đã viết</div>
               </div>
-              <div style="background:var(--accent-soft);border-radius:8px;padding:10px;text-align:center">
-                <div style="font-size:22px;font-weight:800;color:var(--accent)">84%</div>
-                <div style="font-size:11px;color:var(--text3)">Điểm TB</div>
+              <div style="background:var(--blue-l);border-radius:var(--r);padding:10px;text-align:center">
+                <div style="font-size:20px;font-weight:700;color:var(--blue);font-family:'DM Mono',monospace">84%</div>
+                <div style="font-size:10px;color:var(--ink4);margin-top:2px">Điểm TB</div>
               </div>
-              <div style="background:var(--amber-soft);border-radius:8px;padding:10px;text-align:center">
-                <div style="font-size:22px;font-weight:800;color:var(--amber)">🔥 7</div>
-                <div style="font-size:11px;color:var(--text3)">Ngày liên tiếp</div>
+              <div style="background:var(--amber-l);border-radius:var(--r);padding:10px;text-align:center">
+                <div style="font-size:20px;font-weight:700;color:var(--amber);font-family:'DM Mono',monospace">7</div>
+                <div style="font-size:10px;color:var(--ink4);margin-top:2px">Ngày liên tiếp</div>
               </div>
-              <div style="background:var(--green-soft);border-radius:8px;padding:10px;text-align:center">
-                <div style="font-size:22px;font-weight:800;color:var(--green)">3</div>
-                <div style="font-size:11px;color:var(--text3)">Kanji mới nhớ</div>
+              <div style="background:var(--green-l);border-radius:var(--r);padding:10px;text-align:center">
+                <div style="font-size:20px;font-weight:700;color:var(--green);font-family:'DM Mono',monospace">3</div>
+                <div style="font-size:10px;color:var(--ink4);margin-top:2px">Kanji mới nhớ</div>
               </div>
             </div>
           </div>
@@ -989,55 +988,43 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
       ═══════════════════════════════════════ -->
       <div class="page-section-title"><span class="page-tag">Trang 4</span> Kanji Quiz — Trắc nghiệm đọc &amp; viết</div>
       <div class="quiz-page">
-        <!-- Progress bar -->
         <div class="quiz-topbar">
-          <button class="btn btn-secondary btn-sm">✕ Thoát</button>
+          <button class="btn btn-secondary btn-sm"><i data-lucide="x"></i> Thoát</button>
           <div class="quiz-progress-bar"><div class="quiz-progress-fill"></div></div>
           <span class="quiz-counter">9 / 20</span>
           <div class="quiz-lives">
-            <span class="life">❤️</span>
-            <span class="life">❤️</span>
-            <span class="life lost">❤️</span>
+            <span class="life"><i data-lucide="heart"></i></span>
+            <span class="life"><i data-lucide="heart"></i></span>
+            <span class="life lost"><i data-lucide="heart"></i></span>
           </div>
         </div>
 
-        <!-- Mode tabs -->
         <div class="quiz-type-tabs">
           <div class="quiz-tab active">Nhận dạng</div>
           <div class="quiz-tab">Nghĩa → Kanji</div>
           <div class="quiz-tab">Kanji → Viết</div>
         </div>
 
-        <!-- Q: Recognition (Kanji → Reading) -->
-        <div class="card-title" style="font-size:13px;color:var(--text3)">Câu hỏi dạng A — Kanji → Đọc</div>
+        <!-- Q-TYPE A: Recognition -->
+        <div style="font-size:11px;color:var(--ink4);font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px">Câu hỏi dạng A — Kanji → Đọc</div>
         <div class="quiz-card">
           <div class="quiz-question-label">Chọn cách đọc đúng của kanji</div>
           <div class="quiz-kanji-display">語</div>
           <div class="quiz-context-sentence">
-            彼女は<ruby>英<rt></rt></ruby><span style="font-size:16px;font-weight:700;color:var(--primary)">語</span>を<ruby>上手<rt>じょうず</rt></ruby>に<ruby>話<rt>はな</rt></ruby>す。
+            彼女は<ruby>英<rt></rt></ruby><strong style="font-size:16px;font-weight:700;color:var(--ink)">語</strong>を<ruby>上手<rt>じょうず</rt></ruby>に<ruby>話<rt>はな</rt></ruby>す。
           </div>
           <div class="quiz-options">
-            <div class="quiz-option">
-              ご<span class="option-reading">go</span>
-            </div>
-            <div class="quiz-option correct">
-              えいご<span class="option-reading">eigo ✓</span>
-            </div>
-            <div class="quiz-option wrong">
-              げんご<span class="option-reading">gengo ✗</span>
-            </div>
-            <div class="quiz-option">
-              かた<span class="option-reading">kata</span>
-            </div>
+            <div class="quiz-option">ご<span class="option-reading">go</span></div>
+            <div class="quiz-option correct">えいご<span class="option-reading">eigo ✓</span></div>
+            <div class="quiz-option wrong">げんご<span class="option-reading">gengo ✗</span></div>
+            <div class="quiz-option">かた<span class="option-reading">kata</span></div>
           </div>
-          <div style="margin-top:16px">
-            <div class="quiz-result-bar correct-bar">
-              <span class="result-icon">✅</span>
-              <div class="result-text">
-                <h4>Chính xác! +10 XP</h4>
-                <p>英語 (えいご) = Tiếng Anh. Âm On 語 là <strong>ゴ</strong>. Trong từ ghép "英語" đọc là えいご.</p>
-                <div class="result-mnemonic">💡 Nhớ: 英 (Anh) + 語 (ngôn ngữ) = Tiếng Anh</div>
-              </div>
+          <div class="quiz-result-bar correct-bar">
+            <span class="result-icon" style="color:var(--teal)"><i data-lucide="check-circle"></i></span>
+            <div class="result-text">
+              <h4>Chính xác! +10 XP</h4>
+              <p>英語 (えいご) = Tiếng Anh. Âm On 語 là <strong>ゴ</strong>. Trong từ ghép "英語" đọc là えいご.</p>
+              <div class="result-mnemonic"><i data-lucide="lightbulb" style="width:11px;height:11px"></i> Nhớ: 英 (Anh) + 語 (ngôn ngữ) = Tiếng Anh</div>
             </div>
           </div>
         </div>
@@ -1046,10 +1033,10 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
           <button class="btn btn-primary">Câu tiếp theo →</button>
         </div>
 
-        <hr style="border:none;border-top:2px dashed var(--border);margin:8px 0">
+        <hr style="border:none;border-top:1.5px dashed var(--b2);margin:4px 0">
 
-        <!-- Q: Writing quiz -->
-        <div class="card-title" style="font-size:13px;color:var(--text3)">Câu hỏi dạng B — Viết Kanji</div>
+        <!-- Q-TYPE B: Writing quiz -->
+        <div style="font-size:11px;color:var(--ink4);font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px">Câu hỏi dạng B — Viết Kanji</div>
         <div class="quiz-card">
           <div class="quiz-question-label">Viết kanji có nghĩa sau đây</div>
           <div class="writing-quiz-display">
@@ -1060,15 +1047,15 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
             <div class="mini-canvas-grid-h"></div>
             <div class="mini-canvas-grid-v"></div>
             <div class="mini-canvas-drawing">
-              <div class="mini-canvas-stroke" style="color:var(--primary)">学</div>
+              <div class="mini-canvas-stroke" style="color:var(--ink)">学</div>
             </div>
             <div class="mini-canvas-overlay">
-              <div class="mini-canvas-check">✅</div>
+              <div class="mini-canvas-check" style="color:var(--teal)"><i data-lucide="check-circle" style="width:44px;height:44px"></i></div>
             </div>
           </div>
-          <div style="margin-bottom:16px">
+          <div style="margin-bottom:1rem">
             <div class="quiz-result-bar correct-bar">
-              <span class="result-icon">✅</span>
+              <span class="result-icon" style="color:var(--teal)"><i data-lucide="check-circle"></i></span>
               <div class="result-text">
                 <h4>Viết đúng! Điểm: 90/100</h4>
                 <p>Thứ tự nét 学 (8 nét): trên trước, dưới sau. Bộ thủ <strong>子</strong> ở phần dưới.</p>
@@ -1076,17 +1063,17 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
             </div>
           </div>
           <div class="writing-quiz-btns">
-            <button class="btn btn-secondary">👁 So sánh</button>
+            <button class="btn btn-secondary"><i data-lucide="eye"></i> So sánh</button>
             <button class="btn btn-primary">Câu tiếp →</button>
           </div>
         </div>
 
-        <hr style="border:none;border-top:2px dashed var(--border);margin:8px 0">
+        <hr style="border:none;border-top:1.5px dashed var(--b2);margin:4px 0">
 
-        <!-- Quiz summary modal -->
-        <div class="card-title" style="font-size:13px;color:var(--text3)">Màn hình kết quả Quiz</div>
+        <!-- Quiz summary -->
+        <div style="font-size:11px;color:var(--ink4);font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px">Màn hình kết quả Quiz</div>
         <div class="quiz-summary">
-          <div class="summary-badge">🎉</div>
+          <div class="summary-badge"><i data-lucide="trophy"></i></div>
           <div class="summary-title">Hoàn thành Quiz!</div>
           <div class="summary-subtitle">Kanji N4 · 20 câu · Thời gian: 8 phút 42 giây</div>
           <div class="summary-stats">
@@ -1100,52 +1087,42 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
             </div>
             <div class="summary-stat">
               <div class="summary-stat-num" style="color:var(--amber)">85%</div>
-              <div class="summary-stat-label">Độ chính xác</div>
+              <div class="summary-stat-label">Chính xác</div>
             </div>
             <div class="summary-stat">
               <div class="summary-stat-num" style="color:var(--purple)">+170</div>
-              <div class="summary-stat-label">XP nhận được</div>
+              <div class="summary-stat-label">XP nhận</div>
             </div>
           </div>
-
           <div class="summary-mistakes">
-            <div class="section-label">3 Kanji cần ôn thêm</div>
+            <div class="section-label" style="text-align:left">3 Kanji cần ôn thêm</div>
             <div class="mistake-row">
               <span class="mistake-char">読</span>
-              <div class="mistake-info">
-                <strong>Đọc / よむ (yomu)</strong>
-                Bạn chọn: 語 (ご) — sai thứ tự nét
-              </div>
+              <div class="mistake-info"><strong>Đọc / よむ (yomu)</strong>Bạn chọn: 語 (ご) — sai thứ tự nét</div>
               <span class="mistake-again">Sai 2×</span>
             </div>
             <div class="mistake-row">
               <span class="mistake-char">聞</span>
-              <div class="mistake-info">
-                <strong>Nghe / きく (kiku)</strong>
-                Nhầm với 門 (cổng)
-              </div>
+              <div class="mistake-info"><strong>Nghe / きく (kiku)</strong>Nhầm với 門 (cổng)</div>
               <span class="mistake-again">Sai 1×</span>
             </div>
             <div class="mistake-row">
               <span class="mistake-char">話</span>
-              <div class="mistake-info">
-                <strong>Nói chuyện / はなす (hanasu)</strong>
-                Viết thiếu nét cuối bộ 言
-              </div>
+              <div class="mistake-info"><strong>Nói chuyện / はなす (hanasu)</strong>Viết thiếu nét cuối bộ 言</div>
               <span class="mistake-again">Sai 1×</span>
             </div>
           </div>
-
           <div class="summary-actions">
-            <button class="btn btn-secondary">📋 Ôn lại các sai</button>
+            <button class="btn btn-secondary"><i data-lucide="clipboard-list"></i> Ôn lại các sai</button>
             <button class="btn btn-primary">▶ Quiz tiếp theo</button>
-            <button class="btn btn-secondary">🏠 Về Kanji Browser</button>
+            <button class="btn btn-secondary"><i data-lucide="home"></i> Về Kanji Browser</button>
           </div>
         </div>
       </div>
 
-    </div><!-- /page-body -->
-  </div><!-- /main -->
-</div><!-- /app-shell -->
+    </div>
+  </div>
+</div>
+<script>lucide.createIcons()</script>
 </body>
 </html>

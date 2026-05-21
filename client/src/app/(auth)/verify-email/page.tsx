@@ -1,3 +1,5 @@
+import { VerifyEmailForm } from '@modules/auth'
+
 export default function VerifyEmailPage() {
-  return <div>{/* VerifyEmailForm from @modules/auth will go here */}</div>
+  return <VerifyEmailForm />
 }

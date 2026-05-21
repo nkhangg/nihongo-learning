@@ -18,6 +18,7 @@ const makeAdminRepo = (): jest.Mocked<IAdminRepository> => ({
 const makeSessionRepo = (): jest.Mocked<SessionRepository> => ({
   findById: jest.fn(),
   findByUserId: jest.fn(),
+  findAll: jest.fn(),
   save: jest.fn(),
 });
 

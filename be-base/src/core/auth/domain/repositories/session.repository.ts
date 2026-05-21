@@ -3,6 +3,7 @@ import { Session } from '../entities/session.entity';
 export interface SessionRepository {
   findById(id: string): Promise<Session | null>;
   findByUserId(userId: string, onlyActive?: boolean): Promise<Session[]>;
+  findAll(options: { onlyActive?: boolean; page: number; pageSize: number }): Promise<{ data: Session[]; total: number }>;
   save(session: Session): Promise<void>;
 }
 

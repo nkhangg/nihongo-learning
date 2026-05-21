@@ -6,6 +6,7 @@ export const QUERY_KEYS = {
   AUTH: {
     ME: ['auth', 'me'] as const,
     SESSION: ['auth', 'session'] as const,
+    SESSIONS_ADMIN: ['auth', 'sessions-admin'] as const,
   },
   DASHBOARD: {
     STATS: ['dashboard', 'stats'] as const,
@@ -59,6 +60,11 @@ export const QUERY_KEYS = {
   CONTACTS: {
     LIST: ['contacts', 'list'] as const,
     DETAIL: ['contacts', 'detail'] as const,
+  },
+  KANJI: {
+    LIST: ['kanji', 'list'] as const,
+    ENTRY: ['kanji', 'entry'] as const,
+    RADICALS: ['kanji', 'radicals'] as const,
   },
   HEALTH: ['health'] as const,
 } as const

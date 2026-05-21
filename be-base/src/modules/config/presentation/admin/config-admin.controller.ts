@@ -128,11 +128,12 @@ const CONFIG_PAGINATE_CONFIG = {
   sortableColumns: ['key', 'scope', 'isEnabled', 'createdAt', 'updatedAt'],
   searchableColumns: ['key'],
   filterableColumns: {
+    key: [FilterOperator.SW],
     scope: [FilterOperator.EQ],
     isEnabled: [FilterOperator.EQ],
   },
   defaultLimit: 20,
-  maxLimit: 100,
+  maxLimit: 200,
 };
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -225,6 +226,7 @@ export class ConfigAdminController {
         | 'updatedAt'
         | undefined,
       sortDir: sortBy?.[1]?.toLowerCase() as 'asc' | 'desc' | undefined,
+      keyPrefix: filterStr(filter, 'key'),
       scope: filterStr(filter, 'scope') as
         | 'public'
         | 'members'

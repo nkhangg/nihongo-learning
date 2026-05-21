@@ -5,6 +5,7 @@ export { RegisterForm } from './components/RegisterForm'
 export { ForgotPasswordForm } from './components/ForgotPasswordForm'
 export { ForgotPasswordInline } from './components/ForgotPasswordInline'
 export { ResetPasswordForm } from './components/ResetPasswordForm'
+export { VerifyEmailForm } from './components/VerifyEmailForm'
 export { PasswordStrengthBar } from './components/PasswordStrengthBar'
 export {
   useCurrentUser,

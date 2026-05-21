@@ -9,7 +9,9 @@
     "edit": "Edit",
     "confirm": "Confirm",
     "search": "Search",
-    "noData": "No data available"
+    "noData": "No data available",
+    "required": "Required",
+    "saving": "Saving..."
   },
   "auth": {
     "login": "Login",
@@ -186,5 +188,227 @@
     "tabReply": "Reply",
     "replyContent": "Reply sent to customer",
     "noteIsReplyHint": "The current note contains the email reply already sent to the customer"
+  },
+  "user": {
+    "title": "User Management",
+    "subtitle": "User account list",
+    "searchPlaceholder": "Search by email...",
+    "empty": "No users found",
+    "loadError": "Failed to load users. Please try again.",
+    "email": "Email",
+    "role": "Role",
+    "isActive": "Status",
+    "createdAt": "Created at",
+    "active": "Active",
+    "inactive": "Inactive",
+    "create": "Create user",
+    "update": "Update info",
+    "updateRole": "Update role",
+    "activate": "Activate",
+    "deactivate": "Deactivate",
+    "delete": "Delete",
+    "confirmActivateTitle": "Activate user?",
+    "confirmActivateMessage": "The account will be able to sign in again.",
+    "confirmDeactivateTitle": "Deactivate user?",
+    "confirmDeactivateMessage": "The account will be unable to sign in until reactivated.",
+    "createSuccess": "User created successfully",
+    "updateSuccess": "Updated successfully",
+    "activateSuccess": "User activated",
+    "deactivateSuccess": "User deactivated"
+  },
+  "kanji": {
+    "title": "Kanji",
+    "radicalsTitle": "Kanji Radicals",
+    "actions": {
+      "create": "Add Kanji",
+      "edit": "Edit",
+      "delete": "Delete",
+      "publish": "Publish",
+      "unpublish": "Unpublish",
+      "manageRadicals": "Manage Radicals"
+    },
+    "tabs": {
+      "meta": "Meta",
+      "meanings": "Meanings",
+      "examples": "Examples",
+      "compounds": "Compounds",
+      "components": "Components",
+      "similar": "Similar",
+      "advanced": "Advanced"
+    },
+    "fields": {
+      "char": "Character",
+      "jlptLevel": "JLPT Level",
+      "strokes": "Stroke Count",
+      "radical": "Radical",
+      "frequency": "Frequency",
+      "joyoOrder": "Jōyō Order",
+      "unicode": "Unicode",
+      "onReadings": "On Readings",
+      "kunReadings": "Kun Readings",
+      "meaningVi": "Meaning (VI)",
+      "meaningEn": "Meaning (EN)",
+      "mnemonic": "Mnemonic",
+      "strokeOrderSvg": "Stroke Order (SVG paths)",
+      "meanings": "Meanings",
+      "examples": "Examples",
+      "compounds": "Compounds",
+      "components": "Components",
+      "similar": "Similar Kanji",
+      "status": "Status"
+    },
+    "status": {
+      "draft": "Draft",
+      "published": "Published"
+    },
+    "hints": {
+      "exampleHtml": "Only <ruby>, <rt>, <em>, <span class=\"highlight\"> tags are allowed. All other HTML will be stripped on save.",
+      "svgPath": "One SVG path per line. Leave blank if stroke order data is unavailable."
+    },
+    "deleteConfirm": "Deleting this kanji will remove all nested data (meanings, examples, compounds, similar, user progress).",
+    "subtitle": "Manage Jōyō Kanji catalog",
+    "filter": {
+      "searchPlaceholder": "Search kanji, meaning..."
+    },
+    "import": {
+      "tabLabel": "Import JSON",
+      "parse": "Parse JSON",
+      "fillForm": "Fill form",
+      "bulkImport": "Bulk import",
+      "schemaHint": "JSON schema reference",
+      "fillFormSuccess": "Form filled — review then click Add Kanji",
+      "bulkSuccess": "Imported {{count}} kanji successfully",
+      "bulkPartial": "Imported {{success}} successfully, {{error}} failed",
+      "parseError": "Invalid JSON — check syntax"
+    }
+  },
+  "config": {
+    "title": "Config Management",
+    "subtitle": "Manage system configuration as key-value JSON",
+    "searchPlaceholder": "Search by key...",
+    "empty": "No configs found",
+    "loadError": "Failed to load configs. Please try again.",
+    "loadErrorShort": "Failed to load configs.",
+    "retry": "Retry",
+    "tabs": {
+      "all": "All",
+      "pages": "Pages",
+      "systems": "Systems",
+      "client": "Client"
+    },
+    "stats": {
+      "total": "Total configs",
+      "enabled": "Enabled",
+      "disabled": "Disabled"
+    },
+    "columns": {
+      "key": "Key",
+      "scope": "Scope",
+      "status": "Status",
+      "tags": "Tags",
+      "valuePreview": "Value (preview)",
+      "updatedAt": "Updated at"
+    },
+    "status": {
+      "enabled": "Enabled",
+      "disabled": "Disabled",
+      "off": "Off"
+    },
+    "actions": {
+      "create": "Create config",
+      "createFirst": "Create first config",
+      "edit": "Edit",
+      "editDetails": "Edit details",
+      "enable": "Enable",
+      "disable": "Disable",
+      "enableConfig": "Enable config",
+      "disableConfig": "Disable config",
+      "delete": "Delete",
+      "cancel": "Cancel",
+      "save": "Save changes",
+      "saving": "Saving...",
+      "creating": "Creating...",
+      "copyKey": "Copy key"
+    },
+    "confirmDelete": {
+      "title": "Delete config?",
+      "description": "Deleting \"{{key}}\" cannot be undone.",
+      "confirm": "Delete"
+    },
+    "toast": {
+      "saved": "Saved",
+      "saveFailed": "Save failed",
+      "enabled": "Config enabled",
+      "disabled": "Config disabled",
+      "toggleFailed": "Action failed",
+      "deleted": "Config deleted",
+      "deleteFailed": "Delete failed"
+    },
+    "form": {
+      "createTitle": "Create new config",
+      "editTitle": "Edit config",
+      "createDescription": "Store free-form JSON configuration",
+      "keyLabel": "Key",
+      "keyHint": "dot-notation",
+      "keyPlaceholder": "homepage.hero",
+      "keyRequired": "Required",
+      "keyTooLong": "Maximum 128 characters",
+      "keyInvalid": "Dot-notation: lowercase letters, digits, hyphens (e.g. homepage.hero)",
+      "valueLabel": "Value (JSON)",
+      "valueRequired": "Required",
+      "valueInvalid": "Invalid JSON",
+      "valuePlaceholder": "{ \"title\": \"Hello\", \"image\": \"...\" }",
+      "pickMediaUrl": "Pick media URL",
+      "rawJson": "Raw JSON",
+      "visualEditor": "Visual Editor",
+      "fixVisualErrors": "Fix errors in the keys above before saving",
+      "scopeLabel": "Scope",
+      "scopePlaceholder": "Select scope...",
+      "scopePublic": "Public",
+      "scopePublicDesc": "Anyone can read",
+      "scopeMembers": "Members",
+      "scopeMembersDesc": "Authenticated users",
+      "scopeInternal": "Internal",
+      "scopeInternalDesc": "Admin only",
+      "tagsLabel": "Tags",
+      "tagsHint": "Press Enter to add",
+      "tagsPlaceholder": "homepage, layout... (Press Enter)",
+      "descriptionLabel": "Description",
+      "descriptionPlaceholder": "Short note for admins...",
+      "errorUpdate": "Update failed.",
+      "errorCreate": "Create failed. The key may already exist."
+    },
+    "prefix": {
+      "emptyWithPrefix": "No configs with prefix {{prefix}}.*",
+      "systemsTitle": "System Configs",
+      "systemsDescription": "System configuration with prefix system.*",
+      "clientTitle": "Client Configs",
+      "clientDescription": "Client configuration with prefix client.*",
+      "pagesTitle": "Page Configs",
+      "pagesDescription": "Per-page content configuration with prefix pages.*",
+      "fieldsCount": "{{count}} fields",
+      "arrayCount": "Array[{{count}}]",
+      "jsonValue": "JSON value",
+      "noFields": "No fields yet.",
+      "addViaJsonEditor": "Add via JSON editor"
+    },
+    "templates": {
+      "title": "Suggested templates",
+      "subtitle": "Quickly create standard configs with default values that match the current UI.",
+      "button": "Design board",
+      "tooltip": "Library of ready-made design templates — pick one to quickly create a config with default values that match the current UI.",
+      "modalTitle": "Design board",
+      "modalDescription": "Pick a template to quickly create a config with default values that match the current client UI.",
+      "alreadyCreated": "Created",
+      "quickCreate": "Quick-create from template",
+      "clientHeader": {
+        "name": "Client header",
+        "description": "Logo, nav links and action buttons for the client PublicLayout."
+      },
+      "clientFooter": {
+        "name": "Client footer",
+        "description": "Logo, links and copyright for the client PublicLayout. Use {year} as a placeholder."
+      }
+    }
   }
 }

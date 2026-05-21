@@ -114,6 +114,7 @@ const ADMIN_ROLES: SeedRoleDefinition[] = [
   ],
   exports: [
     AdminCredentialValidator,
+    AdminPasswordUpdater,
     PASSWORD_UPDATERS,
     PROFILE_PROVIDERS,
     CreateAdminUseCase,

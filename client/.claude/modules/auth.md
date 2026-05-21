@@ -14,6 +14,7 @@ src/modules/auth/
 │   ├── ForgotPasswordInline.tsx  # Inline forgot password state (within AuthPage)
 │   ├── ForgotPasswordForm.tsx    # Standalone form cho /forgot-password page
 │   ├── ResetPasswordForm.tsx     # Form nhập mật khẩu mới (đọc token từ query param)
+│   ├── VerifyEmailForm.tsx       # Email verification OTP page (2-state: form → success)
 │   ├── PasswordStrengthBar.tsx   # Thanh strength indicator (score 0-4)
 │   └── GoogleIcon.tsx            # Google SVG logo
 ├── hooks/
@@ -34,7 +35,7 @@ import {
   AuthLeftPanel,
   LoginForm, RegisterForm,
   ForgotPasswordForm, ForgotPasswordInline,
-  ResetPasswordForm, PasswordStrengthBar,
+  ResetPasswordForm, VerifyEmailForm, PasswordStrengthBar,
   useCurrentUser, useLogin, useRegister, useLogout,
   useChangePassword, useForgotPassword, useResetPassword,
   useGoogleLogin,
@@ -50,7 +51,7 @@ import type { CurrentUser, LoginDto, OAuthLoginDto, RegisterDto } from '@modules
 | `/register` | `(auth)/register/page.tsx` | `<AuthPage defaultTab="register" />` |
 | `/forgot-password` | `(auth)/forgot-password/page.tsx` | `<ForgotPasswordForm />` |
 | `/reset-password?token=...` | `(auth)/reset-password/page.tsx` | `<ResetPasswordForm />` |
-| `/verify-email` | `(auth)/verify-email/page.tsx` | — |
+| `/verify-email` | `(auth)/verify-email/page.tsx` | `<VerifyEmailForm email={...} />` |
 
 ## Layout
 

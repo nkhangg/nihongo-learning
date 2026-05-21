@@ -9,7 +9,9 @@
     "edit": "Chỉnh sửa",
     "confirm": "Xác nhận",
     "search": "Tìm kiếm",
-    "noData": "Không có dữ liệu"
+    "noData": "Không có dữ liệu",
+    "required": "Bắt buộc",
+    "saving": "Đang lưu..."
   },
   "auth": {
     "login": "Đăng nhập",
@@ -186,5 +188,227 @@
     "tabReply": "Phản hồi",
     "replyContent": "Nội dung đã phản hồi",
     "noteIsReplyHint": "Ghi chú hiện tại là nội dung email phản hồi đã gửi tới khách hàng"
+  },
+  "user": {
+    "title": "Quản lý người dùng",
+    "subtitle": "Danh sách tài khoản người dùng",
+    "searchPlaceholder": "Tìm theo email...",
+    "empty": "Chưa có người dùng nào",
+    "loadError": "Không thể tải danh sách người dùng. Vui lòng thử lại.",
+    "email": "Email",
+    "role": "Vai trò",
+    "isActive": "Trạng thái",
+    "createdAt": "Ngày tạo",
+    "active": "Đang hoạt động",
+    "inactive": "Đã vô hiệu",
+    "create": "Tạo người dùng",
+    "update": "Cập nhật thông tin",
+    "updateRole": "Cập nhật vai trò",
+    "activate": "Kích hoạt",
+    "deactivate": "Vô hiệu hóa",
+    "delete": "Xóa",
+    "confirmActivateTitle": "Kích hoạt người dùng?",
+    "confirmActivateMessage": "Tài khoản sẽ có thể đăng nhập trở lại.",
+    "confirmDeactivateTitle": "Vô hiệu hóa người dùng?",
+    "confirmDeactivateMessage": "Tài khoản sẽ không thể đăng nhập cho đến khi được kích hoạt lại.",
+    "createSuccess": "Tạo người dùng thành công",
+    "updateSuccess": "Cập nhật thành công",
+    "activateSuccess": "Đã kích hoạt người dùng",
+    "deactivateSuccess": "Đã vô hiệu hóa người dùng"
+  },
+  "kanji": {
+    "title": "Kanji",
+    "radicalsTitle": "Bộ thủ Kanji",
+    "actions": {
+      "create": "Thêm Kanji",
+      "edit": "Chỉnh sửa",
+      "delete": "Xóa",
+      "publish": "Xuất bản",
+      "unpublish": "Hủy xuất bản",
+      "manageRadicals": "Quản lý bộ thủ"
+    },
+    "tabs": {
+      "meta": "Meta",
+      "meanings": "Nghĩa",
+      "examples": "Ví dụ",
+      "compounds": "Từ ghép",
+      "components": "Thành phần",
+      "similar": "Tương tự",
+      "advanced": "Nâng cao"
+    },
+    "fields": {
+      "char": "Ký tự",
+      "jlptLevel": "Cấp JLPT",
+      "strokes": "Số nét",
+      "radical": "Bộ thủ",
+      "frequency": "Tần suất",
+      "joyoOrder": "Thứ tự Jōyō",
+      "unicode": "Unicode",
+      "onReadings": "Âm On",
+      "kunReadings": "Âm Kun",
+      "meaningVi": "Nghĩa (VN)",
+      "meaningEn": "Nghĩa (EN)",
+      "mnemonic": "Mnemonic",
+      "strokeOrderSvg": "Stroke order (SVG paths)",
+      "meanings": "Các nghĩa",
+      "examples": "Ví dụ",
+      "compounds": "Từ ghép",
+      "components": "Thành phần",
+      "similar": "Kanji tương tự",
+      "status": "Trạng thái"
+    },
+    "status": {
+      "draft": "Nháp",
+      "published": "Đã xuất bản"
+    },
+    "hints": {
+      "exampleHtml": "Chỉ cho phép thẻ <ruby>, <rt>, <em>, <span class=\"highlight\">. Mọi HTML khác sẽ bị strip khi lưu.",
+      "svgPath": "Mỗi dòng là 1 SVG path. Bỏ trống nếu chưa có dữ liệu."
+    },
+    "deleteConfirm": "Xóa kanji này sẽ xóa toàn bộ nested data (nghĩa, ví dụ, từ ghép, similar, progress của user).",
+    "subtitle": "Quản lý kho Jōyō Kanji",
+    "filter": {
+      "searchPlaceholder": "Tìm kanji, nghĩa..."
+    },
+    "import": {
+      "tabLabel": "Nhập JSON",
+      "parse": "Phân tích JSON",
+      "fillForm": "Điền vào form",
+      "bulkImport": "Nhập hàng loạt",
+      "schemaHint": "Cấu trúc JSON tham khảo",
+      "fillFormSuccess": "Đã điền dữ liệu vào form — review rồi bấm Thêm Kanji",
+      "bulkSuccess": "Đã nhập {{count}} kanji thành công",
+      "bulkPartial": "Nhập {{success}} thành công, {{error}} thất bại",
+      "parseError": "JSON không hợp lệ — kiểm tra cú pháp"
+    }
+  },
+  "config": {
+    "title": "Config Management",
+    "subtitle": "Quản lý cấu hình hệ thống dạng key-value JSON",
+    "searchPlaceholder": "Tìm theo key...",
+    "empty": "Chưa có config nào",
+    "loadError": "Không thể tải danh sách config. Vui lòng thử lại.",
+    "loadErrorShort": "Không thể tải danh sách config.",
+    "retry": "Thử lại",
+    "tabs": {
+      "all": "Tất cả",
+      "pages": "Pages",
+      "systems": "Hệ thống",
+      "client": "Client"
+    },
+    "stats": {
+      "total": "Tổng config",
+      "enabled": "Đang bật",
+      "disabled": "Đang tắt"
+    },
+    "columns": {
+      "key": "Key",
+      "scope": "Scope",
+      "status": "Trạng thái",
+      "tags": "Tags",
+      "valuePreview": "Value (preview)",
+      "updatedAt": "Cập nhật"
+    },
+    "status": {
+      "enabled": "Enabled",
+      "disabled": "Disabled",
+      "off": "Tắt"
+    },
+    "actions": {
+      "create": "Tạo config",
+      "createFirst": "Tạo config đầu tiên",
+      "edit": "Chỉnh sửa",
+      "editDetails": "Sửa chi tiết",
+      "enable": "Bật",
+      "disable": "Tắt",
+      "enableConfig": "Bật config",
+      "disableConfig": "Tắt config",
+      "delete": "Xoá",
+      "cancel": "Huỷ",
+      "save": "Lưu thay đổi",
+      "saving": "Đang lưu...",
+      "creating": "Đang tạo...",
+      "copyKey": "Copy key"
+    },
+    "confirmDelete": {
+      "title": "Xoá config?",
+      "description": "Xoá \"{{key}}\" sẽ không thể hoàn tác.",
+      "confirm": "Xoá"
+    },
+    "toast": {
+      "saved": "Đã lưu",
+      "saveFailed": "Lưu thất bại",
+      "enabled": "Đã bật config",
+      "disabled": "Đã tắt config",
+      "toggleFailed": "Thao tác thất bại",
+      "deleted": "Đã xoá config",
+      "deleteFailed": "Xoá thất bại"
+    },
+    "form": {
+      "createTitle": "Tạo config mới",
+      "editTitle": "Chỉnh sửa config",
+      "createDescription": "Lưu trữ cấu hình dạng JSON tự do",
+      "keyLabel": "Key",
+      "keyHint": "dot-notation",
+      "keyPlaceholder": "homepage.hero",
+      "keyRequired": "Bắt buộc",
+      "keyTooLong": "Tối đa 128 ký tự",
+      "keyInvalid": "Dạng dot-notation: chữ thường, số, gạch ngang (vd: homepage.hero)",
+      "valueLabel": "Value (JSON)",
+      "valueRequired": "Bắt buộc",
+      "valueInvalid": "JSON không hợp lệ",
+      "valuePlaceholder": "{ \"title\": \"Hello\", \"image\": \"...\" }",
+      "pickMediaUrl": "Pick media URL",
+      "rawJson": "Raw JSON",
+      "visualEditor": "Visual Editor",
+      "fixVisualErrors": "Sửa lỗi ở các key bên trên trước khi lưu",
+      "scopeLabel": "Scope",
+      "scopePlaceholder": "Chọn scope...",
+      "scopePublic": "Public",
+      "scopePublicDesc": "Ai cũng đọc được",
+      "scopeMembers": "Members",
+      "scopeMembersDesc": "User đã đăng nhập",
+      "scopeInternal": "Internal",
+      "scopeInternalDesc": "Chỉ dành cho admin",
+      "tagsLabel": "Tags",
+      "tagsHint": "Enter để thêm",
+      "tagsPlaceholder": "homepage, layout... (Enter để thêm)",
+      "descriptionLabel": "Mô tả",
+      "descriptionPlaceholder": "Mô tả ngắn cho admin...",
+      "errorUpdate": "Cập nhật thất bại.",
+      "errorCreate": "Tạo thất bại. Key có thể đã tồn tại."
+    },
+    "prefix": {
+      "emptyWithPrefix": "Chưa có config nào với prefix {{prefix}}.*",
+      "systemsTitle": "System Configs",
+      "systemsDescription": "Cấu hình hệ thống với prefix system.*",
+      "clientTitle": "Client Configs",
+      "clientDescription": "Cấu hình client với prefix client.*",
+      "pagesTitle": "Page Configs",
+      "pagesDescription": "Cấu hình nội dung từng trang với prefix pages.*",
+      "fieldsCount": "{{count}} fields",
+      "arrayCount": "Array[{{count}}]",
+      "jsonValue": "JSON value",
+      "noFields": "Chưa có fields.",
+      "addViaJsonEditor": "Thêm qua JSON editor"
+    },
+    "templates": {
+      "title": "Mẫu sẵn có",
+      "subtitle": "Tạo nhanh các config tiêu chuẩn với giá trị mặc định khớp UI hiện tại.",
+      "button": "Bảng thiết kế",
+      "tooltip": "Thư viện các mẫu thiết kế dựng sẵn — chọn 1 mẫu để tạo nhanh config với giá trị mặc định khớp UI hiện tại.",
+      "modalTitle": "Bảng thiết kế",
+      "modalDescription": "Chọn một mẫu để tạo nhanh config với giá trị mặc định khớp UI hiện tại của client.",
+      "alreadyCreated": "Đã tạo",
+      "quickCreate": "Tạo nhanh từ mẫu",
+      "clientHeader": {
+        "name": "Header client",
+        "description": "Logo, nav links và action buttons cho PublicLayout của client."
+      },
+      "clientFooter": {
+        "name": "Footer client",
+        "description": "Logo, links và copyright cho PublicLayout của client. Dùng {year} làm placeholder."
+      }
+    }
   }
 }

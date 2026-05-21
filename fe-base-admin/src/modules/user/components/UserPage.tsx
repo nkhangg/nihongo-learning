@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -41,6 +42,7 @@ import {
 } from '@shared/components/ui/select'
 import { FieldLabel, FieldError } from '@shared/components/ui/field'
 import { StatCard } from '@shared/components/ui/stat-card'
+import { ConfirmDialog } from '@shared/components/ui/confirm-dialog'
 import { cn } from '@shared/utils'
 import {
   useUsers,
@@ -358,124 +360,91 @@ function RoleEditor({ user }: { user: User }) {
 // ─── Action dropdown ──────────────────────────────────────────────────────────
 
 function ActionDropdown({ user, onEdit }: { user: User; onEdit: (u: User) => void }) {
+  const { t } = useTranslation()
   const [confirmDeactivate, setConfirmDeactivate] = useState(false)
   const [confirmActivate, setConfirmActivate] = useState(false)
-  const [error, setError] = useState<string | null>(null)
   const deactivate = useDeactivateUser()
   const activate = useActivateUser()
 
-  const resetConfirm = () => {
-    setConfirmDeactivate(false)
-    setConfirmActivate(false)
-    setError(null)
-  }
-
-  if (confirmDeactivate) {
-    return (
-      <div className="flex flex-col items-end gap-1">
-        <div className="flex items-center gap-1.5">
-          <span className="text-xs text-gray-500">Xác nhận?</span>
-          <button
-            onClick={() =>
-              deactivate.mutate(user.id, {
-                onSuccess: resetConfirm,
-                onError: () => setError('Vô hiệu hóa thất bại'),
-              })
-            }
-            disabled={deactivate.isPending}
-            className="rounded bg-red-600 px-2 py-0.5 text-xs font-medium text-white transition-colors hover:bg-red-700 disabled:opacity-50"
-          >
-            {deactivate.isPending ? '...' : 'Vô hiệu'}
-          </button>
-          <button
-            onClick={resetConfirm}
-            className="rounded px-1.5 py-0.5 text-xs text-gray-400 transition-colors hover:text-gray-600"
-          >
-            Huỷ
-          </button>
-        </div>
-        {error && <p className="text-[10px] text-red-500">{error}</p>}
-      </div>
-    )
-  }
-
-  if (confirmActivate) {
-    return (
-      <div className="flex flex-col items-end gap-1">
-        <div className="flex items-center gap-1.5">
-          <span className="text-xs text-gray-500">Kích hoạt lại?</span>
-          <button
-            onClick={() =>
-              activate.mutate(user.id, {
-                onSuccess: resetConfirm,
-                onError: () => setError('Kích hoạt thất bại'),
-              })
-            }
-            disabled={activate.isPending}
-            className="rounded bg-gray-900 px-2 py-0.5 text-xs font-medium text-white transition-colors hover:bg-gray-700 disabled:opacity-50"
-          >
-            {activate.isPending ? '...' : 'Kích hoạt'}
-          </button>
-          <button
-            onClick={resetConfirm}
-            className="rounded px-1.5 py-0.5 text-xs text-gray-400 transition-colors hover:text-gray-600"
-          >
-            Huỷ
-          </button>
-        </div>
-        {error && <p className="text-[10px] text-red-500">{error}</p>}
-      </div>
-    )
-  }
-
   return (
-    <div className="flex justify-end">
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="h-8 w-8 text-gray-400 data-[state=open]:bg-gray-100"
-          >
-            <MoreHorizontal className="h-4 w-4" />
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-44">
-          <DropdownMenuItem onClick={() => onEdit(user)} className="gap-2">
-            <FilePenLine className="h-3.5 w-3.5" />
-            Chỉnh sửa
-          </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          {user.isActive ? (
-            <DropdownMenuItem
-              onClick={() => setConfirmDeactivate(true)}
-              className="gap-2 text-red-600 focus:bg-red-50 focus:text-red-600"
+    <>
+      <div className="flex justify-end">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8 text-gray-400 data-[state=open]:bg-gray-100"
             >
-              <ShieldOff className="h-3.5 w-3.5" />
-              Vô hiệu hoá
+              <MoreHorizontal className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-44">
+            <DropdownMenuItem onClick={() => onEdit(user)} className="gap-2">
+              <FilePenLine className="h-3.5 w-3.5" />
+              {t('user.update')}
             </DropdownMenuItem>
-          ) : (
-            <DropdownMenuItem
-              onClick={() => setConfirmActivate(true)}
-              className="gap-2 text-green-700 focus:bg-green-50 focus:text-green-700"
-            >
-              <ShieldCheck className="h-3.5 w-3.5" />
-              Kích hoạt lại
-            </DropdownMenuItem>
-          )}
-        </DropdownMenuContent>
-      </DropdownMenu>
-    </div>
+            <DropdownMenuSeparator />
+            {user.isActive ? (
+              <DropdownMenuItem
+                onClick={() => setConfirmDeactivate(true)}
+                className="gap-2 text-red-600 focus:bg-red-50 focus:text-red-600"
+              >
+                <ShieldOff className="h-3.5 w-3.5" />
+                {t('user.deactivate')}
+              </DropdownMenuItem>
+            ) : (
+              <DropdownMenuItem
+                onClick={() => setConfirmActivate(true)}
+                className="gap-2 text-green-700 focus:bg-green-50 focus:text-green-700"
+              >
+                <ShieldCheck className="h-3.5 w-3.5" />
+                {t('user.activate')}
+              </DropdownMenuItem>
+            )}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+
+      <ConfirmDialog
+        open={confirmDeactivate}
+        onClose={() => setConfirmDeactivate(false)}
+        onConfirm={() =>
+          deactivate.mutate(user.id, { onSuccess: () => setConfirmDeactivate(false) })
+        }
+        title={t('user.confirmDeactivateTitle')}
+        description={t('user.confirmDeactivateMessage')}
+        confirmLabel={t('user.deactivate')}
+        variant="danger"
+        loading={deactivate.isPending}
+      />
+
+      <ConfirmDialog
+        open={confirmActivate}
+        onClose={() => setConfirmActivate(false)}
+        onConfirm={() =>
+          activate.mutate(user.id, { onSuccess: () => setConfirmActivate(false) })
+        }
+        title={t('user.confirmActivateTitle')}
+        description={t('user.confirmActivateMessage')}
+        confirmLabel={t('user.activate')}
+        variant="info"
+        loading={activate.isPending}
+      />
+    </>
   )
 }
 
 // ─── Column definitions ───────────────────────────────────────────────────────
 
-function buildColumns(onEdit: (u: User) => void): ColumnDef<UserRow>[] {
+function buildColumns(
+  onEdit: (u: User) => void,
+  t: (key: string) => string,
+): ColumnDef<UserRow>[] {
   return [
     {
       key: 'email',
-      header: 'Email',
+      header: t('user.email'),
       sortable: true,
       render: (_, row) => (
         <div>
@@ -486,7 +455,7 @@ function buildColumns(onEdit: (u: User) => void): ColumnDef<UserRow>[] {
     },
     {
       key: 'role',
-      header: 'Role',
+      header: t('user.role'),
       filterable: true,
       filterType: 'select',
       filterOptions: USER_ROLES_OPTIONS,
@@ -495,13 +464,13 @@ function buildColumns(onEdit: (u: User) => void): ColumnDef<UserRow>[] {
     },
     {
       key: 'isActive',
-      header: 'Trạng thái',
+      header: t('user.isActive'),
       sortable: true,
       filterable: true,
       filterType: 'select',
       filterOptions: [
-        { label: 'Active', value: 'true' },
-        { label: 'Inactive', value: 'false' },
+        { label: t('user.active'), value: 'true' },
+        { label: t('user.inactive'), value: 'false' },
       ],
       width: '120px',
       render: (value) => {
@@ -519,14 +488,14 @@ function buildColumns(onEdit: (u: User) => void): ColumnDef<UserRow>[] {
                 active ? 'bg-white/70' : 'bg-gray-400',
               )}
             />
-            {active ? 'Active' : 'Inactive'}
+            {active ? t('user.active') : t('user.inactive')}
           </Badge>
         )
       },
     },
     {
       key: 'createdAt',
-      header: 'Ngày tạo',
+      header: t('user.createdAt'),
       sortable: true,
       width: '130px',
       className: 'text-gray-500 text-xs',
@@ -551,10 +520,11 @@ function buildColumns(onEdit: (u: User) => void): ColumnDef<UserRow>[] {
 // ─── Main page ────────────────────────────────────────────────────────────────
 
 export function UserPage() {
+  const { t } = useTranslation()
   const table = useDataTable<UserRow>({
     tableId: 'user-list',
     showSearch: true,
-    searchPlaceholder: 'Tìm theo email...',
+    searchPlaceholder: t('user.searchPlaceholder'),
     showFilters: true,
     showColumnVisibility: true,
     showRefreshButton: true,
@@ -572,7 +542,7 @@ export function UserPage() {
 
   const users = data?.data ?? []
   const meta = data?.meta
-  const columns = buildColumns(setEditingUser)
+  const columns = buildColumns(setEditingUser, t)
 
   return (
     <div className="space-y-6 p-6">
@@ -580,12 +550,12 @@ export function UserPage() {
       {/* ── Header ── */}
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-gray-900">User Management</h1>
-          <p className="mt-1 text-sm text-gray-500">Quản lý tài khoản người dùng hệ thống</p>
+          <h1 className="text-2xl font-bold tracking-tight text-gray-900">{t('user.title')}</h1>
+          <p className="mt-1 text-sm text-gray-500">{t('user.subtitle')}</p>
         </div>
         <Button onClick={() => setShowCreate(true)} className="gap-2 shrink-0">
           <UserPlus className="h-4 w-4" />
-          Tạo user mới
+          {t('user.create')}
         </Button>
       </div>
 
@@ -593,8 +563,8 @@ export function UserPage() {
       {!isError && (
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
           <StatCard icon={Users} label="Tổng user" value={meta?.totalItems ?? 0} isLoading={isLoading} />
-          <StatCard icon={UserCheck} label="Đang hoạt động" value={users.filter((u) => u.isActive).length} isLoading={isLoading} />
-          <StatCard icon={UserX} label="Đã vô hiệu hoá" value={users.filter((u) => !u.isActive).length} isLoading={isLoading} />
+          <StatCard icon={UserCheck} label={t('user.active')} value={users.filter((u) => u.isActive).length} isLoading={isLoading} />
+          <StatCard icon={UserX} label={t('user.inactive')} value={users.filter((u) => !u.isActive).length} isLoading={isLoading} />
         </div>
       )}
 
@@ -602,7 +572,7 @@ export function UserPage() {
       {isError && (
         <div className="flex items-center gap-2 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">
           <AlertTriangle className="h-4 w-4 shrink-0" />
-          Không thể tải danh sách user. Vui lòng thử lại.
+          {t('user.loadError')}
         </div>
       )}
 
@@ -613,7 +583,7 @@ export function UserPage() {
           data={users as UserRow[]}
           loading={isLoading}
           rowKey="id"
-          emptyText="Chưa có user nào"
+          emptyText={t('user.empty')}
           table={table}
           total={meta?.totalItems}
           onRefresh={refetch}

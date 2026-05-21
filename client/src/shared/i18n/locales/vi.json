@@ -51,7 +51,23 @@
       "medium": "Trung bình — thêm ký tự đặc biệt",
       "good": "Khá tốt — gần đủ mạnh",
       "strong": "✓ Mật khẩu mạnh"
-    }
+    },
+    "verifyEmailTitle": "Xác nhận email",
+    "verifyEmailDesc": "Chúng tôi đã gửi mã xác nhận 6 chữ số đến email của bạn. Mã có hiệu lực trong 10 phút.",
+    "verifyEmailHint": "Nhập mã gồm 6 chữ số",
+    "verifyEmailBtn": "Xác nhận",
+    "verifyEmailBtnLoading": "Đang xác nhận...",
+    "verifyEmailBtnDone": "✓ Đã xác nhận",
+    "notReceived": "Chưa nhận được?",
+    "resend": "Gửi lại",
+    "wrongEmail": "Email sai?",
+    "changeEmail": "Thay đổi email",
+    "verifySuccessTitle": "Email đã xác nhận!",
+    "verifySuccessDesc": "Tài khoản của bạn đã được kích hoạt. Hãy hoàn thành thêm vài bước để cá nhân hoá lộ trình học.",
+    "verifySuccessRedirect": "Chuyển hướng tự động sau 3 giây...",
+    "continueSetup": "Tiếp tục cài đặt →",
+    "verifyError": "Mã không đúng. Vui lòng kiểm tra lại.",
+    "stepIndicator": "Bước {{step}} / {{total}}"
   },
   "nav": {
     "dashboard": "Tổng quan",
@@ -69,7 +85,33 @@
     "totalCards": "Thẻ học",
     "masteredWords": "Từ đã thuộc",
     "todayGoal": "Mục tiêu hôm nay",
-    "continueStudying": "Tiếp tục học"
+    "continueStudying": "Tiếp tục học",
+    "todayLesson": "Bài học hôm nay",
+    "reviewWords": "từ cần ôn tập",
+    "newWords": "từ mới",
+    "estimatedTime": "Ước tính",
+    "startReview": "Bắt đầu ôn tập →",
+    "retentionRate": "Tỉ lệ nhớ",
+    "studyTime": "Thời gian học",
+    "mockTestScore": "Mock Test",
+    "thisWeek": "tuần này",
+    "thisMonth": "tháng này",
+    "modules": "Các module học tập",
+    "viewAll": "Xem tất cả",
+    "heatmap": "Lịch học — 6 tháng gần đây",
+    "streakDays": "{{n}} ngày liên tiếp",
+    "activityChart": "Từ học được — 2 tuần gần đây",
+    "details": "Chi tiết",
+    "dueToday": "Từ cần ôn hôm nay",
+    "reviewAll": "Ôn tất cả →",
+    "moreWords": "+ {{n}} từ nữa",
+    "jlptProgress": "Tiến độ JLPT N3",
+    "complete": "hoàn thành",
+    "vocabulary": "Từ vựng",
+    "grammar": "Ngữ pháp",
+    "recentMistakes": "Hay nhầm gần đây",
+    "reviewAgain": "Ôn lại",
+    "needMoreScore": "Cần thêm ~{{n}} điểm mock test để đậu N3. Tập trung vào 語彙 và 文法."
   },
   "flashcard": {
     "title": "Thẻ học",
@@ -84,36 +126,224 @@
     "incorrect": "Sai",
     "completed": "Hoàn thành buổi học!"
   },
+  "flashcards": {
+    "title": "Ôn tập từ vựng",
+    "empty": {
+      "title": "Không còn thẻ nào cần ôn hôm nay",
+      "subtitle": "Quay lại vào ngày mai hoặc thêm thẻ mới từ từ điển",
+      "cta": "Về Tổng quan"
+    },
+    "mode": {
+      "recognition": "Recognition — Nhận diện",
+      "typing": "Gõ tiếng Nhật"
+    },
+    "header": {
+      "dueCount": "{{count}} thẻ cần ôn",
+      "newCount": "{{count}} thẻ mới",
+      "estimate": "~{{minutes}} phút",
+      "end": "Kết thúc phiên"
+    },
+    "card": {
+      "flip": "Lật thẻ",
+      "skip": "Bỏ qua"
+    },
+    "rating": {
+      "again": "Quên",
+      "hard": "Khó",
+      "good": "Ổn",
+      "easy": "Dễ",
+      "intervalAgain": "< 1 phút",
+      "intervalHard": "{{n}} phút",
+      "intervalGood": "{{n}} ngày",
+      "intervalEasy": "{{n}} ngày"
+    },
+    "typing": {
+      "placeholder": "Gõ tiếng Nhật...",
+      "hint": "Gõ chữ Nhật hoặc romaji",
+      "showAnswer": "Xem đáp án",
+      "check": "Kiểm tra"
+    },
+    "session": {
+      "panelTitle": "Phiên học hôm nay",
+      "done": "Đã xong",
+      "again": "Cần xem lại",
+      "remaining": "Còn lại",
+      "accuracy": "Tỉ lệ đúng",
+      "elapsed": "Thời gian",
+      "queueNext": "Thẻ tiếp theo"
+    },
+    "result": {
+      "title": "Phiên học hoàn thành!",
+      "subtitle": "{{deck}} · {{count}} thẻ · {{duration}}",
+      "accuracy": "Tỉ lệ đúng",
+      "completed": "Thẻ xong",
+      "again": "Cần ôn lại",
+      "streakBanner": "Streak {{n}} ngày!",
+      "streakSub": "Tiếp tục ngày mai để duy trì nhé",
+      "viewDetail": "Xem chi tiết",
+      "continue": "Tiếp tục"
+    },
+    "shortcuts": {
+      "flip": "Lật thẻ",
+      "rate": "Đánh giá",
+      "skip": "Bỏ qua"
+    }
+  },
   "grammar": {
     "title": "Ngữ pháp",
     "lesson": "Bài học",
     "exercise": "Bài tập",
     "submit": "Nộp bài",
-    "explanation": "Giải thích"
+    "explanation": "Giải thích",
+    "subtitle": "{{total}} mẫu câu · {{learned}} đã học",
+    "search": "Tìm mẫu câu, ví dụ...",
+    "sortAZ": "A → Z",
+    "filter": "Lọc",
+    "filterTitle": "Lọc",
+    "resetFilter": "Đặt lại",
+    "jlptLevel": "Cấp độ JLPT",
+    "grammarType": "Loại ngữ pháp",
+    "progressFilter": "Tiến độ",
+    "all": "Tất cả",
+    "unlearned": "Chưa học",
+    "studying": "Đang học",
+    "learned": "Đã học",
+    "addFlashcard": "+ Flashcard",
+    "goToExercise": "Bài tập →",
+    "addedToFlashcard": "Đã thêm vào Flashcard",
+    "addFlashcardError": "Không thể thêm vào Flashcard",
+    "noResults": "Không tìm thấy mẫu câu nào"
   },
   "mockTest": {
     "title": "Thi thử JLPT",
+    "subtitle": "Mô phỏng đề thi chính thức — kiểm tra trình độ thực sự",
     "selectLevel": "Chọn cấp độ",
-    "startTest": "Bắt đầu thi",
+    "startTest": "Bắt đầu thi →",
     "timeRemaining": "Thời gian còn lại",
     "submit": "Nộp bài",
     "results": "Kết quả",
-    "passed": "Đạt",
-    "failed": "Chưa đạt"
+    "passed": "Đạt ✓",
+    "failed": "Chưa đạt",
+    "needMorePoints": "Cần thêm {{n}} điểm để đậu",
+    "improvedBy": "Cải thiện {{n}} điểm so với lần trước 🎉",
+    "sections": {
+      "all": "Toàn bộ",
+      "vocabulary": "Từ vựng",
+      "grammar": "Ngữ pháp",
+      "reading": "Đọc hiểu"
+    },
+    "questionCount": "Câu hỏi",
+    "duration": "Phút",
+    "passingScore": "Điểm đậu",
+    "lastAttempt": "Lần thi gần nhất — {{level}}",
+    "exit": "Thoát",
+    "flag": "Đánh dấu",
+    "prev": "Trước",
+    "next": "Tiếp theo",
+    "questionMap": "Bản đồ câu hỏi",
+    "sectionProgress": "Tiến độ theo phần",
+    "explanation": "Giải thích",
+    "weaknessAnalysis": "Điểm yếu cần cải thiện",
+    "reviewAnswers": "Xem lại đáp án",
+    "practiceWeak": "Ôn luyện điểm yếu →"
   },
   "progress": {
     "title": "Tiến độ học tập",
+    "subtitle": "Đang học {{level}}",
+    "updatedAt": "Cập nhật lần cuối: {{time}}",
     "streak": "Chuỗi ngày",
     "xpTotal": "Tổng XP",
     "retentionRate": "Tỉ lệ ghi nhớ",
-    "weeklyActivity": "Hoạt động tuần"
+    "weeklyActivity": "Hoạt động tuần",
+    "range": {
+      "7d": "7 ngày",
+      "30d": "30 ngày",
+      "3m": "3 tháng",
+      "all": "Tất cả"
+    },
+    "stats": {
+      "wordsLearned": "Từ đã thuộc",
+      "streak": "Streak ngày liên tiếp",
+      "retention": "Tỉ lệ nhớ trung bình",
+      "studyHours": "Tổng giờ học tháng này",
+      "personalRecord": "Kỷ lục cá nhân!",
+      "changeThisMonth": "↑ +{{n}} tháng này",
+      "changeVsLastMonth": "↑ +{{n}} so tháng trước"
+    },
+    "charts": {
+      "dailyTitle": "Thẻ ôn tập theo ngày",
+      "dailySub": "30 ngày gần nhất",
+      "srsTitle": "Phân bổ thẻ SRS",
+      "srsSub": "Phân bổ {{total}} thẻ hiện tại",
+      "srsNew": "Mới",
+      "srsLearning": "Học",
+      "srsYoung": "Trẻ",
+      "srsMature": "Trưởng thành",
+      "srsMastered": "Đã thuộc"
+    },
+    "skills": {
+      "title": "Kỹ năng theo module",
+      "vocab": "Từ vựng",
+      "grammar": "Ngữ pháp",
+      "hiragana": "Hiragana",
+      "kanji": "Kanji"
+    },
+    "heatmap": {
+      "title": "Heatmap học tập",
+      "sub": "12 tháng · {{count}} ngày học trong tháng này",
+      "less": "Ít",
+      "more": "Nhiều"
+    },
+    "weakWords": {
+      "title": "Từ cần ôn lại nhiều nhất",
+      "sub": "Tỉ lệ nhớ thấp — ưu tiên luyện tập",
+      "reviewAll": "Ôn tập ngay",
+      "colWord": "Từ vựng",
+      "colRetention": "Tỉ lệ nhớ",
+      "colCount": "Đã ôn",
+      "colAction": "Hành động",
+      "review": "Ôn",
+      "times": "{{n}} lần"
+    }
   },
   "onboarding": {
     "title": "Chào mừng!",
-    "goal": "Mục tiêu của bạn",
-    "level": "Trình độ hiện tại",
-    "schedule": "Lịch học",
-    "dailyMinutes": "Phút mỗi ngày"
+    "stepCounter": "Bước {{current}} / {{total}}",
+    "next": "Tiếp theo →",
+    "back": "← Quay lại",
+    "buildRoadmap": "Xây dựng lộ trình →",
+    "toDashboard": "Vào Dashboard của tôi →",
+    "changeRoadmap": "Bạn có thể thay đổi lộ trình bất cứ lúc nào trong cài đặt",
+    "goal": {
+      "label": "Mục tiêu học",
+      "title": "Bạn học tiếng Nhật để làm gì?",
+      "subtitle": "Chọn mục tiêu chính — hệ thống sẽ cá nhân hóa nội dung phù hợp nhất."
+    },
+    "level": {
+      "label": "Trình độ hiện tại",
+      "title": "Bạn đang ở cấp độ nào?",
+      "subtitle": "Đừng lo nếu chưa chắc — bước tiếp theo sẽ có quiz kiểm tra để xác nhận chính xác hơn."
+    },
+    "quiz": {
+      "label": "Kiểm tra nhanh",
+      "title": "Làm vài câu để xác nhận trình độ",
+      "counter": "{{current}} / {{total}} câu",
+      "nextQuestion": "Câu tiếp theo →",
+      "seeResult": "Xem kết quả →"
+    },
+    "time": {
+      "label": "Thời gian học",
+      "title": "Mỗi ngày bạn có bao nhiêu thời gian?",
+      "subtitle": "Hệ thống sẽ giao đúng lượng bài tập phù hợp — không quá nhiều, không quá ít."
+    },
+    "result": {
+      "label": "Lộ trình của bạn",
+      "title": "Hệ thống đã xây dựng lộ trình!",
+      "levelFit": "Cấp độ phù hợp",
+      "roadmapTitle": "Lộ trình gợi ý",
+      "startingLevel": "Cấp độ bắt đầu",
+      "perDay": "Mỗi ngày"
+    }
   },
   "billing": {
     "title": "Gói đăng ký",
@@ -182,6 +412,39 @@
       "cancel": "Huỷ"
     }
   },
+  "profile": {
+    "title": "Hồ sơ cá nhân",
+    "subtitle": "Quản lý thông tin và huy hiệu của bạn",
+    "personalInfo": "Thông tin cá nhân",
+    "personalInfoSub": "Hiển thị công khai trên hồ sơ của bạn",
+    "firstName": "Họ",
+    "lastName": "Tên",
+    "username": "Username",
+    "location": "Thành phố / Quốc gia",
+    "bio": "Giới thiệu bản thân",
+    "learningGoal": "Mục tiêu học",
+    "currentLevel": "Cấp độ hiện tại",
+    "saveChanges": "Lưu thay đổi",
+    "savedSuccess": "Đã lưu thay đổi",
+    "publicStats": "Thống kê công khai",
+    "allowPublicStats": "Cho phép mọi người xem thống kê của bạn",
+    "studyDays": "Ngày học",
+    "masteredWords": "Từ đã thuộc",
+    "currentStreak": "Streak hiện tại",
+    "bestStreak": "Streak kỷ lục",
+    "badges": "Thành tích & Huy hiệu",
+    "badgesUnlocked": "{{unlocked}} / {{total}} huy hiệu đã mở khoá",
+    "achieved": "Đã đạt",
+    "dangerZone": "Vùng nguy hiểm",
+    "deleteHistory": "Xoá lịch sử học tập",
+    "deleteHistoryDesc": "Xoá toàn bộ dữ liệu SRS và tiến độ. Không thể hoàn tác.",
+    "deleteAccount": "Xoá tài khoản",
+    "deleteAccountDesc": "Xoá vĩnh viễn tài khoản và toàn bộ dữ liệu.",
+    "confirmDeleteSent": "Đã gửi yêu cầu xác nhận đến email của bạn",
+    "wordsLearned": "Từ thuộc",
+    "retentionRate": "Tỉ lệ nhớ",
+    "currentlyLearning": "Đang học"
+  },
   "landing": {
     "nav": {
       "features": "Tính năng",
@@ -199,5 +462,186 @@
       "btn": "Tạo tài khoản miễn phí →",
       "note": "Tham gia cùng 12,400+ học viên đang học mỗi ngày"
     }
+  },
+  "settings": {
+    "title": "Cài đặt",
+    "subtitle": "Tuỳ chỉnh trải nghiệm học tập",
+    "saveChanges": "Lưu thay đổi",
+    "discard": "Huỷ",
+    "unsavedChanges": "Bạn có thay đổi chưa lưu",
+    "savedSuccess": "Đã lưu cài đặt",
+    "nav": {
+      "learning": "Học tập",
+      "notifications": "Thông báo",
+      "appearance": "Giao diện",
+      "language": "Ngôn ngữ",
+      "security": "Bảo mật"
+    },
+    "learning": {
+      "title": "Học tập & Lộ trình",
+      "subtitle": "Cài đặt mục tiêu và phương thức học hàng ngày",
+      "dailyGoal": "Mục tiêu học mỗi ngày",
+      "dailyGoalDesc": "Số thẻ flashcard tối thiểu cần hoàn thành để tính streak",
+      "dailyGoalUnit": "thẻ / ngày",
+      "reminderTime": "Giờ nhắc nhở học",
+      "reminderTimeDesc": "Thời điểm gửi thông báo nhắc nhở học hàng ngày",
+      "studyMode": "Chế độ học mặc định",
+      "studyModeDesc": "Chọn cách hiển thị thẻ khi bắt đầu phiên học",
+      "autoFlip": "Tự động lật thẻ sau",
+      "autoFlipDesc": "Thời gian chờ trước khi thẻ tự lật (0 = tắt)",
+      "autoFlipUnit": "giây",
+      "furigana": "Hiển thị furigana",
+      "furiganaDesc": "Hiện phiên âm hiragana trên chữ kanji khi học",
+      "audio": "Âm thanh phát âm",
+      "audioDesc": "Phát âm tiếng Nhật khi lật thẻ",
+      "cardOrder": "Thứ tự thẻ",
+      "cardOrderDesc": "Cách sắp xếp thứ tự các thẻ trong phiên học",
+      "keyboard": "Phím tắt bàn phím",
+      "keyboardDesc": "Dùng Space lật thẻ, 1–4 đánh giá, → bỏ qua"
+    },
+    "notifications": {
+      "title": "Thông báo",
+      "subtitle": "Chọn loại thông báo bạn muốn nhận",
+      "dailyReminder": "Nhắc nhở học hàng ngày",
+      "streakAlert": "Sắp mất streak",
+      "srsDue": "Thẻ SRS đến hạn",
+      "achievements": "Thành tích mới",
+      "weeklyEmail": "Email tóm tắt tuần",
+      "newsUpdates": "Tin tức & cập nhật"
+    },
+    "appearance": {
+      "title": "Giao diện",
+      "subtitle": "Tuỳ chỉnh màu sắc và hiển thị",
+      "theme": "Chủ đề",
+      "themeLight": "Sáng",
+      "themeDark": "Tối",
+      "themeSystem": "Hệ thống",
+      "fontSize": "Cỡ chữ kanji",
+      "animations": "Hiệu ứng chuyển động",
+      "uiSounds": "Âm thanh giao diện"
+    },
+    "language": {
+      "title": "Ngôn ngữ & Khu vực",
+      "uiLanguage": "Ngôn ngữ giao diện",
+      "definitionLanguage": "Ngôn ngữ nghĩa từ",
+      "phonetics": "Hệ thống phiên âm"
+    },
+    "security": {
+      "title": "Bảo mật tài khoản",
+      "email": "Email",
+      "password": "Mật khẩu",
+      "googleLink": "Đăng nhập với Google",
+      "twoFA": "Xác thực 2 bước",
+      "sessions": "Các phiên đăng nhập",
+      "exportData": "Xuất dữ liệu",
+      "changeEmail": "Thay đổi",
+      "changePassword": "Đổi mật khẩu",
+      "unlinkGoogle": "Huỷ liên kết",
+      "manageSessions": "Quản lý",
+      "export": "Xuất dữ liệu",
+      "exportPreparing": "Đang chuẩn bị file xuất..."
+    }
+  },
+  "kanji": {
+    "title": "Kanji",
+    "subtitle": "Khám phá 2.136 Jōyō kanji theo cấp độ JLPT",
+    "actions": {
+      "study": "Học",
+      "practiceWrite": "Luyện viết",
+      "quizNow": "Quiz ngay",
+      "addToDeck": "Thêm vào deck"
+    },
+    "filter": {
+      "level": "Cấp độ",
+      "status": "Trạng thái",
+      "strokes": "Số nét",
+      "radical": "Bộ thủ",
+      "searchPlaceholder": "Tìm kanji, nghĩa..."
+    },
+    "status": {
+      "known": "Đã biết",
+      "learning": "Đang học",
+      "unseen": "Chưa học",
+      "all": "Tất cả"
+    },
+    "hero": {
+      "known": "Đã biết",
+      "learning": "Đang học",
+      "locked": "Chưa học"
+    },
+    "sidebar": {
+      "totalProgress": "Tiến độ tổng",
+      "byLevel": "Theo cấp độ",
+      "byRadical": "Lọc theo bộ thủ",
+      "popularRadicals": "Bộ thủ phổ biến"
+    },
+    "detail": {
+      "strokeOrder": "Thứ tự nét",
+      "meanings": "Nghĩa & Cách dùng",
+      "examples": "Ví dụ trong câu",
+      "compounds": "Từ ghép — Jukugo",
+      "similar": "Kanji tương tự",
+      "info": "Thông tin",
+      "mnemonic": "Mnemonic gợi nhớ",
+      "readings": {
+        "on": "Âm (On'yomi)",
+        "kun": "Huấn (Kun'yomi)"
+      },
+      "info_labels": {
+        "strokes": "Số nét",
+        "jlpt": "Cấp JLPT",
+        "radical": "Bộ thủ",
+        "freq": "Tần suất",
+        "unicode": "Unicode"
+      }
+    },
+    "writing": {
+      "title": "Luyện viết",
+      "stroke": "Nét",
+      "drawnOf": "Đã vẽ: {{drawn}} / {{total}} nét",
+      "modes": {
+        "free": "Tự do",
+        "step": "Từng nét",
+        "guided": "Có hướng dẫn"
+      },
+      "check": "Kiểm tra",
+      "skip": "Bỏ qua",
+      "previousStroke": "Nét trước",
+      "feedback": {
+        "title": "Kết quả lần viết trước",
+        "order": "Thứ tự nét",
+        "size": "Tỷ lệ kích thước",
+        "direction": "Hướng nét",
+        "position": "Vị trí tương đối",
+        "queue": "Hàng chờ luyện tập",
+        "reference": "Thứ tự nét tham khảo",
+        "todayStats": "Thống kê hôm nay"
+      }
+    },
+    "quiz": {
+      "title": "Kanji Quiz",
+      "modes": {
+        "recognition": "Nhận dạng",
+        "meaningToKanji": "Nghĩa → Kanji",
+        "writing": "Kanji → Viết"
+      },
+      "questionOfTotal": "{{current}} / {{total}}",
+      "exit": "Thoát",
+      "nextQuestion": "Câu tiếp theo",
+      "correctXp": "Chính xác! +{{xp}} XP",
+      "wrong": "Chưa đúng",
+      "summary": {
+        "title": "Hoàn thành Quiz!",
+        "correct": "Đúng",
+        "wrong": "Sai",
+        "accuracy": "Độ chính xác",
+        "xpEarned": "XP nhận được",
+        "needReview": "{{count}} Kanji cần ôn thêm",
+        "reviewMistakes": "Ôn lại các sai",
+        "nextQuiz": "Quiz tiếp theo",
+        "backToBrowser": "Về Kanji Browser"
+      }
+    },
+    "empty": "Chưa có kanji phù hợp bộ lọc"
   }
 }

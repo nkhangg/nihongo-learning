@@ -1,3 +1,5 @@
-export default function ProgressPage() {
-  return <div>{/* ProgressPage from @modules/progress will go here */}</div>
+import { ProgressPage } from '@modules/progress'
+
+export default function Page() {
+  return <ProgressPage />
 }

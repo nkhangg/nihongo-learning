@@ -22,15 +22,10 @@ export class ForgotPasswordUseCase {
     private readonly tokenRepo: IPasswordResetTokenRepository,
     @Inject(MAILER_SERVICE)
     private readonly mailerService: IMailerService,
-    @Optional()
     @Inject(PASSWORD_UPDATERS)
-    updaters: IPasswordUpdater | IPasswordUpdater[] = [],
+    updaters: IPasswordUpdater[],
   ) {
-    this.updaters = Array.isArray(updaters)
-      ? updaters
-      : updaters
-        ? [updaters]
-        : [];
+    this.updaters = updaters;
   }
 
   async execute(input: ForgotPasswordInput): Promise<void> {
@@ -47,7 +42,9 @@ export class ForgotPasswordUseCase {
     );
     await this.tokenRepo.save(entity);
 
-    const appUrl = process.env.APP_URL ?? 'http://localhost:5173';
+    const appUrl = input.type === 'user'
+      ? (process.env.CLIENT_URL ?? 'http://localhost:3001')
+      : (process.env.APP_URL ?? 'http://localhost:5173');
     const resetLink = `${appUrl}/reset-password?token=${plainToken}`;
 
     try {

@@ -1,3 +1,5 @@
-export default function MockTestPage() {
-  return <div>{/* MockTestPage from @modules/mock-test will go here */}</div>
+import { MockTestPage } from '@modules/mockTest'
+
+export default function Page() {
+  return <MockTestPage />
 }

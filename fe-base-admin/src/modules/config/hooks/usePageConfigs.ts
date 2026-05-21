@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/react-query'
+import { QUERY_KEYS } from '@shared/constants'
 import { configService } from '../services/config.service'
-import { CONFIGS_QUERY_KEY } from './useConfigs'
 import type { PageSection } from '../types'
 
 export function usePageConfigs() {
   const query = useQuery({
-    queryKey: [...CONFIGS_QUERY_KEY, 'pages'],
+    queryKey: [...QUERY_KEYS.CONFIGS, 'pages'],
     queryFn: () => configService.listPageConfigs(),
   })
 

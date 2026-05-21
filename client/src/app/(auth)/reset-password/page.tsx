@@ -1,3 +1,13 @@
+import { Suspense } from 'react'
+import { ResetPasswordForm } from '@modules/auth'
+import { AuthLayout } from '@shared/layouts'
+
 export default function ResetPasswordPage() {
-  return <div>{/* ResetPasswordForm from @modules/auth will go here */}</div>
+  return (
+    <AuthLayout>
+      <Suspense>
+        <ResetPasswordForm />
+      </Suspense>
+    </AuthLayout>
+  )
 }

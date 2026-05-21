@@ -1,5 +1,6 @@
 import { apiClient } from '@lib/api-client'
 import type {
+  AdminSessionsResponse,
   CurrentUser,
   LoginDto,
   ChangePasswordDto,
@@ -33,5 +34,17 @@ export const authService = {
 
   async resetPassword(dto: ResetPasswordDto): Promise<void> {
     await apiClient.post('/auth/reset-password', dto)
+  },
+
+  async listAdminSessions(params: { page?: number; pageSize?: number; onlyActive?: boolean }): Promise<AdminSessionsResponse> {
+    const { data } = await apiClient.get<AdminSessionsResponse>('/admin/auth/sessions', {
+      params,
+      withCredentials: true,
+    })
+    return data
+  },
+
+  async revokeAdminSession(id: string): Promise<void> {
+    await apiClient.delete(`/admin/auth/sessions/${id}`, { withCredentials: true })
   },
 }

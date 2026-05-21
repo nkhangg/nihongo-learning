@@ -1,3 +1,5 @@
-export default function SettingsPage() {
-  return <div>{/* SettingsPage will go here */}</div>
+import { SettingsPage } from '@modules/settings'
+
+export default function Page() {
+  return <SettingsPage />
 }
